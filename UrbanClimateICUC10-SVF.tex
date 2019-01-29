@@ -188,7 +188,7 @@ Finally, using the validation dataset, the NN was used to infer the best techniq
 
 \begin{figure}
 \centering    
-\includegraphics[scale=0.70]{TrainingProcessDiagram}
+\includegraphics[scale=0.70]{Images/TrainingProcessDiagram}
 \caption{\bf  Process flow.}    
  \label{fig:process}  
 \end{figure} 
@@ -205,7 +205,7 @@ This dataset was built from 90,000 long-term timelapse images from 53 outdoor we
 Panoramas for 406 locations in a variety of cities (Adelaide, Brisbane, Paris, Sydney, Tokyo, Perth, and Melbourne) were retrieved using the Google Maps API \citep{GoogleMaps2017b}. Images were retrieved as six 640x640 images for up, down, left, right, front, and back directions. These images were stiched together into a 1280x960 cubic image using Java 8 \citep{Oracle2018} and OpenCV\citep {Bradski2000}. Validation images were created by hand marking sky pixels for each image using the GNU Image Manipulation Program \citep{GIMP2019}.
 
 \subsection{Techniques and parameters}
-14 different variations of computer vision techniques and parameters were tested and used in this project. They are detailed in Tables \ref{tab:techniques}, \ref{tab:techniques2}, \ref{tab:techniques3}, and \ref{tab:techniques4} and in the following sections.
+Fourteen different variations of computer vision techniques and parameters were tested and used in this project. They are detailed in Tables \ref{tab:techniques}, \ref{tab:techniques2}, \ref{tab:techniques3}, and \ref{tab:techniques4} and in the following sections.
 
 \begin{table}[!htbp]
 \caption{\bf Techniques used for sky pixel detection.  \label{tab:techniques}}     
@@ -264,14 +264,14 @@ An implementation of the sky detection algorithm presented in \cite{Wang2015a} w
 
 \begin{figure}
 \centering    
-a)\includegraphics[scale=0.20]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Sobel/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel.png} 
-b)\includegraphics[scale=0.20]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Sobel/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_prob.png} 
-c)\includegraphics[scale=0.20]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Sobel/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_95_marked.png} 
-d)\includegraphics[scale=0.20]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Sobel/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_90_marked.png} 
-e)\includegraphics[scale=0.20]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Sobel/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_80_marked.png} 
-f)\includegraphics[scale=0.20]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Sobel/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_70_marked.png} 
-g)\includegraphics[scale=0.20]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Sobel/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_60_marked.png} 
-h)\includegraphics[scale=0.20]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Sobel/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_50_marked.png} 
+a)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel.png} 
+b)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_prob.png} 
+c)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_95_marked.png} 
+d)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_90_marked.png} 
+e)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_80_marked.png} 
+f)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_70_marked.png} 
+g)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_60_marked.png} 
+h)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_50_marked.png} 
 \caption{\bf  Results of hybrid probability model, showing a) Sobel operator gradient image, b) resulting probability predictions, c) Sobel\_50, d) Sobel\_60, e) Sobel\_70, f) Sobel\_80, g) Sobel\_90, and h) Sobel\_95.}    
  \label{fig:sobolresults}  
 \end{figure} 
@@ -283,10 +283,10 @@ Mean shift is an algorithm often used for image segmentation \citep{Comaniciu199
 
 \begin{figure}
 \centering    
-a)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_BigBuilding_5_7.0_210/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_cropped.png} 
-b)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_BigBuilding_5_7.0_210/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_seg.png} 
-c)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_BigBuilding_5_7.0_210/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_ms_sky_mark.png} 
-\caption{\bf  Results of mean shift (Mean\_5\_7\_210) showing a) original image, b) mean shifted image, and c) final marked sky image.}    
+a)\includegraphics[scale=0.25]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_cropped.png} 
+b)\includegraphics[scale=0.25]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_seg.png} 
+c)\includegraphics[scale=0.25]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_ms_sky_mark.png} 
+\caption{\bf Results of mean shift (Mean\_5\_7\_210) showing a) original image, b) mean shifted image, and c) final marked sky image.}    
  \label{fig:meanresults}  
 \end{figure} 
 
@@ -308,10 +308,10 @@ Of these possible sky clusters, only clusters with number of pixels greater than
 
 \begin{figure}
 \centering    
-a)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_cropped.png} 
-b)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_clustered6.png} 
-c)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_HLS6.png} 
-d)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Cloudy/{panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_sky_mark0.4}.png} 
+a)\includegraphics[scale=0.25]{Images/Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_cropped.png} 
+b)\includegraphics[scale=0.25]{Images/Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_clustered6.png} 
+c)\includegraphics[scale=0.25]{Images/Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_HLS6.png} 
+d)\includegraphics[scale=0.25]{Images/Cloudy/{panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_sky_mark0.4}.png} 
 \caption{\bf  Results of k-means clustering (K-mean\_6) and HSL filtering, showing a) original image, b) k-means clustered image, c) HSL intermediate image, and d) final marked sky image.}    
  \label{fig:kmeansresults}  
 \end{figure} 
@@ -343,9 +343,36 @@ The Microsoft Cognitive Toolkit (CNTK) \citep{Yu2015,Agarwal2016}, with the the 
 
 \subsubsection{Neural network training}\label{sec:nntraining}    
 
-The entire dataset of 38522 images was split into two datasets of 75\% training and 25\% validation. All training and validation images (which consisted of images of a wide variety of sizes and ratios) were rescaled to 300x300. The network was calibrated using supervised learning with the generated dataset to identify one of the 13 sky detection techniques and parameters that performed with the highest accuracy for each image. The neural network was trained for 250 epochs on a Nvidia GeForce GTX 1080 GPU, requiring about 12 hours. The neural network reached peak accuracy (errs=53.445\%; top5Errs=10.782\%) at epoch 182. To avoid overfitting and overtraining, epoch 182 was used for classification.
+The entire dataset of 38522 images was split into two datasets of 75\% training and 25\% validation. All training and validation images (which consisted of images of a wide variety of sizes and ratios) were rescaled to 300x300. The network was calibrated using supervised learning with the generated dataset to identify one of the 13 sky detection techniques and parameters that performed with the highest accuracy for each image. Examples imagery used in training for selected classifications are shown in Figure \ref{fig:classImages}. The neural network was trained for 250 epochs on a Nvidia GeForce GTX 1080 GPU, requiring about 12 hours. The neural network reached peak accuracy (errs=53.445\%; top5Errs=10.782\%) at epoch 182. To avoid overfitting and overtraining, epoch 182 was used for classification.
 
 %results_per_epoch1:Finished Epoch[182 of 250]: [Validate] ce = 4.20379336 * 9636; errs = 53.445% * 9636; top5Errs = 10.782% * 9636
+
+
+
+\begin{figure}
+\centering
+a)\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-0_Mean_7_8_300_tiles}
+%b)\includegraphics[trim = 0mm 107mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-1_Mean_3_6_100_tiles}
+%c)\includegraphics[trim = 0mm 107mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-2_Mean_5_7_210_tiles}
+b)\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-3_Mean_7_6_100_tiles}
+%e)\includegraphics[trim = 0mm 107mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-4_K-mean_12_tiles}
+c)\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-5_K-mean_6_tiles}
+%g)\includegraphics[trim = 0mm 107mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-6_K-mean_14_tiles}
+%h)\includegraphics[trim = 0mm 107mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-7_Sobel_50_tiles}
+%i)\includegraphics[trim = 0mm 107mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-8_Sobel_60_tiles}
+d)\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-9_Sobel_70_tiles}
+%k)\includegraphics[trim = 0mm 107mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-10_Sobel_80_tiles}
+%l)\includegraphics[trim = 0mm 107mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-11_Sobel_90_tiles}
+%m)\includegraphics[trim = 0mm 107mm 321mm 0mm, clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-12_Sobel_95_tiles}
+\caption{Selected imagery used for NN training for classifications 
+a) Mean\_7\_8\_300, 
+b) Mean\_7\_6\_100, 
+c) K-mean\_6, 
+d) Sobel\_70.}
+\label{fig:classImages}
+\end{figure}
+
+
 
 \subsubsection{Neural network inference}\label{sec:nninference}    
 Using the trained model from epoch 182, inferences were performed using the 9635 images from the evaluation dataset. Based on the classification picked by the model as being the most probable, the appropriate technique and parameters from that classification was used to mark the sky pixels. The marked image was compared to the validation image and accuracy calculated for each image.
@@ -606,28 +633,6 @@ d)\includegraphics[scale=0.12]{../2018-03-MasterITProject/SkyViewDetection/Skyfi
 \label{fig:errorplots2floodfillall}
 \end{figure}
 
-
-
-
-\begin{figure}
-\centering
-a)\includegraphics[scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-0_Mean_7_8_300_tiles}
-b)\includegraphics[scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-1_Mean_3_6_100_tiles}
-c)\includegraphics[scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-2_Mean_5_7_210_tiles}
-d)\includegraphics[scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-3_Mean_7_6_100_tiles}
-e)\includegraphics[scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-4_K-mean_12_tiles}
-f)\includegraphics[scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-5_K-mean_6_tiles}
-g)\includegraphics[scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-6_K-mean_14_tiles}
-h)\includegraphics[scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-7_Sobel_50_tiles}
-i)\includegraphics[scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-8_Sobel_60_tiles}
-j)\includegraphics[scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-9_Sobel_70_tiles}
-k)\includegraphics[scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-10_Sobel_80_tiles}
-l)\includegraphics[scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-11_Sobel_90_tiles}
-m)\includegraphics[trim = 0mm 107mm 321mm 0mm, clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-12_Sobel_95_tiles}
-
-\caption{}
-\label{fig:13-9_Sobel_70_tiles}
-\end{figure}
 
 
 

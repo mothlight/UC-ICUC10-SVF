@@ -180,47 +180,50 @@ Here's a system to accurately mark the sky using any type of imagery. Will be de
 
 \section{Methods}\label{sec:Methods}
 
-The sky segmentation in this platform is based on three different computer vision techniques, mean shift and K-means clustering, and a hybrid probability model based on Sobel operators. Using these three techniques, a total of 13 different combinations of techniques and parameters were used, as detailed in Table \ref{tab:techniques}.
+The building the platform to perform sky segmentation was completed in a number of stages. Imagery was obtained from two main sources, the Skyfinder dataset \citep{Mihail2016} and Google Street View \citep{GoogleMaps2017b}. There were three main computer vision techniques used, mean shift, K-means clustering, and a hybrid probability model based on Sobel operators. Within these techniques, different combinations of parameters were used, for a total of 13 different combinations of techniques and parameters. Details of these combinations and designations are detailed in Table \ref{tab:techniques}.
+
+All the imagery was processed using each of these combinations and individually compared to validation images to determine the accuracy of each combination for each image. The overall dataset was then split 75\%/25\% into training and validation sets. For the training set, each image was classified using the technique that performed with the greatest accuracy and the neural network (NN) was trained using this imagery. The remaining validation dataset was used by the NN to evaluate the NN skill and determine when the training had reached peak accuracy.
+
+Finally, using the validation dataset, the NN was used to infer the best technique for the image and output a sky segmented image based using that technique. The overall process flow is shown in Figure \ref{fig:process} and greater detail about each step will be presented in the following sections. In addition, a fourth technique, a Sobel operator/flood-fill, was also used as an evaluation of the overall process flow.
+
+\begin{figure}
+\centering    
+\includegraphics[scale=0.70]{TrainingProcessDiagram}
+\caption{\bf  Process flow.}    
+ \label{fig:process}  
+\end{figure} 
 
 
+\subsection{Data}\label{sec:data}
+Overall, 38,521 images were used, 38,115 from the Skyfinder dataset and 406 from Google Street View. During the training and evaluation, the two datasets were combined then split into 28,886 training and 9635 validation images.
 
 
-\subsection{Skyfinder data}\label{sec:finderdata}
-To train the neural network and evaluate the results, images from the Skyfinder dataset \citep{Mihail2016} were used. This dataset was built from 90,000 long-term timelapse images from 53 outdoor webcams over a variety of lighting and weather conditions. Images are of a wide range of sizes and aspect ratios, including 640x489, 857x665, 960x600, 1280x720, and 1280x960. For each location, a binary sky mask was created for validation purposes. In this study, we selected 38,115 images from 40 locations, removing night-time and images with heavy fog as these conditions are unlikely to be encountered in imagery used to calculate sky view factor (i.e. Google Street View).
+\subsubsection{Skyfinder data}\label{sec:finderdata}
+This dataset was built from 90,000 long-term timelapse images from 53 outdoor webcams over a variety of lighting and weather conditions. Images are of a wide range of sizes and aspect ratios, including 640x489, 857x665, 960x600, 1280x720, and 1280x960. For each location, a binary sky mask was created for validation purposes. In this study, we selected 38,115 images from 40 locations, removing night-time and images with heavy fog as these conditions are unlikely to be encountered in imagery used to calculate sky view factor (i.e. Google Street View).
 
-\subsection{GSV data}\label{sec:gsvdata}
-Panoramas for 407 locations in a variety of cities (Adelaide, Brisbane, Paris, Sydney, Tokyo, Perth, and Melbourne) were retrieved using the Google Maps API \citep{GoogleMaps2017b}. Sky pixels in validation images were hand marked for each.
+\subsubsection{GSV data}\label{sec:gsvdata}
+Panoramas for 406 locations in a variety of cities (Adelaide, Brisbane, Paris, Sydney, Tokyo, Perth, and Melbourne) were retrieved using the Google Maps API \citep{GoogleMaps2017b}. Images were retrieved as 6 640x640 images for up, down, left, right, front, and back. These images were stiched together into a 1280x960 cubic image using Java 8 \citep{Oracle2018} and OpenCV\citep {Bradski2000}. Validation images were created by hand marking sky pixels for each image using the GNU Image Manipulation Program \citep{GIMP2019}.
 
-\subsection{Techniques}
-14 different technique variations were tested in this project. They are listed in Table \ref{tab:techniques}.
+\subsection{Techniques and parameters}
+14 different variations of computer vision techniques and parameters were tested and used in this project. They are detailed in Tables \ref{tab:techniques}, \ref{tab:techniques2}, \ref{tab:techniques3}, and \ref{tab:techniques4} and in the following sections.
 
 \begin{table}[!htbp]
-\caption{\bf Techniques and parameter variations used for sky pixel detection.  \label{tab:techniques}}     
+\caption{\bf Techniques used for sky pixel detection.  \label{tab:techniques}}     
 \begin{tabular}{ l  l l}
-\textbf{Abbreviation} & \textbf{Section} & \textbf{Technique}  \\ \hline
-Mean\_7\_8\_300 & \ref{sec:mean} & Mean shift \\
-Mean\_3\_6\_100	 & \ref{sec:mean} & Mean shift \\
-Mean\_5\_7\_210	 & \ref{sec:mean} & Mean shift \\	 
-Mean\_7\_6\_100	 & \ref{sec:mean} & Mean shift \\
-K-mean\_12 & \ref{sec:kmeans} & K-means clustering and HSL color filtering \\
-K-mean\_6 & \ref{sec:kmeans} &  K-means clustering and HSL color filtering \\
-K-mean\_14 & \ref{sec:kmeans} & K-means clustering and HSL color filtering \\
-Sobel\_50 & \ref{sec:prob} & Sobel operator/hybrid probability model \\	  
-Sobel\_60 & \ref{sec:prob} & Sobel operator/hybrid probability model \\	
-Sobel\_70 & \ref{sec:prob} & Sobel operator/hybrid probability model \\	
-Sobel\_80 & \ref{sec:prob} & Sobel operator/hybrid probability model\\
-Sobel\_90 & \ref{sec:prob} & Sobel operator/hybrid probability model \\
-Sobel\_95 & \ref{sec:prob} & Sobel operator/hybrid probability model \\
-Floodfill & \ref{sec:floodfill} & Sobel operator/flood-fill \\
+\textbf{Technique designations} & \textbf{Technique}  \\ \hline
+Mean &  Mean shift \\
+K-means  & K-means clustering and HSL color filtering \\
+Sobel  & Sobel operator/hybrid probability model \\	
+Floodfill  & Sobel operator/flood-fill \\
 \hline
 \end{tabular}
 \end{table}
 
 
 \begin{table}[!htbp]
-\caption{\bf Mean shift parameters \label{tab:techniques2}}     
+\caption{\bf Mean shift designations and parameters used for each \label{tab:techniques2}}     
 \begin{tabular}{ l  l  l l}
-\textbf{Abbreviation}  & \textbf{Spatial radius}&\textbf{Range radius}&\textbf{Min. density}   \\ \hline
+\textbf{Designation}  & \textbf{Spatial radius (pixels)}&\textbf{Range radius (pixels)}&\textbf{Min. density (pixels)}   \\ \hline
 Mean\_7\_8\_300 & 7 & 8& 300 \\
 Mean\_3\_6\_100	 & 3& 6& 100 \\
 Mean\_5\_7\_210	 & 5& 7& 210 \\	 
@@ -231,9 +234,9 @@ Mean\_7\_6\_100	 & 7& 6& 100 \\
 \end{table}
 
 \begin{table}[!htbp]
-\caption{\bf K-means parameters  \label{tab:techniques3}}     
+\caption{\bf K-means designations and parameters used for each \label{tab:techniques3}}     
 \begin{tabular}{ l l l l l l l l}
-\textbf{Abbreviation} & \textbf{Clusters} & \textbf{Skyreq}&\textbf{H uplimit}&\textbf{H downlimit} & \textbf{L lightness} & \textbf{L gray}& \textbf{S gray} \\ \hline
+\textbf{Designation} & \textbf{Clusters} & \textbf{Skyreq}&\textbf{H$_{uplimit}$}&\textbf{H$_{downlimit}$} & \textbf{L$_{lightness}$} & \textbf{L$_{gray}$}& \textbf{S$_{gray}$} \\ \hline
 K-mean\_12  & 12 & 0.7& 0.75& 0.3 & 0.95 & 0.75 & 0.2 \\
 K-mean\_6  & 6 & 0.6& 0.75& 0.3 & 0.95 & 0.75 & 0.2 \\
 K-mean\_14  & 14 & 0.4& 0.75& 0.3 & 0.95 & 0.65 & 0.2 \\
@@ -242,24 +245,24 @@ K-mean\_14  & 14 & 0.4& 0.75& 0.3 & 0.95 & 0.65 & 0.2 \\
 \end{table}
 
 	
+	
 
 \begin{table}[!htbp]
-\caption{\bf Sobel techniques  \label{tab:techniques4}}     
+\caption{\bf Sobel hybrid probability model designations and parameters used for each  \label{tab:techniques4}}     
 \begin{tabular}{ l  l }
-\textbf{Abbreviation}  & \textbf{Threshold}    \\ \hline
-
-Sobel\_50 & 50\% \\	  
-Sobel\_60 & 60\% \\	
-Sobel\_70 & 70\% \\	
-Sobel\_80 & 80\% \\
-Sobel\_90 & 90\% \\
-Sobel\_95 & 95\% \\
+\textbf{Designation}  & \textbf{Threshold}    \\ \hline
+Sobel\_50 & 0.5 \\	  
+Sobel\_60 & 0.6 \\	
+Sobel\_70 & 0.7 \\	
+Sobel\_80 & 0.8 \\
+Sobel\_90 & 0.9 \\
+Sobel\_95 & 0.95 \\
 \hline
 \end{tabular}
 \end{table}
 
 \subsection{Hybrid probability model}\label{sec:prob}
-An implementation of the sky detection algorithm presented in \cite{Wang2015a} was used in this project using OpenCV \citep{Bradski2000}. This method proceeds by calculating gray scale gradient images using x- and y-directional Sobel operators to estimate sky color. An object function attempts to find the best sky-ground boundary in the gradient image using the covariance matrices of a first calculation of sky and ground regions. Using this best sky boundary, the image is again separated into sky and ground regions and a probability model is created from the center and standard deviations of the colors. A second probability model is created from the gradient values. A third probability model is built based on the vertical position of each pixel (higher more likely to be sky). A final probability model, ranking each pixel's probability that it is sky, is generated by applying close operation on the three probability models. \cite{Wang2015a} did not recommend a probability threshold, so a number of thresholds were tested. The technique designations and thresholds are detailed in Table \ref{tab:techniques2}. Results shown in Figure \ref{fig:sobolresults}.
+An implementation of the sky detection algorithm presented in \cite{Wang2015a} was implemented using OpenCV \citep{Bradski2000} and Java 8 \citep{Oracle2018}. This method proceeds by calculating gray scale gradient images using x- and y-directional Sobel operators to estimate sky color. An object function attempts to find the best sky-ground boundary in the gradient image using the covariance matrices of a first calculation of sky and ground regions. Using this best sky boundary, the image is again separated into sky and ground regions and a probability model is created from the center and standard deviations of the colors. A second probability model is created from the gradient values. A third probability model is built based on the vertical position of each pixel (vertically higher pixels are more likely to be sky). An overall probability model, ranking each pixel's probability (0 to 1) to be sky, is generated by applying close operations on the three probability models. \cite{Wang2015a} did not recommend a probability threshold, so a number of thresholds were tested (0.5, 0.6, 0.7, 0.8, 0.9, and 0.95). The technique designations and thresholds are detailed in Table \ref{tab:techniques4}. The algorithm was applied to each image and pixels that exceeded the chosen threshold were marked as sky pixels. Example results shown in Figure \ref{fig:sobolresults}.
 
 
 
@@ -285,31 +288,40 @@ h)\includegraphics[scale=0.20]{/home/kerryn/git/2018-03-MasterITProject/SkyViewD
 
 \subsection{Mean shift}\label{sec:mean}
 
-Mean shift is an algorithm for image segmentation \citep{Comaniciu1997,Comaniciu2002}. Image segmentation involves decomposing images into homogeneous contiguous regions of pixels of similar colours or grey levels. Mean shift uses an iterative algorithm to pick search windows of a certain radius ($r$) in an initial location in an image, then compute a mean shift vector and translate the search window by that amount until convergence \citep{Comaniciu1997}. Segmentation results are highly dependent on input parameters for the algorithm, the spatial radius of the search window, colour range radius of the search window, and minimum density (the minimum number of pixels to constitute a region). The mean shift used in this project is based on a Java port by \cite{Pangburn2002} of the C++ based EDISON vision toolkit of \cite{Christoudias2002}. Four different variations of the input parameters were used, determined experimentally through a sensitivity test to work on a wide variety of images. The technique designations and parameters are detailed in Table \ref{tab:techniques3}. Results shown in Figure \ref{fig:meanresults}.
+Mean shift is an algorithm often used for image segmentation \citep{Comaniciu1997,Comaniciu2002}. Image segmentation involves decomposing images into homogeneous contiguous regions of pixels of similar colours or grey levels. Mean shift uses an iterative algorithm to pick search windows of a certain radius ($r$) in an initial location in an image, then compute a mean shift vector and translate the search window by that amount until convergence \citep{Comaniciu1997}. Segmentation results are highly dependent on input parameters for the algorithm, which include the spatial radius of the search window, colour range radius of the search window, and minimum density (the minimum number of pixels to constitute a region). The mean shift used in this project is based on a Java port by \cite{Pangburn2002} of the C++ based EDISON vision toolkit \citep{Christoudias2002}. Four different variations of the input parameters were used, determined experimentally through a sensitivity test to work on the widest variety of images. The technique designations and parameters are detailed in Table \ref{tab:techniques3}. Mean shift is applied to each image with the chosen set of parameters and pixels of the most common colour (in the top half of the image) were marked as sky. Example results are shown in Figure \ref{fig:meanresults}.
 
 
 \begin{figure}
 \centering    
-a)\includegraphics[scale=0.50]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_BigBuilding_5_7.0_210/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_cropped.png} 
-b)\includegraphics[scale=0.50]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_BigBuilding_5_7.0_210/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_seg.png} 
-c)\includegraphics[scale=0.50]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_BigBuilding_5_7.0_210/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_ms_sky_mark.png} 
-\caption{\bf  Results of mean shift (Mean\_5\_7\_210) and HSL filtering, showing a) original image, b) mean shifted image, and c) final marked sky image.}    
+a)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_BigBuilding_5_7.0_210/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_cropped.png} 
+b)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_BigBuilding_5_7.0_210/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_seg.png} 
+c)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_BigBuilding_5_7.0_210/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_ms_sky_mark.png} 
+\caption{\bf  Results of mean shift (Mean\_5\_7\_210) showing a) original image, b) mean shifted image, and c) final marked sky image.}    
  \label{fig:meanresults}  
 \end{figure} 
 
 
 
 \subsection{K-means clustering and HSL color filtering}\label{sec:kmeans}
+A third sky segmentation technique was designed using K-means clustering and HSL colour filtering. K-means clustering iteratively splits an image into $K$ number of clusters, terminating when a specified criteria is met (i.e. maximum iterations and/or desired accuracy). The K-means clustering was performed using the k-means method from the OpenCV library \citep{Bradski2000}. Three different variations of the input parameters were used, determined experimentally through a sensitivity test to work on a wide variety of images. The technique designations and parameters are detailed in Table \ref{tab:techniques4}. 
 
-K-means clustering was performed using the k-means method from the OpenCV library \citep{Bradski2000}. K-means clustering iteratively splits an image into $K$ number of clusters, terminating when a specified criteria is met (maximum iterations and/or desired accuracy). Three different variations of the input parameters were used, determined experimentally through a sensitivity test to work on a wide variety of images. The technique designations and parameters are detailed in Table \ref{tab:techniques4}. Results shown in Figure \ref{fig:kmeansresults}.
+K-means clustering was performed on each image, splitting the image into the chosen number of clusters. Filtering cluster regions used hue, saturation, and lightness (HSL) values. The following conditions (for $H$, hue, $S$, saturation, and $L$, lightness) were necessary to add a colour region to the list of possible sky regions: 
+
+$H_{downlimit} < H < H_{uplimit}$
+
+$\cup L > L_{lightness}$
+
+$\cup L > L_{gray} \cap S < S_{gray}$
+
+Of these possible sky clusters, only clusters with number of pixels greater than a percentage ($Skyreq$) of all pixels in the image were then marked as sky regions. Results shown in Figure \ref{fig:kmeansresults}. 
 
 
 \begin{figure}
 \centering    
-a)\includegraphics[scale=0.30]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_cropped.png} 
-b)\includegraphics[scale=0.30]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_clustered6.png} 
-c)\includegraphics[scale=0.30]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_HLS6.png} 
-d)\includegraphics[scale=0.30]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Cloudy/{panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_sky_mark0.4}.png} 
+a)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_cropped.png} 
+b)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_clustered6.png} 
+c)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_HLS6.png} 
+d)\includegraphics[scale=0.25]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/GSV/mark_output_Cloudy/{panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_sky_mark0.4}.png} 
 \caption{\bf  Results of k-means clustering (K-mean\_6) and HSL filtering, showing a) original image, b) k-means clustered image, c) HSL intermediate image, and d) final marked sky image.}    
  \label{fig:kmeansresults}  
 \end{figure} 
@@ -318,16 +330,16 @@ d)\includegraphics[scale=0.30]{/home/kerryn/git/2018-03-MasterITProject/SkyViewD
 
 \subsection{Sobel operator and flood-fill combination}\label{sec:floodfill}
 
-\cite{Middel2018} developed a process based on a Sobel filter and flood-fill algorithm \citep{Sobel1968,Laungrungthip2008,Middel2017}. This method was designed to calculate sky view factor from Google Street View panorama images with the bottom half cropped off and converted to a fisheye projection. \cite{Middel2018} evaluation against 1.6 million locations deep learning classified images reported error rates of RMSE of 0.045 and R$^{2}$ of 0.880.  
+\cite{Middel2018} developed a process based on a Sobel filter and flood-fill algorithm \citep{Sobel1968,Laungrungthip2008,Middel2017}. This method was designed to calculate sky view factor from Google Street View panorama images with the bottom half cropped off and converted to a fisheye projection. \cite{Middel2018} evaluation against 1.6 million locations deep learning classified images reported error rates of RMSE of 0.045 and R$^{2}$ of 0.880. All 38,521 images in the combined training and validation dataset were processed with this algorithm, compared to validation images, and results saved for a comparison with our process flow results.
 
 
 \subsection{Inception V3}\label{sec:inception}
-
+The Inception V3 network was used in this study. 
 
 
 \subsection{Neural network training}\label{sec:nntraining}    
 
-The Inception V3 network was used in this study, trained with 300x300 sized imagery. All training and validation images (which consisted of a wide variety of sizes and ratios) were rescaled to 300x300. The network  was calibrated using supervised learning with the generated dataset to identify one of the 13 sky detection techniques and parameters that performed with the highest accuracy for each image. The entire dataset of 38522 images were split into two datasets of 75\% training and 25\% validation. The neural network was trained for 250 epochs on a Nvidia GeForce GTX 1080, requiring about 12 hours. The neural network reached peak accuracy (errs=53.445\%; top5Errs=10.782\%) at epoch 182. To avoid overfitting and overtraining, epoch 182 was used for classification.
+ All training and validation images (which consisted of images of a wide variety of sizes and ratios) were rescaled to 300x300. The network was calibrated using supervised learning with the generated dataset to identify one of the 13 sky detection techniques and parameters that performed with the highest accuracy for each image. The entire dataset of 38522 images were split into two datasets of 75\% training and 25\% validation. The neural network was trained for 250 epochs on a Nvidia GeForce GTX 1080 GPU, requiring about 12 hours. The neural network reached peak accuracy (errs=53.445\%; top5Errs=10.782\%) at epoch 182. To avoid overfitting and overtraining, epoch 182 was used for classification.
 
 %results_per_epoch1:Finished Epoch[182 of 250]: [Validate] ce = 4.20379336 * 9636; errs = 53.445% * 9636; top5Errs = 10.782% * 9636
 

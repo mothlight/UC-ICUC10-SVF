@@ -363,7 +363,7 @@ a) Mean\_7\_8\_300, b) Mean\_7\_6\_100, c) K-mean\_6, d) Sobel\_70.}}
 
 
 \subsubsection{Neural network inference}\label{sec:nninference}    
-Using the trained model from epoch 182, inferences were performed using the 9635 images from the validation dataset. Based on the classification picked by the model as being the most probable, the appropriate technique and parameters from that classification were used to mark the sky pixels. The marked image was compared to the validation image and accuracy calculated.
+Using the trained model from epoch 182, inferences were performed using the 9635 images from the validation dataset. Based on the classification picked by the NN as being the most probable, the appropriate technique and parameters from that classification were used to mark the sky pixels. The marked image was compared to the validation image and accuracy calculated.
 
 \section{Results}\label{sec:results}
 
@@ -372,7 +372,7 @@ Using the trained model from epoch 182, inferences were performed using the 9635
 There are three sets of results reported in this section. The first is a comparison of all of the techniques and parameters run individually against the entire combined dataset of 38,521 images. The second presents the results of 9635  validation images using our process flow with the techniques and parameters chosen by the trained NN. The third presents an evaluation of the \cite{Middel2018} Sobel/flood-fill algorithm compared to our NN chosen pathway process.
 
 \subsection{Results from all techniques}\label{sec:resultsall}
-All 14 techniques and parameter combinations were used to process the two datasets of 38,115 Skyfinder, 407 GSV images, and 38,521 combined. A summary of R$^{2}$ and RMSE statistics for evaluations against the three datasets is presented in Table \ref{tab:evalall}. Plots of a number of the better performing techniques are presented in Figure \ref{fig:errorallcombined}. Note, the strong horizontal lines in these figures are due to the nature of the dataset which contains large groups of the same scenes (with the same percentage of sky) under different lighting and weather conditions.
+All 14 techniques and parameter combinations were used to process the two datasets of the 38,115 Skyfinder, 407 GSV images, and the 38,521 combined dataset. A summary of R$^{2}$ and RMSE statistics for evaluations against the three datasets is presented in Table \ref{tab:evalall}. Plots of a number of the better performing techniques are presented in Figure \ref{fig:errorallcombined}. Note, the strong horizontal lines in these figures are due to the nature of the dataset that contain large groups of the same scenes (with the same percentage of sky) under different lighting and weather conditions, resulting in a wide range of calculated results.
 
 \begin{table}[!htbp]
 \caption{\bf Evaluation of all techniques and parameters for Skyfinder dataset, GSV dataset, and combined dataset. (RMSE units in \%/100.) \label{tab:evalall}}     
@@ -429,7 +429,7 @@ b)\includegraphics[scale=0.12]{Images/ErrorPlots2.png}
 
 
 \subsection{Results from Sobel/flood-fill evaluation}\label{sec:resultsflood}
-Finally, in an evaluation of the Sobel/flood-fill algorithm, results against the combined 38,520 image dataset and 9636 validation images are shown in Figure \ref{fig:errorfloodall}. This algorithm shows a RMSE of 0.212 and R$^{2}$ of 0.13 against the combined dataset and a RMSE of 0.205 and R$^{2}$ of 0.15 against the validation dataset.
+Finally, in an evaluation of the Sobel/flood-fill algorithm, results from the combined 38,520 image dataset and 9636 validation images are shown in Figure \ref{fig:errorfloodall}. This algorithm shows a RMSE of 0.212 and R$^{2}$ of 0.13 against the combined dataset and a RMSE of 0.205 and R$^{2}$ of 0.15 against the validation dataset.
 
 
 \begin{figure}
@@ -442,14 +442,14 @@ b)\includegraphics[scale=0.12]{Images/ErrorPlots2FloodfillValidation.png}
 
 
 \section{Discussion and conclusion}\label{sec:conclusion}
-The results from Section \ref{sec:resultsall} show that no single technique and parameter combination performs sky pixel identification with high accuracy across the dataset used in this project. This dataset contains wide variety of outdoor scenes with a wide range of lighting and weather conditions (as can be seen in some of the sample images in Figure \ref{fig:classImages}). 
+The results from Section \ref{sec:resultsall} show that no single technique and parameter combination performs sky pixel identification with high accuracy across the dataset used by this project. This dataset contains wide variety of outdoor scenes with a wide range of lighting and weather conditions (as can be seen in some of the sample images in Figure \ref{fig:classImages}), challenging many of the techniques. 
 
-At best, all show error rates of 10\% and greater, with some having their overall error rates at 20 and 30\%. However, even the poorest performing techniques showed higher accuracy processing some of the images than all of the other techniques. This validates the need to have an adaptive process that can respond to the specific challenges each image presents to deliver overall better results than any single algorithm is able to.
+At best, all show error rates no better than 10\%, with some having their overall error rates at 20 and 30 percents. However, for some individual images, even the poorest performing techniques excelled compared to all of the other techniques. This validates the need to have an adaptive process that can respond to the specific challenges each image presents to deliver overall better results than any single algorithm.
 
 
 In addition, having a range of combinations of techniques was important for the overall accuracy. An attempt was made to reduce the number of classifications to possibly increase the accuracy of the NN. While the theoretical accuracy from the 13 classes was a RMSE of 0.026, combinations of the best performing three or four classes saw reduced theoretical accuracy reduced to RMSEs of 0.039 (for Mean\_7\_6\_100, K-mean6, and Sobel\_70), 0.045 (for Mean\_3\_6\_100, K-mean6, and Sobel\_70), 0.036 (for Mean\_7\_6\_100, Mean\_7\_6\_100, K-mean6, and Sobel\_70), or 0.095 (for all Mean combinations). 
 
-The attempt to increase the accuracy of the NN predictions highlights one of the limitations of this study. 53\% error in picking between 13 classes shows that there is much room for improvement. NNs perform best when they are trained with a large amount of data. It this study, there were only 28,885 images in the training dataset. With a larger training dataset resulting in a lower NN error rate, it would be possible to come closer to the theoretical RMSE of 0.026 for the sky pixel identification.
+The attempt to increase the accuracy of the NN predictions highlights one of the limitations of this study. 53\% error in picking between 13 classes shows that there is much room for improvement. NNs perform best when they are trained with a large amounts of data. It this study, there were only 28,885 images in the training dataset. With a larger training dataset, resulting in a lower NN error rate, it would be possible to come closer to the theoretical RMSE of 0.026 for the sky pixel identification.
 
 Even with these limitations, in comparison to published methods, the adaptive process performs well. Our accuracy of RMSE of 0.065 compares well to the RMSE of 0.205 for the Sobel/flood-fill and the best performing Sobel (Sobel\_70) which achieved an RMSE of 0.133.
 

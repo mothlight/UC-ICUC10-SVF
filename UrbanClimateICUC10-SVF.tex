@@ -364,11 +364,11 @@ d)\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-9_Sobel_70_
 %k)\includegraphics[trim = 0mm 107mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-10_Sobel_80_tiles}
 %l)\includegraphics[trim = 0mm 107mm 0mm 0mm,clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-11_Sobel_90_tiles}
 %m)\includegraphics[trim = 0mm 107mm 321mm 0mm, clip,scale=0.14]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/13-12_Sobel_95_tiles}
-\caption{Selected imagery used for NN training for classifications 
+\caption{\textbf{Selected imagery used for NN training for classifications 
 a) Mean\_7\_8\_300, 
 b) Mean\_7\_6\_100, 
 c) K-mean\_6, 
-d) Sobel\_70.}
+d) Sobel\_70.}}
 \label{fig:classImages}
 \end{figure}
 
@@ -384,24 +384,24 @@ Using the trained model from epoch 182, inferences were performed using the 9635
 There are three sets of results to report in this section. The first is a comparison of all of the techniques and parameters run against the entire combined dataset of 38,521 images. The second presents the results of 9635 images using our process flow with the techniques and parameters chosen by the trained NN. The third presents the evaluation of the Sobel/flood-fill algorithm compared to our NN chosen pathway process flow.
 
 \subsection{Results from all techniques}\label{sec:resultsall}
-All 14 techniques and parameter combinations were used to process the two datasets of 38,115 Skyfinder, 407 GSV images, and 38,521 combined. A summary of R$^{2}$ and RMSE statistics for evaluations against the three datasets is presented in Table \ref{tab:evalall}. A number of the better performing techniques are presented in Figure \ref{fig:errorallcombined}.
+All 14 techniques and parameter combinations were used to process the two datasets of 38,115 Skyfinder, 407 GSV images, and 38,521 combined. A summary of R$^{2}$ and RMSE statistics for evaluations against the three datasets is presented in Table \ref{tab:evalall}. A number of the better performing techniques are presented in Figure \ref{fig:errorallcombined}. Note, the strong horizontal lines are due to the nature of the dataset which contains large groups of the same scenes (with the same percentage of sky) under different lighting and weather conditions.
 
 \begin{table}[!htbp]
 \caption{\bf Evaluation of all techniques and parameters for Skyfinder dataset, GSV dataset, and combined dataset. (RMSE units in \%/100.) \label{tab:evalall}}     
 \begin{tabular}{ l  l l l l l l}
-\textbf{Designation}  & \textbf{Skyfinder R$^{2}$} & \textbf{Skyfinder RMSE} & \textbf{GSV R$^{2}$} & \textbf{GSV RMSE} & \textbf{All R$^{2}$} & \textbf{All RMSE}  \\ \hline
+\textbf{Designation}  & \textbf{Skyfinder R$^{2}$} & \textbf{Skyfinder RMSE} & \textbf{GSV R$^{2}$} & \textbf{GSV RMSE} & \textbf{All R$^{2}$} & \textbf{All RMSE} \\ \hline
 Mean\_7\_8\_300 &0.645&0.143&0.505&0.07&0.648&0.142 \\
 Mean\_3\_6\_100	&0.657&0.148&0.561&0.066&0.66&0.147 \\
-Mean\_5\_7\_210	 &0.658&0.142&0.489&0.073&0.661&0.141 \\
-Mean\_7\_6\_100	 &0.746&0.104&0.484&0.076&0.749&0.104 \\
-K-mean\_12   &0.028&0.343&0.017&0.264&0.03&0.342 \\
-K-mean\_6   &0.022&0.325&0.007&0.155&0.022&0.323 \\
-K-mean\_14   &0.029&0.328&0.019&0.233&0.029&0.327 \\
-Sobel\_50  &0.104&0.23&0.021&0.303&0.103&0.231 \\
-Sobel\_60  &0.288&0.104&0.003&0.188&0.288&0.165 \\
-Sobel\_70  &0.395&0.134&0.056&0.107&0.398&0.133 \\
-Sobel\_80  &0.254&0.177&0.436&0.07&0.259&0.176 \\
-Sobel\_90  &0.041&0.317&0.212&0.144&0.04&0.316 \\
+Mean\_5\_7\_210	&0.658&0.142&0.489&0.073&0.661&0.141 \\
+Mean\_7\_6\_100	&0.746&0.104&0.484&0.076&0.749&0.104 \\
+K-mean\_12 &0.028&0.343&0.017&0.264&0.03&0.342 \\
+K-mean\_6 &0.022&0.325&0.007&0.155&0.022&0.323 \\
+K-mean\_14 &0.029&0.328&0.019&0.233&0.029&0.327 \\
+Sobel\_50 &0.104&0.23&0.021&0.303&0.103&0.231 \\
+Sobel\_60 &0.288&0.104&0.003&0.188&0.288&0.165 \\
+Sobel\_70 &0.395&0.134&0.056&0.107&0.398&0.133 \\
+Sobel\_80 &0.254&0.177&0.436&0.07&0.259&0.176 \\
+Sobel\_90 &0.041&0.317&0.212&0.144&0.04&0.316 \\
 Sobel\_95 &0&0.421&0.045&0.225&0.0&0.419 \\
 Sobel/flood-fill &0.134&0.211&0.067&0.312&0.13&0.212 \\
 \hline
@@ -416,7 +416,7 @@ a)\includegraphics[scale=0.12]{../2018-03-MasterITProject/SkyViewDetection/Skyfi
 b)\includegraphics[scale=0.12]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsCombinedIndivMean_7_8_300.png}
 c)\includegraphics[scale=0.12]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsCombinedIndivKmean6.png}
 d)\includegraphics[scale=0.12]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsCombinedIndivSobel70.png}
-\caption{Observed vs. calculated sky pixels using the a) Mean\_7\_6\_100, b) Mean\_7\_8\_300, c) K-mean\_6, and d) Sobel\_70 techniques on the 38,521 image combined dataset. }
+\caption{\textbf{Observed vs. calculated sky pixels using the a) Mean\_7\_6\_100, b) Mean\_7\_8\_300, c) K-mean\_6, and d) Sobel\_70 techniques on the 38,521 image combined dataset.} }
 \label{fig:errorallcombined}
 \end{figure}
 
@@ -424,214 +424,217 @@ d)\includegraphics[scale=0.12]{../2018-03-MasterITProject/SkyViewDetection/Skyfi
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+TODO, this is the maximum accuracy that is possible if the NN picks correctly.
 \begin{figure}
 \centering
-\includegraphics[width=0.7\linewidth]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsCNTK}
-\caption{}
+a)\includegraphics[scale=0.12]{Images/ErrorPlots.png}
+b)\includegraphics[scale=0.12]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2.png}
+\caption{\textbf{Theoretical best case results if the NN is 100\% accurate for a) Skyfinder and b) GSV datasets.}}
+\label{fig:errorplots}
+\end{figure}
+
+
+TODO this one is the results for the entire process flow with CNTK.
+\begin{figure}
+\centering
+\includegraphics[scale=0.12]{Images/ErrorPlotsCNTK.png}
+\caption{\textbf{Results of NN picks against the 9636 validation images.}}
 \label{fig:errorplotscntk}
 \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots}
-\caption{}
-\label{fig:errorplots}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1All}
-\caption{}
-\label{fig:errorplots1all}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1K-mean_6}
-\caption{}
-\label{fig:errorplots1k-mean6}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1K-mean_12}
-\caption{}
-\label{fig:errorplots1k-mean12}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1K-mean_14}
-\caption{}
-\label{fig:errorplots1k-mean14}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Mean_3_6_100}
-\caption{}
-\label{fig:errorplots1mean36100}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Mean_5_7_210}
-\caption{}
-\label{fig:errorplots1mean57210}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Mean_7_6_100}
-\caption{}
-\label{fig:errorplots1mean76100}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Mean_7_8_300}
-\caption{}
-\label{fig:errorplots1mean78300}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Sobel_50}
-\caption{}
-\label{fig:errorplots1sobel50}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Sobel_60}
-\caption{}
-\label{fig:errorplots1sobel60}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Sobel_70}
-\caption{}
-\label{fig:errorplots1sobel70}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Sobel_80}
-\caption{}
-\label{fig:errorplots1sobel80}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Sobel_90}
-\caption{}
-\label{fig:errorplots1sobel90}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Sobel_95}
-\caption{}
-\label{fig:errorplots1sobel95}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2}
-\caption{}
-\label{fig:errorplots2}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2All}
-\caption{}
-\label{fig:errorplots2all}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2K-mean_6}
-\caption{}
-\label{fig:errorplots2k-mean6}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2K-mean_12}
-\caption{}
-\label{fig:errorplots2k-mean12}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2K-mean_14}
-\caption{}
-\label{fig:errorplots2k-mean14}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Mean_3_6_100}
-\caption{}
-\label{fig:errorplots2mean36100}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Mean_5_7_210}
-\caption{}
-\label{fig:errorplots2mean57210}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Mean_7_6_100}
-\caption{}
-\label{fig:errorplots2mean76100}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Mean_7_8_300}
-\caption{}
-\label{fig:errorplots2mean78300}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Sobel_50}
-\caption{}
-\label{fig:errorplots2sobel50}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Sobel_60}
-\caption{}
-\label{fig:errorplots2sobel60}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Sobel_70}
-\caption{}
-\label{fig:errorplots2sobel70}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Sobel_80}
-\caption{}
-\label{fig:errorplots2sobel80}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Sobel_90}
-\caption{}
-\label{fig:errorplots2sobel90}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Sobel_95}
-\caption{}
-\label{fig:errorplots2sobel95}
-\end{figure}
+
 
 \begin{figure}
 \centering
-\includegraphics[width=0.7\linewidth]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2FloodfillAll}
-\caption{}
-\label{fig:errorplots2floodfillall}
+a)\includegraphics[scale=0.12]{Images/ErrorPlots2FloodfillAll.png}
+b)\includegraphics[scale=0.12]{Images/ErrorPlots2FloodfillValidation.png}
+\caption{\textbf{Results of Sobel/flood-fill combination against a) combined dataset and b) 9636 validation images.}}
+\label{fig:errorfloodall}
 \end{figure}
+
+
+
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1All}
+%\caption{}
+%\label{fig:errorplots1all}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1K-mean_6}
+%\caption{}
+%\label{fig:errorplots1k-mean6}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1K-mean_12}
+%\caption{}
+%\label{fig:errorplots1k-mean12}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1K-mean_14}
+%\caption{}
+%\label{fig:errorplots1k-mean14}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Mean_3_6_100}
+%\caption{}
+%\label{fig:errorplots1mean36100}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Mean_5_7_210}
+%\caption{}
+%\label{fig:errorplots1mean57210}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Mean_7_6_100}
+%\caption{}
+%\label{fig:errorplots1mean76100}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Mean_7_8_300}
+%\caption{}
+%\label{fig:errorplots1mean78300}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Sobel_50}
+%\caption{}
+%\label{fig:errorplots1sobel50}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Sobel_60}
+%\caption{}
+%\label{fig:errorplots1sobel60}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Sobel_70}
+%\caption{}
+%\label{fig:errorplots1sobel70}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Sobel_80}
+%\caption{}
+%\label{fig:errorplots1sobel80}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Sobel_90}
+%\caption{}
+%\label{fig:errorplots1sobel90}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots1Sobel_95}
+%\caption{}
+%\label{fig:errorplots1sobel95}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2.png}
+%\caption{}
+%\label{fig:errorplots2}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2All}
+%\caption{}
+%\label{fig:errorplots2all}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2K-mean_6}
+%\caption{}
+%\label{fig:errorplots2k-mean6}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2K-mean_12}
+%\caption{}
+%\label{fig:errorplots2k-mean12}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2K-mean_14}
+%\caption{}
+%\label{fig:errorplots2k-mean14}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Mean_3_6_100}
+%\caption{}
+%\label{fig:errorplots2mean36100}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Mean_5_7_210}
+%\caption{}
+%\label{fig:errorplots2mean57210}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Mean_7_6_100}
+%\caption{}
+%\label{fig:errorplots2mean76100}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Mean_7_8_300}
+%\caption{}
+%\label{fig:errorplots2mean78300}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Sobel_50}
+%\caption{}
+%\label{fig:errorplots2sobel50}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Sobel_60}
+%\caption{}
+%\label{fig:errorplots2sobel60}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Sobel_70}
+%\caption{}
+%\label{fig:errorplots2sobel70}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Sobel_80}
+%\caption{}
+%\label{fig:errorplots2sobel80}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Sobel_90}
+%\caption{}
+%\label{fig:errorplots2sobel90}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{/home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Sobel_95}
+%\caption{}
+%\label{fig:errorplots2sobel95}
+%\end{figure}
+
+%\begin{figure}
+%\centering
+%\includegraphics[width=0.7\linewidth]{../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2FloodfillAll.png}
+%\caption{}
+%\label{fig:errorplots2floodfillall}
+%\end{figure}
 
 
 

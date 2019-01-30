@@ -48,14 +48,14 @@
 \usepackage{todonotes}
 
 \usepackage{framed} % Framing content
-\usepackage{multicol} % Multiple columns environment
-\usepackage{nomencl} % Nomenclature package
-\makenomenclature
+%\usepackage{multicol} % Multiple columns environment
+%\usepackage{nomencl} % Nomenclature package
+%\makenomenclature
 %\setlength{\nomitemsep}{-\parskip} % Baseline skip between items
-\setlength{\nomitemsep}{0.01cm}
-\renewcommand*\nompreamble{\begin{multicols}{2}}
-\renewcommand*\nompostamble{\end{multicols}}
-\newcommand{\degreeC}{\ensuremath{^\circ}C }
+%\setlength{\nomitemsep}{0.01cm}
+%\renewcommand*\nompreamble{\begin{multicols}{2}}
+%\renewcommand*\nompostamble{\end{multicols}}
+%\newcommand{\degreeC}{\ensuremath{^\circ}C }
 
 %\usepackage[nonumberlist]{glossaries}
 %\makeglossaries 
@@ -160,21 +160,19 @@
 
 
 \section{Introduction}\label{sec:introduction}
+Sky pixel detection in images is an ongoing challenge in computer vision with a large range of applications for accurate results. Sky detection techniques have largely followed two main paths, either finding all of the pixels associated with the sky or finding a sky-ground boundary and labelling the sky as everything above that boundary. 
 
-Sky segmentation is a surprisingly difficult computer vision problem. 
+The first technique has focused on the pixel colour values of possible sky regions. \cite{Luo2002} used a physics based approach using the change of sky colours from zenith to horizon. \cite{Gallagher2004} generated sky pixel probability maps based in colour values and a two dimensional polynomial for each colour channel. \cite{Zafarifar2007} adds texture, gradients, and vertical position to colour values to generate their probability map. However, only blue sky is detected accurately with clouds marked with low probabilities. \cite{Schmitt2009} added in an analysis of position and shape and is reportedly able to also accurately perform sky detection under cloudy conditions. 
 
-Lots of people have tried it. Here's how they tried to do it.
+Other approaches have focused on finding a sky/ground boundary. Straight lines were first used to define a horizon, located via an energy function \citep{Ettinger2003}. Using an improved energy function optimisation and gradient information from the image, \cite{Shen2013} allowed the horizon line to follow the boundary instead of being restricted to a straight line. Additional variations allowed increasingly difficult sky regions (i.e. regions separated from the main sky region by buildings, flags, or other obstructions) to be detected \citep{Zhijie2014,Zhijie2015}.
 
-Sky detection is the first step in calculating SVF from images. Once the sky is marked, fisheyes then SVF.
+Sky detection has a wide range of applications such as autonomous vehicles or aircraft navigation, but is also an important tool in urban climate research. The use of fisheye photography to calculate sky view factors (SVF), the amount of sky visible to a point, at individual locations has long been used in urban climate. Numerous techniques exist to process this sort of imagery \citep{Grimmond2001,Chapman2004,Ali-Toudert2007}. 
 
-SVF is useful for lots of things.
+At the same time, an effort is ongoing to provide a worldwide database of standardised urban morphology information \citep{Mills2015}. Now with the widespread availability of urban imagery, an opportunity exists to expand the range of research that can be done without the requirement of manually collecting urban morphology parameters and to accelerate the population of databases such as The World Urban Database and Portal Tool (WUDAPT).
 
-Here's a system to accurately mark the sky using any type of imagery. Will be demonstrated using Skyfinder images and hand marked GSV images.
+Recent studies have started to utilise this imagery to build SVF databases from Google Street View (GSV) imagery \citep{Middel2018,Gong2018}. The results are promising but show some accuracy problem. Urban areas with large numbers of street trees in particular are cited by \cite{Gong2018} as a key source of inaccuracies in their system. In addition, these systems are highly dependent on Google imagery, which as of 2018, have become more restrictive and expensive to obtain. This necessitates the need to expand the type of imagery used, that unlike GSV imagery, might vary more than GSV imagery in lighting, weather conditions, camera angles, and aspect ratios. 
 
-
-\subsection{Research aims}
-
-
+With these factors in mind, we present a sky pixel detection system that will be demonstrated to be accurate using any type of outdoor imagery collected under a wide variety of lighting and weather conditions with a range of camera angles and aspect ratios. This system, built on some basic training, will be adaptive and use a number of algorithms and combinations of parameters to locate the sky pixels that have the highest accuracy for each individual class of image. This project will evaluate a number of existing and new techniques for sky pixel classification and demonstrate that this new adaptive system will perform more accurately than any of these individual techniques.
 
 
 
@@ -188,7 +186,7 @@ The overall process flow is shown in Figure \ref{fig:process}. Greater detail ab
 
 \begin{figure}
 \centering    
-\includegraphics[scale=0.70]{Images/TrainingProcessDiagram}
+\includegraphics[scale=0.60]{Images/TrainingProcessDiagram}
 \caption{\bf Process flow of training and validation steps.}    
  \label{fig:process}  
 \end{figure} 
@@ -234,9 +232,9 @@ Sobel\_95 & 0.95 \\
 \end{table}
 
 \begin{table}[!htbp]
-\caption{\bf Mean shift designations and parameters used for each \label{tab:techniques2}}     
+\caption{\bf Mean shift designations and parameters (units in pixels) used for each \label{tab:techniques2}}     
 \begin{tabular}{ l  l  l l}
-\textbf{Designation}  & \textbf{Spatial radius (pixels)}&\textbf{Range radius (pixels)}&\textbf{Min. density (pixels)}   \\ \hline
+\textbf{Designation}  & \textbf{Spatial radius}&\textbf{Range radius}&\textbf{Min. density}   \\ \hline
 Mean\_7\_8\_300 & 7 & 8& 300 \\
 Mean\_3\_6\_100	 & 3& 6& 100 \\
 Mean\_5\_7\_210	 & 5& 7& 210 \\	 

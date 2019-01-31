@@ -132,16 +132,19 @@
 
 \begin{abstract}
 
-%Urban heat is a significant health risk, especially during extreme heat days. Identifying vulnerable areas of cities is a priority for devising effective heat mitigation strategies. However, making these observations is difficult, expensive, and time consuming. The platform developed through this project allows systematic assessments to be made for any urban area using a global and consistent dataset, Google Street View (GSV) imagery. The imagery is processed using an ensemble of OpenCV mean-shift segmentation, K-means clustering, and HSL based colour filtering to mark sky pixels in the image and extract sky view factors (SVF). The images are pre-classified prior to clustering by a convolutional neural network (CNN), trained with 40,000 images from the Skyfinder dataset \citep{Mihail2016}. This pre-classification step allows the sky marking to follow an adaptive process and to use different techniques and parameters based on the content of the images (i.e. tall buildings, clear sky, cloudy sky, tree-filled sky, etc.). The same imagery and processing techniques are also used to find a green-view index (amount of visible vegetation) and a breakdown of urban surface fractions for each scene, which are then individually modelled using the VTUF-3D and TARGET models to assess mean radiant temperatures and human thermal comfort (HTC) indexes. 
+%Urban heat is a significant health risk, especially during extreme heat days. Identifying vulnerable areas of cities is a priority for devising effective heat mitigation strategies. However, making these observations is difficult, expensive, and time consuming. The platform developed through this project allows systematic assessments to be made for any urban area using a global and consistent dataset, Google Street View (GSV) imagery.
 
-%The resulting platform advances the knowledge base in a number of research areas. It will facilitate research into urban green spaces and assist with understanding the impact of urban design on human health. This method allows collection of urban parameters, enabling more detailed and accurate urban modelling domains to be designed. Finally, in the urban design area, these techniques allow urban areas to be quickly scanned for their thermal performance under a variety of weather conditions and allows a determination of the health impacts on city-dwellers and to identify vulnerable areas, areas that should be prioritised for remediation.
+
+Computer vision techniques allow automated detection of sky pixels in outdoor imagery. There are multiple applications for this information across a large number of research areas. In urban climate, it is an important first step in gathering information about urban morphologies and sky view factors (SVF). However, despite years of research and a multitude of techniques, obtaining accurate results is still challenging. This problem becomes even more challenging using imagery captured under a variety of lighting and weather conditions. 
+
+To address this problem, we present a new sky pixel detection system demonstrated to produced accurate results using a wide range of outdoor imagery type. This imagery is processed using an ensemble of mean-shift segmentation, K-means clustering, and Sobel filters to mark sky pixels in the image and extract sky view factors (SVF). The images are pre-classified prior to clustering by a convolutional neural network (CNN), trained with 40,000 images from the Skyfinder dataset \citep{Mihail2016} and from Google Street View (GSV) \citep{GoogleMaps2017b}. This pre-classification step allows the sky marking to follow an adaptive process and to use different techniques and parameters to choose the technique that can best process a particular image. An evaluation of fourteen different combinations of techniques and parameters shows that no single technique can perform with high accuracy. However, by using our adaptive process, large increases in accuracy are seen, far exceeding many of the pre-existing techniques.
 
 
 
 \end{abstract}
 
 \begin{keyword}
- 
+sky view factor \sep Google Street View \sep machine learning \sep WUDAPT \sep sky pixel detection
 %% keywords here, in the form: keyword \sep keyword
 
 %% PACS codes here, in the form: \PACS code \sep code
@@ -168,7 +171,7 @@ Other approaches have focused on finding a sky/ground boundary. Straight lines w
 
 Sky detection has a wide range of applications such as for autonomous vehicles or aircraft navigation, but is also an important tool in urban climate research. The use of fisheye photography to calculate sky view factors (SVF), the amount of sky visible to a point, at individual locations has long been used in urban climate. Numerous techniques exist to process this sort of imagery \citep{Grimmond2001,Chapman2004,Ali-Toudert2007}. 
 
-At the same time, an effort is ongoing to provide worldwide databases of standardised urban morphology information \citep{Mills2015}. Now with the widespread availability of urban imagery, an opportunity exists to expand the range of research that can be done without the requirement of manually collecting urban morphology parameters and to accelerate the population of databases such as The World Urban Database and Portal Tool (WUDAPT).
+At the same time, an effort is ongoing to provide worldwide databases of standardised urban morphology information. Now with the widespread availability of urban imagery, an opportunity exists to expand the range of research that can be done without the requirement of manually collecting urban morphology parameters and to accelerate the population of databases such as The World Urban Database and Portal Tool (WUDAPT) \citep{Mills2015}.
 
 Recent studies have started to utilise this imagery to build SVF datasets from Google Street View (GSV) imagery \citep{Middel2018,Gong2018}. The results are promising but show some accuracy problems. Urban areas with large numbers of street trees in particular are cited by \cite{Gong2018} as a key source of inaccuracies in their system. In addition, these systems are highly dependent on Google imagery, which as of 2018, have become more restrictive and expensive to obtain. This necessitates the need to expand the type of imagery used, that unlike GSV imagery, might vary more in lighting, weather conditions, camera angles, and aspect ratios. 
 

@@ -132,19 +132,16 @@
 
 \begin{abstract}
 
-%Urban heat is a significant health risk, especially during extreme heat days. Identifying vulnerable areas of cities is a priority for devising effective heat mitigation strategies. However, making these observations is difficult, expensive, and time consuming. The platform developed through this project allows systematic assessments to be made for any urban area using a global and consistent dataset, Google Street View (GSV) imagery.
+Computer vision techniques allow automated detection of sky pixels in outdoor imagery. There are multiple applications for this information across a large number of research areas. In urban climate, it is an important first step in gathering information about urban morphologies and sky view factors. However, despite years of research and a multitude of techniques, obtaining accurate results is still challenging. This problem becomes even more challenging using imagery captured under a variety of lighting and weather conditions. 
 
-
-Computer vision techniques allow automated detection of sky pixels in outdoor imagery. There are multiple applications for this information across a large number of research areas. In urban climate, it is an important first step in gathering information about urban morphologies and sky view factors (SVF). However, despite years of research and a multitude of techniques, obtaining accurate results is still challenging. This problem becomes even more challenging using imagery captured under a variety of lighting and weather conditions. 
-
-To address this problem, we present a new sky pixel detection system demonstrated to produced accurate results using a wide range of outdoor imagery type. This imagery is processed using an ensemble of mean-shift segmentation, K-means clustering, and Sobel filters to mark sky pixels in the image and extract sky view factors (SVF). The images are pre-classified prior to clustering by a convolutional neural network (CNN), trained with 40,000 images from the Skyfinder dataset \citep{Mihail2016} and from Google Street View (GSV) \citep{GoogleMaps2017b}. This pre-classification step allows the sky marking to follow an adaptive process and to use different techniques and parameters to choose the technique that can best process a particular image. An evaluation of fourteen different combinations of techniques and parameters shows that no single technique can perform with high accuracy. However, by using our adaptive process, large increases in accuracy are seen, far exceeding many of the pre-existing techniques.
+To address this problem, we present a new sky pixel detection system demonstrated to produce accurate results using a wide range of outdoor imagery types. This imagery is processed using an selection of mean-shift segmentation, K-means clustering, and Sobel filters to mark sky pixels in the image. The algorithm for a specific image is chosen by a convolutional neural network, trained with 25,000 images from the Skyfinder dataset \citep{Mihail2016}. This selection step allows the sky marking to follow an adaptive process and use different techniques and parameters to best suit a particular image. An evaluation of fourteen different techniques shows that no single technique can perform with high accuracy across a varied Skyfinder and Google Street View dataset. However, by using our adaptive process, large increases in accuracy are observed. The resulting system is shown to perform better than other published techniques.
 
 
 
 \end{abstract}
 
 \begin{keyword}
-sky view factor \sep Google Street View \sep machine learning \sep WUDAPT \sep sky pixel detection
+sky view factor \sep Google Street View \sep machine learning \sep WUDAPT \sep sky pixel detection \sep Skyfinder
 %% keywords here, in the form: keyword \sep keyword
 
 %% PACS codes here, in the form: \PACS code \sep code
@@ -165,15 +162,13 @@ sky view factor \sep Google Street View \sep machine learning \sep WUDAPT \sep s
 \section{Introduction}\label{sec:introduction}
 Sky pixel detection in images is an ongoing computer vision challenge with a large range of applications possible from accurate results. Sky detection techniques have largely followed two main paths, either finding the pixels associated with the sky or finding a sky-ground boundary and labelling the sky as everything above that boundary. 
 
-The first technique has focused on the pixel colour values of possible sky regions. \cite{Luo2002} used a physics based approach using the changes of sky colours from zenith to horizon. \cite{Gallagher2004} generated sky pixel probability maps based on colour values and a two dimensional polynomial for each colour channel. \cite{Zafarifar2007} added texture, gradients, and vertical position to colour values to generate their probability map, however, only blue sky is detected accurately with clouds marked with low probabilities. \cite{Schmitt2009} added in an analysis of position and shape and was reportedly able to also accurately perform sky detection under cloudy conditions. 
+The first approach has focused on the pixel colour values of possible sky regions. \cite{Luo2002} used a physics based approach using the changes of sky colours from zenith to horizon. \cite{Gallagher2004} generated sky pixel probability maps based on colour values and a two dimensional polynomial for each colour channel. \cite{Zafarifar2007} added texture, gradients, and vertical position to colour values to generate their probability map, however, only blue sky is detected accurately with clouds marked with low probabilities. \cite{Schmitt2009} added in an analysis of position and shape and was reportedly able to also accurately perform sky detection under cloudy conditions. 
 
 Other approaches have focused on finding a sky/ground boundary. Straight lines were first used to define a horizon, located via an energy function \citep{Ettinger2003}. Using an improved energy function optimisation and gradient information from the image, \cite{Shen2013} allowed the horizon line to follow the boundary instead of being restricted to a straight line. Additional variations allowed increasingly difficult sky regions (i.e. regions separated from the main sky region by buildings, flags, or other obstructions) to be detected \citep{Zhijie2014,Zhijie2015}.
 
-Sky detection has a wide range of applications such as for autonomous vehicles or aircraft navigation, but is also an important tool in urban climate research. The use of fisheye photography to calculate sky view factors (SVF), the amount of sky visible to a point, at individual locations has long been used in urban climate. Numerous techniques exist to process this sort of imagery \citep{Grimmond2001,Chapman2004,Ali-Toudert2007}. 
+Sky detection has a wide range of applications such as for autonomous vehicles or aircraft navigation, but is also an important tool in urban climate research. The use of fisheye photography to calculate sky view factors (SVF), the amount of sky visible to a point, at individual locations has long been used in urban climate. Numerous techniques exist to process this sort of imagery \citep{Grimmond2001,Chapman2004,Ali-Toudert2007}. At the same time, an effort is ongoing to provide worldwide databases of standardised urban morphology information. Now with the widespread availability of urban imagery, an opportunity exists to expand the range of research that can be done without the requirement of manually collecting urban morphology parameters and to accelerate the population of databases such as The World Urban Database and Portal Tool (WUDAPT) \citep{Mills2015}.
 
-At the same time, an effort is ongoing to provide worldwide databases of standardised urban morphology information. Now with the widespread availability of urban imagery, an opportunity exists to expand the range of research that can be done without the requirement of manually collecting urban morphology parameters and to accelerate the population of databases such as The World Urban Database and Portal Tool (WUDAPT) \citep{Mills2015}.
-
-Recent studies have started to utilise this imagery to build SVF datasets from Google Street View (GSV) imagery \citep{Middel2018,Gong2018}. The results are promising but show some accuracy problems. Urban areas with large numbers of street trees in particular are cited by \cite{Gong2018} as a key source of inaccuracies in their system. In addition, these systems are highly dependent on Google imagery, which as of 2018, have become more restrictive and expensive to obtain. This necessitates the need to expand the type of imagery used, that unlike GSV imagery, might vary more in lighting, weather conditions, camera angles, and aspect ratios. 
+Recent studies have started to utilise automated methods to build SVF datasets from Google Street View (GSV) imagery \citep{Middel2018,Gong2018}. The results are promising but show some accuracy problems. Urban areas with large numbers of street trees in particular are cited by \cite{Gong2018} as a key source of inaccuracies in their system. In addition, these systems are highly dependent on Google imagery, which as of 2018, have become more restrictive and expensive to obtain. This necessitates the need to expand the type of imagery used, that unlike GSV imagery, might vary more in lighting, weather conditions, camera angles, and aspect ratios. 
 
 With these factors in mind, we present a sky pixel detection system that will be demonstrated to be accurate using any type of outdoor imagery collected under a wide variety of lighting and weather conditions with a range of camera angles and aspect ratios. This system, built on some basic artificial intelligence training, will be adaptive. It will use a range of algorithms and combinations of parameters to locate the sky pixels to ensure the highest accuracy for each individual class of image. This project will evaluate a number of existing and new techniques for sky pixel classification and demonstrate that this new adaptive system will perform more accurately than any of these individual techniques on their own.
 
@@ -185,7 +180,7 @@ Building a system to perform sky segmentation was completed in a number of stage
 
 All the imagery was processed, repeated for each of the combinations then individually compared to validation images to determine the accuracy of each combination for each image. The overall dataset was then split 75\%/25\% into training and validation sets. For the training set, each image was classified into categories representing the technique that performed with the greatest accuracy and a neural network (NN) was trained using this imagery and classifications. The remaining imagery, the validation dataset was used by the NN to evaluate accuracy and determine when the training had reached convergence. Finally, using the validation dataset, the NN was used to infer the best technique for the image and output a sky segmented image using that technique. Finally, the accuracy of each segmentation was calculated and analysed. 
 
-The overall process flow is shown in Figure \ref{fig:process}. Greater detail about each step will be presented in the following sections. In addition, a fourth technique, a Sobel operator/flood-fill, was also used as an evaluation of the overall process and as a comparison with existing published methods.
+The overall process flow is shown in Figure \ref{fig:process}. Greater detail about each step will be presented in the following sections. In addition, a fourth technique (the fourteenth method evaluated in this study), a Sobel operator/flood-fill, was also used as an evaluation of the overall process and as a comparison with existing published methods.
 
 \begin{figure}
 \centering    
@@ -203,32 +198,32 @@ Overall, 38,521 images of outdoor scenes were used, 38,115 from the Skyfinder da
 This dataset was built from 90,000 long-term timelapse images from 53 outdoor webcams over a variety of lighting and weather conditions. Images are of a wide range of sizes and aspect ratios, including 640x489, 857x665, 960x600, 1280x720, and 1280x960. For each location, a binary sky mask was created for validation purposes. In this study, we selected 38,115 images from 40 locations. Night-time and images with heavy fog were removed as these are conditions unlikely to be encountered in imagery used to calculate sky view factor (i.e. Google Street View).
 
 \subsubsection{GSV data}\label{sec:gsvdata}
-Panoramas for 406 locations in a variety of cities (Adelaide, Brisbane, Paris, Sydney, Tokyo, Perth, and Melbourne) were retrieved using the Google Maps API \citep{GoogleMaps2017b}. Images were retrieved as six 640x640 tiles for up, down, left, right, front, and back directions. The six images were stiched together into a 1280x960 cubic image using Java 8 \citep{Oracle2018} and OpenCV\citep {Bradski2000}. Validation images were created by hand marking sky pixels for each image using the GNU Image Manipulation Program \citep{GIMP2019}.
+Panoramas for 406 locations in a variety of cities (Adelaide, Brisbane, Paris, Sydney, Tokyo, Perth, and Melbourne) were retrieved using the Google Maps API \citep{GoogleMaps2017b}. Images were retrieved as six 640x640 tiles (one each for up, down, left, right, front, and back directions). The six images were stitched together into a 1280x960 cubic image using Java 8 \citep{Oracle2018} and OpenCV\citep {Bradski2000}. Validation images were created by hand marking sky regions in each image using the GNU Image Manipulation Program \citep{GIMP2019}.
 
 \subsection{Techniques and parameters}
 Fourteen different variations of computer vision techniques and parameters were tested and used in this project. The overall techniques and details are detailed in Table \ref{tab:techniques} and in the following sections.
 
 \begin{table}[!htbp]
 \caption{\bf Techniques used for sky pixel detection.  \label{tab:techniques}}     
-\begin{tabular}{ l  l l}
-\textbf{Technique designations} & \textbf{Technique}  \\ \hline
-Sobel  & Sobel operator/hybrid probability model \\	
-Mean &  Mean shift \\
-K-means  & K-means clustering and HSL color filtering \\
-Sobel/flood-fill  & Sobel operator/flood-fill \\
+\begin{tabular}{ l l l}
+\textbf{Technique designations} & \textbf{Technique} & \textbf{Variations}  \\ \hline
+Sobel  & Implementation of \cite{Wang2015a}'s Sobel operator/hybrid probability model & 6 \\	
+Mean &  Mean shift segmentation algorithm developed by the authors &4 \\
+K-means  & K-means clustering and HSL color filtering algorithm developed by the authors &3 \\
+Sobel/flood-fill  & \cite{Middel2018}'s Sobel operator/flood-fill algorithm &1 \\
 \hline
 \end{tabular}
 \end{table}
 
 
 
-\subsubsection{Hybrid probability model}\label{sec:prob}
+\subsubsection{Sobel operator/hybrid probability model}\label{sec:prob}
 An implementation of the sky detection algorithm presented in \cite{Wang2015a} was implemented using OpenCV \citep{Bradski2000} and Java 8 \citep{Oracle2018}. This method proceeds by calculating gray scale gradient images using x- and y-directional Sobel operators to estimate sky color. An object function attempts to find the best sky-ground boundary in the gradient image using the covariance matrices of a first calculation of sky and ground regions. Using this best sky boundary, the image is again separated into sky and ground regions and a probability model is created from the center and standard deviations of the colors. A second probability model is created from the gradient values. A third probability model is built based on the vertical position of each pixel (vertically higher pixels are more likely to be sky). An overall probability model, ranking each pixel's probability (0 to 1) to be sky, is generated by applying close operations on the three probability models. \cite{Wang2015a} did not recommend a probability threshold, so a number of thresholds were tested (0.5, 0.6, 0.7, 0.8, 0.9, and 0.95). The technique designations and thresholds are detailed in Table \ref{tab:techniques4}. The algorithm was applied to each image and pixels that exceeded the chosen threshold were marked as sky pixels (using blue, RGB 0,0,255). \cite{Wang2015a} reports an error average (in percent of sky) of 0.051 and standard deviation of 0.058 in their evaluation using human-labeled images.  Example results from our implementation are shown in Figure \ref{fig:sobolresults}. 
 
 
 \begin{table}[!htbp]
 \caption{\bf Sobel hybrid probability model designations and parameters used for each  \label{tab:techniques4}}     
-\begin{tabular}{ l  l }
+\begin{tabular}{ l l}
 \textbf{Designation}  & \textbf{Threshold}    \\ \hline
 Sobel\_50 & 0.5 \\	  
 Sobel\_60 & 0.6 \\	
@@ -240,30 +235,39 @@ Sobel\_95 & 0.95 \\
 \end{tabular}
 \end{table}
 
-	
+
 
 \begin{figure}
 \centering    
-a)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel.png} 
-b)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_prob.png} 
-c)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_95_marked.png} 
-d)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_90_marked.png} 
-e)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_80_marked.png} 
-f)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_70_marked.png} 
-g)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_60_marked.png} 
-h)\includegraphics[scale=0.20]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_Sobel_50_marked.png} 
+\textbf{a)}\includegraphics[scale=0.26]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1.png} 
+\textbf{b)}\includegraphics[scale=0.26]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1-marked.png} 
+
+\caption{\bf a) Original panorama image and b) hand-marked validation image.}    
+ \label{fig:origmarked}  
+\end{figure} 	
+
+\begin{figure}
+\centering    
+\textbf{a)}\includegraphics[scale=0.20]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_Sobel.png} 
+\textbf{b)}\includegraphics[scale=0.20]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_Sobel_prob.png} 
+\textbf{c)}\includegraphics[scale=0.20]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_Sobel_95_marked.png} 
+\textbf{d)}\includegraphics[scale=0.20]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_Sobel_90_marked.png} 
+\textbf{e)}\includegraphics[scale=0.20]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_Sobel_80_marked.png} 
+\textbf{f)}\includegraphics[scale=0.20]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_Sobel_70_marked.png} 
+\textbf{g)}\includegraphics[scale=0.20]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_Sobel_60_marked.png} 
+\textbf{h)}\includegraphics[scale=0.20]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_Sobel_50_marked.png} 
 \caption{\bf  Results of hybrid probability model, showing a) Sobel operator gradient image, b) resulting probability predictions, c) Sobel\_50, d) Sobel\_60, e) Sobel\_70, f) Sobel\_80, g) Sobel\_90, and h) Sobel\_95.}    
  \label{fig:sobolresults}  
 \end{figure} 
 
-\subsubsection{Mean shift}\label{sec:mean}
+\subsubsection{Mean shift segmentation algorithm}\label{sec:mean}
 
 Mean shift is an algorithm often used for image segmentation \citep{Comaniciu1997,Comaniciu2002}. Image segmentation involves decomposing images into homogeneous contiguous regions of pixels of similar colours or grey levels. Mean shift uses an iterative algorithm to pick search windows of a certain radius ($r$) in an initial location in an image, then compute a mean shift vector and translate the search window by that amount until convergence \citep{Comaniciu1997}. Segmentation results are highly dependent on input parameters for the algorithm, which include the spatial radius of the search window, colour range radius of the search window, and minimum density (the minimum number of pixels to constitute a region). The mean shift used in this project is based on a Java port by \cite{Pangburn2002} of the C++ based EDISON vision toolkit \citep{Christoudias2002}. Four different variations of the input parameters were used, determined experimentally through a sensitivity test to work across the widest variety of images. The technique designations and parameters are detailed in Table \ref{tab:techniques2}. Mean shift is applied to each image with the chosen set of parameters and pixels of the most common colour (in the top half of the image) are marked as sky (using blue, RGB 0,0,255). Example results are shown in Figure \ref{fig:meanresults}.
 
 
 \begin{table}[!htbp]
 \caption{\bf Mean shift designations and parameters (units in pixels) used for each \label{tab:techniques2}}     
-\begin{tabular}{ l  l  l l}
+\begin{tabular}{ l l l l}
 \textbf{Designation}  & \textbf{Spatial radius}&\textbf{Range radius}&\textbf{Min. density}   \\ \hline
 Mean\_7\_8\_300 & 7 & 8& 300 \\
 Mean\_3\_6\_100	 & 3& 6& 100 \\
@@ -276,12 +280,14 @@ Mean\_7\_6\_100	 & 7& 6& 100 \\
 
 
 
+
+
 \begin{figure}
 \centering    
-a)\includegraphics[scale=0.25]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_cropped.png} 
-b)\includegraphics[scale=0.25]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_seg.png} 
-c)\includegraphics[scale=0.25]{Images/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_ms_sky_mark.png} 
-\caption{\bf Results of mean shift (Mean\_5\_7\_210) showing a) original image, b) mean shifted image, and c) final marked image.}    
+%\textbf{a)}\includegraphics[scale=0.25]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_cropped.png} 
+\textbf{a)}\includegraphics[scale=0.25]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_seg.png} 
+\textbf{b)}\includegraphics[scale=0.25]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_ms_sky_mark.png} 
+\caption{\bf Results of mean shift (Mean\_5\_7\_210) showing a) mean shifted image and b) final marked image.}    
  \label{fig:meanresults}  
 \end{figure} 
 
@@ -313,27 +319,27 @@ K-mean\_14  & 14 & 0.4& 0.75& 0.3 & 0.95 & 0.65 & 0.2 \\
 
 \begin{figure}
 \centering    
-a)\includegraphics[scale=0.20]{Images/Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_cropped.png} 
-b)\includegraphics[scale=0.20]{Images/Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_clustered6.png} 
-c)\includegraphics[scale=0.205]{Images/Cloudy/panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_HLS6.png} 
-d)\includegraphics[scale=0.20]{Images/Cloudy/{panorama-ESuX4xmQ_fDc50NK6CnfZQ-1_sky_mark0.4}.png} 
-\caption{\bf  Results of K-means clustering (K-mean\_6) and HSL filtering, showing a) original image, b) K-means clustered image, c) HSL intermediate image, and d) final marked image.}    
+%\textbf{a)}\includegraphics[scale=0.20]{Images/2/Cloudy/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_cropped.png} 
+\textbf{a)}\includegraphics[scale=0.17]{Images/2/Cloudy/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_clustered6.png} 
+\textbf{b)}\includegraphics[scale=0.17]{Images/2/Cloudy/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_HLS6.png} 
+\textbf{c)}\includegraphics[scale=0.17]{Images/2/Cloudy/{panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_sky_mark0.4}.png} 
+\caption{\bf  Results of K-means clustering (K-mean\_6) and HSL filtering, showing a) K-means clustered image, b) HSL intermediate image, and c) final marked image.}    
  \label{fig:kmeansresults}  
 \end{figure} 
 
 
 
-\subsubsection{Sobel operator and flood-fill combination}\label{sec:floodfill}
+\subsubsection{\cite{Middel2018} Sobel operator/flood-fill algorithm}\label{sec:floodfill}
 
-\cite{Middel2018} developed a process based on a Sobel filter and flood-fill algorithm \citep{Sobel1968,Laungrungthip2008,Middel2017}. This method was designed to calculate sky view factor from Google Street View panorama images that had the bottom half cropped off and were converted to a fisheye projection. \cite{Middel2018}'s evaluation against 1.6 million locations deep learning classified images reported error rates of RMSE (in SVF) of 0.045 and a R$^{2}$ of 0.880. All 38,521 images in the combined training and validation dataset were processed with this algorithm (sky pixels marked with white, RGB 255,255,255), compared to validation images, and results saved for a comparison with our process flow results.  Example results are shown in Figure \ref{fig:sobelflood}. 
+\cite{Middel2018} developed a process based on a Sobel filter and flood-fill algorithm \citep{Sobel1968,Laungrungthip2008,Middel2017}. This method was designed to calculate sky view factor from Google Street View panorama images (rescaled to 512x512) that had the bottom half cropped off and were converted to a fisheye projection. \cite{Middel2018}'s evaluation against 1.6 million locations deep learning classified images reported error rates of RMSE (in SVF) of 0.045 and a R$^{2}$ of 0.880. All 38,521 images in the combined training and validation dataset were processed with this algorithm (sky pixels marked with white, RGB 255,255,255), compared to validation images, and results saved for a comparison with our process flow results.  Example results are shown in Figure \ref{fig:sobelflood}. Note, we used this system to process regular outdoor imagery, not below the horizon cropped fisheye images.
 
 
 
 \begin{figure}
 \centering    
-a)\includegraphics[scale=0.25]{Images/FloodfillInput.png}
-b)\includegraphics[scale=0.25]{Images/FloodfillMiddle.png}
-c)\includegraphics[scale=0.25]{Images/FloodfillOutput.png}
+\textbf{a)}\includegraphics[scale=0.25]{Images/2/FloodfillInput.png}
+\textbf{b)}\includegraphics[scale=0.25]{Images/2/FloodfillMiddle.png}
+\textbf{c)}\includegraphics[scale=0.25]{Images/2/FloodfillOutput.png}
 \caption{\bf   Results of Sobel/flood-fill combination, showing a) original image, b) intermediate Sobel image, and c) final marked sky image.}    
  \label{fig:sobelflood}  
 \end{figure} 
@@ -354,10 +360,10 @@ The entire dataset of 38,522 images was split into two datasets of 75\% training
 
 \begin{figure}
 \centering
-a)\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-0_Mean_7_8_300_tiles.png}
-b)\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-3_Mean_7_6_100_tiles.png}
-c)\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-5_K-mean_6_tiles.png}
-d)\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-9_Sobel_70_tiles.png}
+\textbf{a)}\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-0_Mean_7_8_300_tiles.png}
+\textbf{b)}\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-3_Mean_7_6_100_tiles.png}
+\textbf{c)}\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-5_K-mean_6_tiles.png}
+\textbf{d)}\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-9_Sobel_70_tiles.png}
 \caption{\textbf{Selected imagery used for NN training for classifications 
 a) Mean\_7\_8\_300, b) Mean\_7\_6\_100, c) K-mean\_6, d) Sobel\_70.}}
 \label{fig:classImages}
@@ -403,10 +409,10 @@ Sobel\_95 &0&0.421&0.045&0.225&0.0&0.419 \\
 
 \begin{figure}
 \centering
-a)\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivMean_7_6_100.png}
-b)\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivMean_7_8_300.png}
-c)\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivKmean6.png}
-d)\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivSobel70.png}
+\textbf{a)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivMean_7_6_100.png}
+\textbf{b)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivMean_7_8_300.png}
+\textbf{c)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivKmean6.png}
+\textbf{d)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivSobel70.png}
 \caption{\textbf{Observed vs. calculated sky pixels using the a) Mean\_7\_6\_100, b) Mean\_7\_8\_300, c) K-mean\_6, and d) Sobel\_70 techniques on the 38,521 image combined dataset.} }
 \label{fig:errorallcombined}
 \end{figure}
@@ -416,9 +422,9 @@ Figure \ref{fig:errorplots} presents a theoretical best case. If the NN was 100\
 
 \begin{figure}
 \centering
-a)\includegraphics[scale=0.15]{Images/ErrorPlots.png}
-b)\includegraphics[scale=0.15]{Images/ErrorPlots2.png}
-c)\includegraphics[scale=0.15]{Images/ErrorPlots1Combined.png}
+\textbf{a)}\includegraphics[scale=0.15]{Images/ErrorPlots.png}
+\textbf{b)}\includegraphics[scale=0.15]{Images/ErrorPlots2.png}
+\textbf{c)}\includegraphics[scale=0.15]{Images/ErrorPlots1Combined.png}
 \caption{\textbf{Theoretical best case results if the NN is 100\% accurate for a) Skyfinder, b) GSV datasets, and c) combined datasets.}}
 \label{fig:errorplots}
 \end{figure}
@@ -438,8 +444,8 @@ Finally, in an evaluation of the Sobel/flood-fill algorithm, results from the co
 
 \begin{figure}
 \centering
-a)\includegraphics[scale=0.15]{Images/ErrorPlots2FloodfillAll.png}
-b)\includegraphics[scale=0.15]{Images/ErrorPlots2FloodfillValidation.png}
+\textbf{a)}\includegraphics[scale=0.15]{Images/ErrorPlots2FloodfillAll.png}
+\textbf{b)}\includegraphics[scale=0.15]{Images/ErrorPlots2FloodfillValidation.png}
 \caption{\textbf{Results of Sobel/flood-fill combination against a) combined 38,520 image dataset and b) 9636 validation images.}}
 \label{fig:errorfloodall}
 \end{figure}

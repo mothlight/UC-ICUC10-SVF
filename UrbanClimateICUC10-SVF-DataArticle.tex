@@ -1,0 +1,211 @@
+%% 
+%% Copyright 2007, 2008, 2009 Elsevier Ltd
+%% 
+%% This file is part of the 'Elsarticle Bundle'.
+%% ---------------------------------------------
+%% 
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%% 
+%% The list of all files belonging to the 'Elsarticle Bundle' is
+%% given in the file `manifest.txt'.
+%% 
+%% Template article for Elsevier's document class `elsarticle'
+%% with harvard style bibliographic references
+%% SP 2008/03/01
+
+%\documentclass[preprint,12pt,authoryear]{elsarticle}  %default in the template
+%\documentclass[preprint,10pt,authoryear]{elsarticle}
+
+%% Use the option review to obtain double line spacing
+%% \documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+%% Use the options 1p,twocolumn; 3p; 3p,twocolumn; 5p; or 5p,twocolumn
+%% for a journal layout:
+%% \documentclass[final,1p,times,authoryear]{elsarticle}
+%% \documentclass[final,1p,times,twocolumn,authoryear]{elsarticle}
+ \documentclass[final,3p,times,authoryear]{elsarticle}
+%% \documentclass[final,3p,times,twocolumn,authoryear]{elsarticle}
+%% \documentclass[final,5p,times,authoryear]{elsarticle}
+%% \documentclass[final,5p,times,twocolumn,authoryear]{elsarticle}
+
+%% For including figures, graphicx.sty has been loaded in
+%% elsarticle.cls. If you prefer to use the old commands
+%% please give \usepackage{epsfig}
+
+%% The amssymb package provides various useful mathematical symbols
+\usepackage{amssymb}
+%% The amsthm package provides extended theorem environments
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{framed} % Framing content
+\usepackage{multicol} % Multiple columns environment
+\usepackage{nomencl} % Nomenclature package
+\makenomenclature
+%\setlength{\nomitemsep}{-\parskip} % Baseline skip between items
+\setlength{\nomitemsep}{0.01cm}
+\renewcommand*\nompreamble{\begin{multicols}{2}}
+\renewcommand*\nompostamble{\end{multicols}}
+\newcommand{\degreeC}{\ensuremath{^\circ}C }
+
+\usepackage[nonumberlist]{glossaries}
+%\makeglossaries 
+
+\usepackage{dirtree}
+
+%% The lineno packages adds line numbers. Start line numbering with
+%% \begin{linenumbers}, end it with \end{linenumbers}. Or switch it on
+%% for the whole article with \linenumbers.
+%% \usepackage{lineno}
+
+\journal{Data in Brief}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% Title, authors and addresses
+
+%% use the tnoteref command within \title for footnotes;
+%% use the tnotetext command for theassociated footnote;
+%% use the fnref command within \author or \address for footnotes;
+%% use the fntext command for theassociated footnote;
+%% use the corref command within \author for corresponding author footnotes;
+%% use the cortext command for theassociated footnote;
+%% use the ead command for the email address,
+%% and the form \ead[url] for the home page:
+%% \title{Title\tnoteref{label1}}
+%% \tnotetext[label1]{}
+%% \author{Name\corref{cor1}\fnref{label2}}
+%% \ead{email address}
+%% \ead[url]{home page}
+%% \fntext[label2]{}
+%% \cortext[cor1]{}
+%% \address{Address\fnref{label3}}
+%% \fntext[label3]{}
+
+\title{Dataset for: Sky pixel detection in outdoor imagery using an adaptive algorithm and machine learning.} 
+
+%% use optional labels to link authors explicitly to addresses:
+\author[melb]{Kerry A. Nice\corref{cor1}}
+\ead{kerry.nice@unimelb.edu.au}
+\author[melb]{Jasper S. Wijnands}
+\address[melb]{Transport, Health and Urban Design, Melbourne School of Design, The University of Melbourne, Parkville VIC 3010, Australia}
+\cortext[cor1]{Principal corresponding author}
+
+
+\begin{abstract}
+
+The data presented in this article is related to the research article entitled ``Urban design using generative adversarial networks: optimising citizen health and wellbeing" \citep{wijnands2018urban}. The data consists of Google Street View imagery (4,473,991 images, 8-bit JPEG at 256$\times$256 resolution) from four headings (0, 90, 180, and 270 degrees) at 1,118,534 locations in the greater metropolitan area of Melbourne, Australia. Locations were determined using the nodes of the vector lines in the PSMA Street Network dataset \citep{PSMA2018} and data was post-processed by removing indoor images. The dataset is available on Zenodo at https://doi.org/10.5281/zenodo.1256252; please cite this paper if you use the dataset.
+
+\end{abstract}
+
+\begin{keyword}
+Street view, imagery, neural network, deep learning, urban analytics
+\end{keyword}
+
+\end{frontmatter}
+
+% not available 2339092
+% total found 4473991
+% total locations 1118534
+
+\begin{table}[!htbp]
+\caption{\bf Specifications Table \label{tab:spectable}}     
+\begin{tabular}{ |l | l| }
+ \hline    
+Subject area & Urban analytics, urban design   \\ \hline
+More specific subject area & Machine learning  \\ \hline
+Type of data & Google Street View (GSV) imagery of Melbourne, Australia  \\ \hline
+How data was acquired & Downloaded using the Google Street View API \citep{GoogleMaps2017b}  \\ \hline
+Data format & JPEG 256$\times$256 8-bit  \\ \hline
+Experimental factors & Does not apply  \\ \hline
+Experimental features & Street view imagery of Melbourne for machine learning  \\ \hline
+Data source locations & 1.1 million locations within the Greater Melbourne, Australia metropolitan area.  \\ \hline
+Data accessiblity & Publicly available from Zenodo at https://doi.org/10.5281/zenodo.1256252.    \\ \hline
+\end{tabular}
+\end{table}
+
+\textbf{Value of the Data}
+\begin{itemize}
+\item Structurally selected GSV imagery with minimal indoor images for a single city allows for the examination of various research questions related to urban design.
+\item This dataset of street view imagery is large enough to be used as training data for deep learning. Further, the size of 256$\times$256 pixels is suitable as input for various frequently used neural network architectures.
+\item The dataset provides a means to reproduce the experiments in the associated study.
+\end{itemize}
+
+\section{Introduction}
+\label{sec:introduction}
+
+The Transport, Health, and Urban Design research hub at the University of Melbourne has undertaken a number of studies \citep[e.g.,][]{nice2018paris, wijnands2018urban} requiring large amounts of GSV imagery \citep{GoogleMaps2017b}. These images were used to train neural networks that classify urban typologies and implement style transfer using generative adversarial networks. The purpose of the dataset described here is two-fold, namely (i) providing transparency and replicability of results in the papers mentioned above and (ii) facilitating innovative academic research using Google's street view imagery. The dataset is well curated and can be used for academic, non-commercial research in accordance with Google's terms of service.
+
+\section{Data}
+
+The dataset consists of GSV imagery for 1,118,534 locations in the Greater Melbourne area in Australia (see Fig.~\ref{fig:coverage}), collected in March 2018. Four images for each location were sampled, with a field of view of 90 degrees and headings of 0, 90, 180, and 270 degrees. Sample images for location 37.932723$^\circ$S, 145.032733$^\circ$E are shown in Fig.~\ref{fig:sample}.
+
+
+
+The data archive contains a CSV file that provides an overview of all image names, the latitude and longitude coordinates of the associated locations, the location number (see Sect.~\ref{sec:create}), and the street name. All JPG files follow the naming convention LocationNumber\_Latitude\_Longitude\_Heading.jpg (e.g., VIC9984261\_-37.683250063\_ 145.05143251199999\_90.jpg) and images for the four headings are saved in the directory structure:
+
+\dirtree{%
+	.1 Data.
+	.2 MelbourneStreetView.
+	.3 000.
+	.3 090.
+	.3 180.
+	.3 270.
+}
+
+
+
+\section{Experimental design, materials, and methods}
+\label{sec:create}
+
+The \citet{Aurin2018} provided the geographical information of the Greater Melbourne area (gccsa\_2016/GMEL). In order to efficiently sample data from this area, as well as avoid imagery that is not available or that was of indoor locations, imagery locations were determined using the road network of Melbourne. The PSMA Street Network \citep{PSMA2018} provided the required street network information at multiple levels, ranging from major highways to walking paths. Using QGIS \citep{QGIS2009}, nodes of the vector lines were extracted from the corresponding shapefile. For illustration purposes, an excerpt of this node point layer is provided below:
+
+\begin{verbatim}
+X, Y, Street_direction_code, Jurisdiction_ID, Street_line_ID, Authority_code, Full_name
+144.627419835000012,-37.745644954,2,5639424,VIC5639424,0,GREIGS ROAD
+144.616902098999986,-37.746048628,2,5639424,VIC5639424,0,GREIGS ROAD
+145.222131428000012,-38.055551055,2,15787712,VIC15787712,0,FOX DRIVE
+\end{verbatim}
+
+Python and the Google Street View API \citep{GoogleMaps2017b} were used to download imagery for all 1.7 million locations at headings of 0, 90, 180 and 270 degrees, based on the latitude and longitude locations in this file. The parameters used to download the images are illustrated by the following code excerpt, in which `KEY' is the Google Street View API key and `number' is the Street\_line\_ID (e.g., VIC5639424) from the PSMA data file:
+
+\begin{verbatim}
+BUFFER_AREA = 22
+IMG_SIZE = 256
+url='https://maps.googleapis.com/maps/api/streetview?&size=' + str(IMG_SIZE) +
+    'x' + str(IMG_SIZE + 2 * BUFFER_AREA) + '&location=' + str(Lat) +
+    ',' + str(Lon) + '&fov=90&heading=' + str(heading) +'&pitch=0&key=' + KEY         
+filename = os.path.join(output_dir, '{}_{}_{}_{}.jpg'.format(number, lat, lon, heading))
+#image is cropped to remove Google logo for research purposes
+w, h = im.size
+im.crop((0, BUFFER_AREA, w, h-BUFFER_AREA)).save(filename)
+\end{verbatim}
+
+The image dataset described here has been prepared for easy application of frequently used neural network architectures (e.g., GoogLeNet, Inception v2, VGG16, ResNet50). After downloading images at a 256$\times$300 resolution, images were cropped to 256$\times$256 to remove any superfluous visual information (namely, the Google logo) that would impact neural network training. Hence, when using images from this dataset in academic publications, care should be taken to provide proper attribution to Google. The final resolution of each image is 256$\times$256 pixels, allowing for dynamic cropping to the native 224$\times$224 input resolution of the mentioned network architectures.
+
+Post-processing reduced the number of locations to 1.1 million, by filtering out images for locations where imagery was not available and manually removing (most) indoor images. The use of the road network map and the subsequent elimination of remaining indoor images means the published dataset is a good starting point for research focussing on urban form of an greater metropolitan area as a whole.
+
+%\section*{References}
+\bibliographystyle{elsarticle-harv} 
+\bibliography{library}
+
+%% The Appendices part is started with the command \appendix;
+%% appendix sections are then done as normal sections
+\appendix
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+
+\end{document}
+
+\endinput
+%%
+%% End of file `elsarticle-template-harv.tex'.

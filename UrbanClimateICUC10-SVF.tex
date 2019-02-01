@@ -232,7 +232,7 @@ Panoramas for 406 locations in a variety of cities (Adelaide, Brisbane, Paris, S
 \subsubsection{\cite{Wang2015a} Sobel operator/hybrid probability model}\label{sec:prob}
 An implementation of the sky detection algorithm presented in \cite{Wang2015a} was implemented using OpenCV and Java 8. This method proceeds by calculating grey scale gradient images using x- and y-directional Sobel operators to estimate sky colour. An optimise object function attempts to find the best sky-ground boundary in the gradient image using the covariance matrices of a first calculation of sky and ground regions. Using this best sky boundary, the image is again separated into sky and ground regions and a probability model is created from the centre and standard deviations of the colours. A second probability model is created from the gradient values. A third probability model is built based on the vertical position of each pixel (vertically higher pixels are more likely to be sky). An overall probability model, ranking each pixel's probability (0 to 1) to be sky, is generated from the three probability models. \cite{Wang2015a} reports an error average (in percent of sky) of 0.051 and standard deviation of 0.058 in their evaluation using human-labeled images.  
 
-\cite{Wang2015a} did not recommend a probability threshold, so a number of thresholds were tested (0.5, 0.6, 0.7, 0.8, 0.9, and 0.95) and given the designations of Sobel\_50, Sobel\_60, Sobel\_70, Sobel\_80, Sobel\_90, and Sobel\_95 respectively. The algorithm was applied to each image and pixels that exceeded the chosen threshold were marked as sky pixels (using blue, RGB 0,0,255). Example results from our implementation are shown in Figure \ref{fig:sobolresults}. 
+\cite{Wang2015a} did not recommend a probability threshold, so a number of thresholds were tested (0.5, 0.6, 0.7, 0.8, 0.9, and 0.95) and given the designations of Sobel\_50, Sobel\_60, Sobel\_70, Sobel\_80, Sobel\_90, and Sobel\_95 respectively. The algorithm was applied to each image and pixels that exceeded the chosen threshold were marked as sky pixels (using blue, RGB 0,0,255). Results from our implementation are shown in Figure \ref{fig:sobolresults}. 
 
 
 %\begin{table}[!htbp]
@@ -263,7 +263,7 @@ An implementation of the sky detection algorithm presented in \cite{Wang2015a} w
 \textbf{f)}\includegraphics[scale=0.24]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_Sobel_70_marked.png} 
 \textbf{g)}\includegraphics[scale=0.24]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_Sobel_60_marked.png} 
 \textbf{h)}\includegraphics[scale=0.24]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_Sobel_50_marked.png} 
-\caption{\bf  Results of hybrid probability model, showing a) Sobel operator gradient image, b) resulting probability predictions, c) Sobel\_50, d) Sobel\_60, e) Sobel\_70, f) Sobel\_80, g) Sobel\_90, and h) Sobel\_95.}    
+\caption{\bf  Results of Sobel operator/hybrid probability model, showing a) Sobel operator gradient image, b) resulting probability predictions, c) Sobel\_50, d) Sobel\_60, e) Sobel\_70, f) Sobel\_80, g) Sobel\_90, and h) Sobel\_95.}    
  \label{fig:sobolresults}  
 \end{figure} 
 
@@ -271,11 +271,11 @@ An implementation of the sky detection algorithm presented in \cite{Wang2015a} w
 
 Mean shift is an algorithm often used for image segmentation \citep{Comaniciu1997,Comaniciu2002}. Image segmentation involves decomposing images into homogeneous contiguous regions of pixels of similar colours or grey levels. Mean shift uses an iterative algorithm to pick search windows (spatial and range) of a certain radius in an initial location in an image, then compute a mean shift vector and translate the search window by that amount until convergence \citep{Comaniciu1997}. Segmentation results are highly dependent on input parameters for the algorithm, which include the spatial radius of the search window, colour range radius of the search window, and minimum density (the minimum number of pixels to constitute a region). The mean shift used in this project is based on a Java port by \cite{Pangburn2002} of the C++ based EDISON vision toolkit \citep{Christoudias2002}. 
 
-Four different variations of the input parameters were used, determined experimentally through a sensitivity test to work across the widest variety of images. The technique designations and parameters are detailed in Table \ref{tab:techniques2}. As can be seen in Figure \ref{fig:meantypes}, in an effort to shift the entire sky to a single colour, images with multi-coloured clouds are more accurately segmented when the radius and density parameters are increased (in Figures \ref{fig:meantypes}a to d). However, this can have the effect of creating false positives in other images, for example as buildings are increasingly segmented into the sky (in Figures \ref{fig:meantypes}e to h). Mean shift is applied to each image with the chosen set of parameters and pixels of the most common colour (in the top half of the image) are marked as sky. Example results are shown in Figure \ref{fig:meanresults}.
+Four different variations of the input parameters were used, determined experimentally through a sensitivity test to work across the widest variety of images. For example, in an effort to shift the entire sky to a single colour, images with patchy multi-coloured clouds are more accurately segmented when the radius and density parameters are increased (in Figures \ref{fig:meantypes}a to d). However, this can have the effect of creating false positives in other images, for example, buildings (in Figures \ref{fig:meantypes}i to l centre left background) are increasingly segmented into the sky. The technique designations and parameters are detailed in Table \ref{tab:techniques2}. Mean shift is applied to each image with the chosen set of parameters and pixels of the most common colour (in the top half of the image) are marked as sky. Results are shown in Figure \ref{fig:meanresults}.
 
 
 \begin{table}[!htbp]
-\caption{\bf Mean shift designations and parameters (units in pixels) used for each \label{tab:techniques2}}     
+\caption{\bf Mean shift segmentation algorithm designations and parameters (units in pixels) used for each \label{tab:techniques2}}     
 \begin{tabular}{ l l l l}
 \textbf{Designation}  & \textbf{Spatial radius}&\textbf{Range radius}&\textbf{Min. density}   \\ \hline
 Mean\_7\_8\_300 & 7& 8& 300 \\
@@ -297,17 +297,23 @@ Mean\_7\_6\_100	& 7& 6& 100 \\
 \textbf{c)}\includegraphics[scale=0.08]{Images/mean/4880_5_7_210.png} 
 \textbf{d)}\includegraphics[scale=0.08]{Images/mean/4880_7_8_300.png} 
 
+\textbf{e)}\includegraphics[scale=0.08]{Images/mean/4880_3_6_100_ms_sky_mark.png} 
+\textbf{f)}\includegraphics[scale=0.08]{Images/mean/4880_7_6_100_ms_sky_mark.png} 
+\textbf{g)}\includegraphics[scale=0.08]{Images/mean/4880_5_7_210_ms_sky_mark.png} 
+\textbf{h)}\includegraphics[scale=0.08]{Images/mean/4880_7_8_300_ms_sky_mark.png} 
 
 %\textbf{a)}\includegraphics[scale=0.10]{Images/mean/0070_orig.png} 
-\textbf{e)}\includegraphics[scale=0.08]{Images/mean/0070_3_6_100.png} 
-\textbf{f)}\includegraphics[scale=0.08]{Images/mean/0070_7_6_100.png} 
-\textbf{g)}\includegraphics[scale=0.08]{Images/mean/0070_5_7_210.png} 
-\textbf{h)}\includegraphics[scale=0.08]{Images/mean/0070_7_8_300.png} 
+\textbf{i)}\includegraphics[scale=0.08]{Images/mean/0070_3_6_100.png} 
+\textbf{j)}\includegraphics[scale=0.08]{Images/mean/0070_7_6_100.png} 
+\textbf{k)}\includegraphics[scale=0.08]{Images/mean/0070_5_7_210.png} 
+\textbf{l)}\includegraphics[scale=0.08]{Images/mean/0070_7_8_300.png} 
 
+\textbf{m)}\includegraphics[scale=0.08]{Images/mean/0070_3_6_100_ms_sky_mark.png} 
+\textbf{n)}\includegraphics[scale=0.08]{Images/mean/0070_7_6_100_ms_sky_mark.png} 
+\textbf{o)}\includegraphics[scale=0.08]{Images/mean/0070_5_7_210_ms_sky_mark.png} 
+\textbf{p)}\includegraphics[scale=0.08]{Images/mean/0070_7_8_300_ms_sky_mark.png} 
 
- 
-\caption{\bf Comparison outputs of intermediate mean shift processing with varying parameters, showing a) Mean\_3\_6\_100, b) Mean\_7\_6\_100, c) Mean\_5\_7\_210, d) Mean\_7\_8\_300, 
- e) Mean\_3\_6\_100, f) Mean\_7\_6\_100, g) Mean\_5\_7\_210, and h) Mean\_7\_8\_300}    
+\caption{\bf Comparison outputs of intermediate mean shift segmentation algorithm processing steps using varying parameters, showing columns a) Mean\_3\_6\_100, b) Mean\_7\_6\_100, c) Mean\_5\_7\_210, d) Mean\_7\_8\_300 and rows e) and m) final marked images. }
  \label{fig:meantypes}  
 \end{figure} 
 
@@ -318,18 +324,18 @@ Mean\_7\_6\_100	& 7& 6& 100 \\
 \centering    
 \textbf{a)}\includegraphics[scale=0.26]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_seg.png} 
 \textbf{b)}\includegraphics[scale=0.26]{Images/2/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_ms_sky_mark.png} 
-\caption{\bf Results of mean shift (Mean\_5\_7\_210) showing a) mean shifted image and b) final marked image.}    
+\caption{\bf Results of mean shift segmentation algorithm (Mean\_5\_7\_210) showing a) mean shifted image and b) final marked image.}    
  \label{fig:meanresults}  
 \end{figure} 
 
 
 
 \subsubsection{K-means clustering and HSL color filtering}\label{sec:kmeans}
-A third sky segmentation technique was designed using K-means clustering and hue, saturation, and lightness (HSL) colour filtering. K-means clustering iteratively splits an image into $K$ number of clusters, terminating when a specified criteria is met (i.e. maximum iterations and/or desired accuracy). The K-means clustering was performed using the K-means method from the OpenCV library \citep{Bradski2000}. Three different input parameters variations were used, determined experimentally through a sensitivity test to work on a wide variety of images. The technique designations and parameters are detailed in Table \ref{tab:techniques3}. K-mean\_12 was found to work best when the sky is mostly obscured by a building or bridge. K-mean\_6 is more accurate with cloudy skies. K-mean\_14 handles sky broken up by tree canopies.
+A third sky segmentation technique was designed using K-means clustering and hue, saturation, and lightness (HSL) colour filtering. K-means clustering iteratively splits an image into $K$ number of clusters, terminating when a specified criteria is met (i.e. maximum iterations and/or desired accuracy). The K-means clustering was performed using the K-means method from the OpenCV library. Three different input parameter settings were used, determined experimentally through a sensitivity test to work on a wide variety of images. The technique designations and parameters are detailed in Table \ref{tab:techniques3}. K-mean\_12 was found to work best when the sky is mostly obscured by a building or bridge. K-mean\_6 is more accurate with cloudy skies. K-mean\_14 handles a sky scene broken up by tree canopies.
 
 K-means clustering was performed on each image, splitting the image into the chosen number of clusters. Filtering cluster regions was based on HSL values. The following conditions (for $H$, hue, $S$, saturation, and $L$, lightness) must be met to add a colour region to a list of possible sky regions: 
 
-$H_{downlimit} < H < H_{uplimit}$
+$H_{low} < H < H_{high}$
 
 $\cup L > L_{lightness}$
 
@@ -338,9 +344,9 @@ $\cup L > L_{grey} \cap S < S_{grey}$
 Of these possible sky clusters, only clusters with a number of pixels greater than the $Skyreq$ threshold (percent of all pixels) in the image were finally marked as sky regions. Example results are shown in Figure \ref{fig:kmeansresults}. 
 
 \begin{table}[!htbp]
-\caption{\bf K-means designations and parameters used for each \label{tab:techniques3}}     
+\caption{\bf K-means clustering and HSL color filtering designations and parameters used for each \label{tab:techniques3}}     
 \begin{tabular}{ l l l l l l l l}
-\textbf{Designation} & \textbf{Clusters} & \textbf{Skyreq}&\textbf{H$_{uplimit}$}&\textbf{H$_{downlimit}$} & \textbf{L$_{lightness}$} & \textbf{L$_{grey}$}& \textbf{S$_{grey}$} \\ \hline
+\textbf{Designation} & \textbf{Clusters} & \textbf{Skyreq}&\textbf{H$_{high}$}&\textbf{H$_{low}$} & \textbf{L$_{lightness}$} & \textbf{L$_{grey}$}& \textbf{S$_{grey}$} \\ \hline
 K-mean\_12  & 12 & 0.7& 0.75& 0.3 & 0.95 & 0.75 & 0.2 \\
 K-mean\_6  & 6 & 0.6& 0.75& 0.3 & 0.95 & 0.75 & 0.2 \\
 K-mean\_14  & 14 & 0.4& 0.75& 0.3 & 0.95 & 0.65 & 0.2 \\
@@ -354,7 +360,7 @@ K-mean\_14  & 14 & 0.4& 0.75& 0.3 & 0.95 & 0.65 & 0.2 \\
 \textbf{a)}\includegraphics[scale=0.17]{Images/2/Cloudy/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_clustered6.png} 
 \textbf{b)}\includegraphics[scale=0.17]{Images/2/Cloudy/panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_HLS6.png} 
 \textbf{c)}\includegraphics[scale=0.17]{Images/2/Cloudy/{panorama-JtVHmEl7WCiz1xJ0bcJpBg-1_sky_mark0.4}.png} 
-\caption{\bf  Results of K-means clustering (K-mean\_6) and HSL filtering, showing a) K-means clustered image, b) HSL intermediate image, and c) final marked image.}    
+\caption{\bf  Results of K-means clustering and HSL color filtering (K-mean\_6), showing a) K-means clustered image, b) HSL intermediate image, and c) final marked image.}    
  \label{fig:kmeansresults}  
 \end{figure} 
 
@@ -362,7 +368,7 @@ K-mean\_14  & 14 & 0.4& 0.75& 0.3 & 0.95 & 0.65 & 0.2 \\
 
 \subsubsection{\cite{Middel2018} Sobel operator/flood-fill algorithm}\label{sec:floodfill}
 
-\cite{Middel2018} developed a process based on a Sobel filter and flood-fill algorithm \citep{Sobel1968,Laungrungthip2008,Middel2017}. This method was designed to calculate sky view factor from Google Street View panorama images (rescaled to 512x512) that had the bottom half cropped off and were converted to a fisheye projection. \cite{Middel2018}'s evaluation against 1.6 million locations deep learning classified images reported error rates of RMSE (in SVF) of 0.045 and a R$^{2}$ of 0.880. All 38,521 images in the combined training and validation dataset were processed with this algorithm (sky pixels marked with white, RGB 255,255,255), compared to validation images, and results saved for a comparison with our process flow results.  Example results are shown in Figure \ref{fig:sobelflood}. Note, we used this system to process regular outdoor imagery, not below the horizon cropped fisheye images.
+\cite{Middel2018} developed a process based on a Sobel filter \citep{Sobel1968} and flood-fill algorithm \citep{Laungrungthip2008,Middel2017}. This method was designed to calculate sky view factor from Google Street View panoramas (rescaled to 512x512) that had the bottom half cropped off and were converted to a fisheye projection. All 38,521 images in the combined training and validation dataset were processed with this algorithm (sky pixels marked with white, RGB 255,255,255), compared to validation images, and results saved for a comparison with our process flow results. Note, we used this system to process varied outdoor imagery, not cropped below the horizon fisheye images as this algorithm was originally designed to process. Results are shown in Figure \ref{fig:sobelflood}.
 
 
 
@@ -378,32 +384,22 @@ K-mean\_14  & 14 & 0.4& 0.75& 0.3 & 0.95 & 0.65 & 0.2 \\
 \subsection{Neural network}\label{sec:nn}
 
 \subsubsection{Inception V3}\label{sec:inception}
-The Microsoft Cognitive Toolkit (CNTK) \citep{Yu2015,Agarwal2016}, with the the Inception V3 network \citep{Szegedy2015a}, was used in this project to route images through our adaptive algorithm. This artificial neural network (NN) is a widely used model for image classification across a large variety of fields \citep{Xia2017,Hassannejad2016}. This model is trained by presenting the model with list of images assigned to categories (in our case of which technique performed most accurately for each image) and running the training process until the model reached peak accuracy (convergence) at recognising images from these classifications.
+The Microsoft Cognitive Toolkit (CNTK) \citep{Yu2015,Agarwal2016}, with the the Inception V3 network \citep{Szegedy2015a}, was used in this project to route images through our adaptive algorithm. This artificial neural network (NN) is a widely used model for image classification across a large variety of fields \citep{Xia2017,Hassannejad2016}. The model was trained by presenting it with a list of images assigned to categories (in our case of which technique performed most accurately for each image) and running the training process until the model reached peak accuracy (convergence) at recognising images from these classifications.
 
 
 \subsubsection{Neural network training}\label{sec:nntraining}    
 
-The entire dataset of 38,522 images was split into two datasets of 75\% training and 25\% validation. All training and validation images (which consisted of images of a wide variety of sizes and ratios) were rescaled to 300x300. The network was calibrated using supervised learning with the generated dataset to identify one of the 13 sky detection techniques and parameters that performed with the highest accuracy for each image. The neural network was trained for 250 epochs on a Nvidia GeForce GTX 1080 GPU, requiring about 12 hours. The neural network reached peak accuracy (errs=53.445\%; top5Errs=10.782\%) at epoch 182. To avoid overfitting and overtraining, epoch 182 was used for classification. Examples imagery used in training for selected classifications are shown in Figure \ref{fig:classImages}.
+The entire dataset of 38,522 images was split into two datasets of 75\% training and 25\% validation. All training and validation images (which consisted of images of a wide variety of sizes and ratios) were rescaled to 300x300. The network was calibrated using supervised learning with the generated dataset to identify one of the 13 sky detection techniques and parameters that performed with the highest accuracy for each image. The neural network was trained for 250 epochs on a Nvidia GeForce GTX 1080 GPU, requiring about 12 hours. The neural network reached peak accuracy (errs=53.445\%; top5Errs=10.782\%) at epoch 182. To avoid overfitting and overtraining, epoch 182 was used for classification. 
 
 %results_per_epoch1:Finished Epoch[182 of 250]: [Validate] ce = 4.20379336 * 9636; errs = 53.445% * 9636; top5Errs = 10.782% * 9636
 
 
 
-\begin{figure}
-\centering
-\textbf{a)}\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-0_Mean_7_8_300_tiles.png}
-\textbf{b)}\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-3_Mean_7_6_100_tiles.png}
-\textbf{c)}\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-5_K-mean_6_tiles.png}
-\textbf{d)}\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-9_Sobel_70_tiles.png}
-\caption{\textbf{Selected imagery used for NN training for classifications 
-a) Mean\_7\_8\_300, b) Mean\_7\_6\_100, c) K-mean\_6, d) Sobel\_70.}}
-\label{fig:classImages}
-\end{figure}
-
-
 
 \subsubsection{Neural network inference}\label{sec:nninference}    
 Using the trained model from epoch 182, inferences were performed using the 9635 images from the validation dataset. Based on the classification picked by the NN as being the most probable, the appropriate technique and parameters from that classification were used to mark the sky pixels. The marked image was compared to the validation image and accuracy calculated.
+
+
 
 \section{Results}\label{sec:results}
 
@@ -449,7 +445,21 @@ Sobel\_95 &0&0.421&0.045&0.225&0.0&0.419 \\
 \end{figure}
 
 \subsection{Results from neural network classified techniques}\label{sec:resultsnn}
-Figure \ref{fig:errorplots} presents a theoretical best case. If the NN was 100\% accurate in picking the best technique from the thirteen possible combinations based on its training, a RMSE of 0.026 and 0.02 is possible against the 38,115 Skyfinder images and 407 GSV images respectively. However, the NN only achieved an accuracy of errs=53.445\% and top5Errs=10.782\% for the 13 classifications. Figure \ref{fig:errorplotscntk} shows the overall accuracy of the NN chosen pathway process flow against the 9636 validation images, with a RMSE of 0.065 and R$^{2}$ of 0.873.
+Figure \ref{fig:errorplots} presents a theoretical best case. If the NN was 100\% accurate in picking the best technique from the thirteen possible combinations based on its training, a RMSE of 0.026 and 0.02 is possible against the 38,115 Skyfinder images and 407 GSV images respectively. However, the NN only achieved an accuracy of errs=53.445\% and top5Errs=10.782\% for the 13 classifications. Figure \ref{fig:errorplotscntk} shows the overall accuracy of the NN chosen pathway process flow against the 9636 validation images, with a RMSE of 0.065 and R$^{2}$ of 0.873. Samples of the imagery used in training for selected classifications are shown in Figure \ref{fig:classImages}. As can be seen in this figure, there are no strong visual themes in each of the classifications (i.e. all very cloudy, clear blue sky, or multi-coloured sky). However, as the classification results were more of a continuum, where some techniques did slightly better than others, the neural network is required to classify the images on more subtle features not readily visible to the eye. This can also explain the relatively low accuracy of the neural network. However, as will be seen in the results, picking the exact best method is not necessary as long as one of the better methods is picked for each image.
+
+
+\begin{figure}
+\centering
+\textbf{a)}\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-0_Mean_7_8_300_tiles.png}
+\textbf{b)}\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-3_Mean_7_6_100_tiles.png}
+\textbf{c)}\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-5_K-mean_6_tiles.png}
+\textbf{d)}\includegraphics[trim = 0mm 0mm 0mm 0mm,clip,scale=0.14]{Images/13-9_Sobel_70_tiles.png}
+\caption{\textbf{Selected imagery used for NN training for classifications 
+a) Mean\_7\_8\_300, b) Mean\_7\_6\_100, c) K-mean\_6, d) Sobel\_70.}}
+\label{fig:classImages}
+\end{figure}
+
+
 
 \begin{figure}
 \centering

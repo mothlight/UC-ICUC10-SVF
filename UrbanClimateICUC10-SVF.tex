@@ -200,8 +200,8 @@ Our sky pixel identification system used data from two main sources, the Skyfind
 \begin{tabular}{ l l l}
 \textbf{Abbreviation} & \textbf{Description} & \textbf{Variations}  \\ \hline
 Sobel  & Implementation of \cite{Wang2015a}'s Sobel operator/hybrid probability model & 6 \\	
-Mean &  Mean shift segmentation algorithm developed by the authors &4 \\
-K-means  & K-means clustering and HSL colour filtering algorithm developed by the authors &3 \\
+Mean &  Mean shift segmentation based algorithm developed by the authors &4 \\
+K-means  & K-means clustering and HSL colour filtering based algorithm developed by the authors &3 \\
 Sobel/flood-fill  & \cite{Middel2018}'s Sobel operator/flood-fill algorithm used as benchmark &1 \\
 \hline
 \end{tabular}
@@ -271,7 +271,7 @@ An implementation of the sky detection algorithm presented in \cite{Wang2015a} w
 
 Mean shift is an algorithm often used for image segmentation \citep{Comaniciu1997,Comaniciu2002}. Image segmentation involves decomposing images into homogeneous contiguous regions of pixels of similar colours or grey levels. Mean shift uses an iterative algorithm to pick search windows (spatial and range) of a certain radius in an initial location in an image, then compute a mean shift vector and translate the search window by that amount until convergence \citep{Comaniciu1997}. Segmentation results are highly dependent on input parameters for the algorithm, which include the spatial radius of the search window, colour range radius of the search window, and minimum density (the minimum number of pixels to constitute a region). The mean shift used in this project is based on a Java port by \cite{Pangburn2002} of the C++ based EDISON vision toolkit \citep{Christoudias2002}. 
 
-Four different variations of the input parameters were used, determined experimentally through a sensitivity test to work across the widest variety of images. For example, in an effort to shift the entire sky to a single colour, images with patchy multi-coloured clouds are more accurately segmented when the radius and density parameters are increased (in Figures \ref{fig:meantypes}a to d). However, this can have the effect of creating false positives in other images, for example, buildings (in Figures \ref{fig:meantypes}i to l centre left background) are increasingly segmented into the sky. The technique designations and parameters are detailed in Table \ref{tab:techniques2}. Mean shift is applied to each image with the chosen set of parameters and pixels of the most common colour (in the top half of the image) are marked as sky. Results are shown in Figure \ref{fig:meanresults}.
+Four different variations of the input parameters were used, determined experimentally through a sensitivity test to work across the widest variety of images. For example, in an effort to shift the entire sky to a single colour, images with patchy multi-coloured clouds are more accurately segmented when the radius and density parameters are increased (in Figures \ref{fig:meantypes}a to \ref{fig:meantypes}d). However, this can have the effect of creating false positives in other images, for example, buildings (in Figures \ref{fig:meantypes}i to \ref{fig:meantypes}l, centre left background) are increasingly segmented into the sky. The technique designations and parameters are detailed in Table \ref{tab:techniques2}. Mean shift is applied to each image with the chosen set of parameters and pixels of the most common colour (in the top half of the image) are marked as sky. Results are shown in Figure \ref{fig:meanresults}.
 
 
 \begin{table}[!htbp]
@@ -291,29 +291,24 @@ Mean\_7\_6\_100	& 7& 6& 100 \\
 
 \begin{figure}
 \centering    
-%\textbf{f)}\includegraphics[scale=0.10]{Images/mean/4880_orig.png} 
-\textbf{a)}\includegraphics[scale=0.08]{Images/mean/4880_3_6_100.png} 
-\textbf{b)}\includegraphics[scale=0.08]{Images/mean/4880_7_6_100.png} 
-\textbf{c)}\includegraphics[scale=0.08]{Images/mean/4880_5_7_210.png} 
-\textbf{d)}\includegraphics[scale=0.08]{Images/mean/4880_7_8_300.png} 
+\textbf{\phantom{\textbf{a)}}}\includegraphics[scale=0.08]{Images/mean/4880_3_6_100.png} 
+\textbf{\phantom{\textbf{b)}}}\includegraphics[scale=0.08]{Images/mean/4880_7_6_100.png} 
+\textbf{\phantom{\textbf{c)}}}\includegraphics[scale=0.08]{Images/mean/4880_5_7_210.png} 
+\textbf{\phantom{\textbf{d)}}}\includegraphics[scale=0.08]{Images/mean/4880_7_8_300.png} 1)
+\textbf{\phantom{\textbf{a)}}}\includegraphics[scale=0.08]{Images/mean/4880_3_6_100_ms_sky_mark.png} 
+\textbf{\phantom{\textbf{b)}}}\includegraphics[scale=0.08]{Images/mean/4880_7_6_100_ms_sky_mark.png} 
+\textbf{\phantom{\textbf{c)}}}\includegraphics[scale=0.08]{Images/mean/4880_5_7_210_ms_sky_mark.png} 
+\textbf{\phantom{\textbf{d)}}}\includegraphics[scale=0.08]{Images/mean/4880_7_8_300_ms_sky_mark.png} 2)
+\textbf{\phantom{\textbf{a)}}}\includegraphics[scale=0.08]{Images/mean/0070_3_6_100.png} 
+\textbf{\phantom{\textbf{b)}}}\includegraphics[scale=0.08]{Images/mean/0070_7_6_100.png} 
+\textbf{\phantom{\textbf{c)}}}\includegraphics[scale=0.08]{Images/mean/0070_5_7_210.png} 
+\textbf{\phantom{\textbf{d)}}}\includegraphics[scale=0.08]{Images/mean/0070_7_8_300.png} 3)
+\textbf{a)}\includegraphics[scale=0.08]{Images/mean/0070_3_6_100_ms_sky_mark.png} 
+\textbf{b)}\includegraphics[scale=0.08]{Images/mean/0070_7_6_100_ms_sky_mark.png} 
+\textbf{c)}\includegraphics[scale=0.08]{Images/mean/0070_5_7_210_ms_sky_mark.png} 
+\textbf{d)}\includegraphics[scale=0.08]{Images/mean/0070_7_8_300_ms_sky_mark.png} 4)
 
-\textbf{e)}\includegraphics[scale=0.08]{Images/mean/4880_3_6_100_ms_sky_mark.png} 
-\textbf{f)}\includegraphics[scale=0.08]{Images/mean/4880_7_6_100_ms_sky_mark.png} 
-\textbf{g)}\includegraphics[scale=0.08]{Images/mean/4880_5_7_210_ms_sky_mark.png} 
-\textbf{h)}\includegraphics[scale=0.08]{Images/mean/4880_7_8_300_ms_sky_mark.png} 
-
-%\textbf{a)}\includegraphics[scale=0.10]{Images/mean/0070_orig.png} 
-\textbf{i)}\includegraphics[scale=0.08]{Images/mean/0070_3_6_100.png} 
-\textbf{j)}\includegraphics[scale=0.08]{Images/mean/0070_7_6_100.png} 
-\textbf{k)}\includegraphics[scale=0.08]{Images/mean/0070_5_7_210.png} 
-\textbf{l)}\includegraphics[scale=0.08]{Images/mean/0070_7_8_300.png} 
-
-\textbf{m)}\includegraphics[scale=0.08]{Images/mean/0070_3_6_100_ms_sky_mark.png} 
-\textbf{n)}\includegraphics[scale=0.08]{Images/mean/0070_7_6_100_ms_sky_mark.png} 
-\textbf{o)}\includegraphics[scale=0.08]{Images/mean/0070_5_7_210_ms_sky_mark.png} 
-\textbf{p)}\includegraphics[scale=0.08]{Images/mean/0070_7_8_300_ms_sky_mark.png} 
-
-\caption{\bf Comparison outputs of intermediate mean shift segmentation algorithm processing steps using varying parameters, showing columns a) Mean\_3\_6\_100, b) Mean\_7\_6\_100, c) Mean\_5\_7\_210, d) Mean\_7\_8\_300 and rows e) and m) final marked images. }
+\caption{\bf Comparison outputs of intermediate mean shift segmentation algorithm processing steps using varying parameters, showing columns a) Mean\_3\_6\_100, b) Mean\_7\_6\_100, c) Mean\_5\_7\_210, d) Mean\_7\_8\_300 and rows 1) and 3) intermediate mean shifted and 2) and 4) the final marked images. }
  \label{fig:meantypes}  
 \end{figure} 
 
@@ -368,7 +363,7 @@ K-mean\_14  & 14 & 0.4& 0.75& 0.3 & 0.95 & 0.65 & 0.2 \\
 
 \subsubsection{\cite{Middel2018} Sobel operator/flood-fill algorithm}\label{sec:floodfill}
 
-\cite{Middel2018} developed a process based on a Sobel filter \citep{Sobel1968} and flood-fill algorithm \citep{Laungrungthip2008,Middel2017}. This method was designed to calculate sky view factor from Google Street View panoramas (rescaled to 512x512) that had the bottom half cropped off and were converted to a fisheye projection. All 38,521 images in the combined training and validation dataset were processed with this algorithm (sky pixels marked with white, RGB 255,255,255), compared to validation images, and results saved for a comparison with our process flow results. Note, we used this system to process varied outdoor imagery, not cropped below the horizon fisheye images as this algorithm was originally designed to process. Results are shown in Figure \ref{fig:sobelflood}.
+\cite{Middel2018} developed a process based on a Sobel filter \citep{Sobel1968} and flood-fill algorithm \citep{Laungrungthip2008,Middel2017}. This method was designed to calculate sky view factor from Google Street View panoramas that had the bottom half cropped off and were converted to a fisheye projection. Note, this algorithm also rescales the imagery to 512x512. All 38,521 images in the combined training and validation dataset were processed with this algorithm (sky pixels marked with white, RGB 255,255,255), compared to validation images, and results saved for a comparison with our process flow results. In our benchmark comparison, we used this system to process varied outdoor imagery, not cropped below the horizon fisheye images as this algorithm was originally designed to process. Results are shown in Figure \ref{fig:sobelflood}.
 
 
 
@@ -411,23 +406,24 @@ There are three sets of results reported in this section. The first is a compari
 All 14 techniques and parameter combinations were used to process the two datasets of the 38,115 Skyfinder, 407 GSV images, and the 38,521 combined dataset. A summary of R$^{2}$ and RMSE statistics for evaluations against the three datasets is presented in Table \ref{tab:evalall}. Plots of a number of the better performing techniques are presented in Figure \ref{fig:errorallcombined}. Note, the strong horizontal lines in these figures are due to the nature of the dataset that contain large groups of the same scenes (with the same percentage of sky) under different lighting and weather conditions, resulting in a wide range of calculated results.
 
 \begin{table}[!htbp]
-\caption{\bf Evaluation of all techniques and parameters for Skyfinder dataset, GSV dataset, and combined dataset. (RMSE units in \%/100.) \label{tab:evalall}}     
-\begin{tabular}{ l  l l l l l l}
-\textbf{Designation}  & \textbf{Skyfinder R$^{2}$} & \textbf{Skyfinder RMSE} & \textbf{GSV R$^{2}$} & \textbf{GSV RMSE} & \textbf{All R$^{2}$} & \textbf{All RMSE} \\ \hline
-Mean\_7\_6\_100	&0.746&0.104&0.484&0.076&0.749&0.104 \\
-Sobel\_70 &0.395&0.134&0.056&0.107&0.398&0.133 \\
-Mean\_5\_7\_210	&0.658&0.142&0.489&0.073&0.661&0.141 \\
-Mean\_7\_8\_300 &0.645&0.143&0.505&0.07&0.648&0.142 \\
-Mean\_3\_6\_100	&0.657&0.148&0.561&0.066&0.66&0.147 \\
-Sobel\_60 &0.288&0.104&0.003&0.188&0.288&0.165 \\
-Sobel\_80 &0.254&0.177&0.436&0.07&0.259&0.176 \\
-Sobel/flood-fill &0.134&0.211&0.067&0.312&0.13&0.212 \\
-Sobel\_50 &0.104&0.23&0.021&0.303&0.103&0.231 \\
-Sobel\_90 &0.041&0.317&0.212&0.144&0.04&0.316 \\
-K-mean\_6 &0.022&0.325&0.007&0.155&0.022&0.323 \\
-K-mean\_14 &0.029&0.328&0.019&0.233&0.029&0.327 \\
-K-mean\_12 &0.028&0.343&0.017&0.264&0.03&0.342 \\
-Sobel\_95 &0&0.421&0.045&0.225&0.0&0.419 \\
+\caption{\bf Evaluation of all techniques and parameters for Skyfinder dataset and GSV dataset. \label{tab:evalall}}     
+\begin{tabular}{ l  l l l l }
+\textbf{Designation}  & \textbf{Skyfinder R$^{2}$} & \textbf{Skyfinder RMSE} & \textbf{GSV R$^{2}$} & \textbf{GSV RMSE}  \\ \hline
+Mean\_3\_6\_100	&0.658&0.148&0.603&0.062 \\
+Mean\_5\_7\_210	&0.659&0.142&0.526&0.069 \\
+Mean\_7\_6\_100	&0.748&0.104&0.525&0.072 \\
+Mean\_7\_8\_300 &0.646&0.143&0.544&0.067  \\
+K-mean\_6       &0.023&0.325&0.002&0.16 \\
+K-mean\_12      &0.028&0.343&0.017&0.264 \\
+K-mean\_14      &0.029&0.328&0.023&0.233 \\
+Sobel\_50       &0.104&0.23 &0.026&0.302 \\
+Sobel\_60       &0.288&0.164&0.005&0.189 \\
+Sobel\_70       &0.396&0.134&0.049&0.108 \\
+Sobel\_80       &0.255&0.177&0.433&0.07  \\
+Sobel\_90       &0.041&0.317&0.214&0.142 \\
+Sobel\_95       &0    &0.421&0.053&0.224 \\
+\hline
+Sobel/flood-fill&0.134&0.211&0.067&0.312 \\
 \hline
 \end{tabular}
 \end{table}

@@ -434,10 +434,18 @@ Sobel/flood-fill&0.134&0.211&0.067&0.312 \\
 
 \begin{figure}
 \centering
-\textbf{a)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivMean_7_6_100.png}
+\textbf{a)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivMean_7_6_100.png} 
+% R CMD BATCH scriptCombinedIndiv_Mean_7_6_100.R
+% cp -u ../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsGSVandSMean_7_6_100.png Images/ErrorPlotsCombinedIndivMean_7_6_100.png
 \textbf{b)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivMean_7_8_300.png}
+% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptCombinedIndiv_Mean_7_8_300.R
+% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsGSVandSMean_7_8_300.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlotsCombinedIndivMean_7_8_300.png
 \textbf{c)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivKmean6.png}
+% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptCombinedIndiv_Kmean6.R
+% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsCombinedIndivKmean6.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlotsCombinedIndivKmean6.png
 \textbf{d)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivSobel70.png}
+% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptCombinedIndiv_Sobel70.R
+% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsGSVandSSobel70.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlotsCombinedIndivSobel70.png
 \caption{\textbf{Observed vs. calculated sky pixels using the a) Mean\_7\_6\_100, b) Mean\_7\_8\_300, c) K-mean\_6, and d) Sobel\_70 techniques on the 38,521 image combined dataset.} }
 \label{fig:errorallcombined}
 \end{figure}
@@ -448,7 +456,11 @@ Figure \ref{fig:errorplots} presents a theoretical best case. If the NN was 100\
 \begin{figure}
 \centering
 \textbf{a)}\includegraphics[scale=0.15]{Images/ErrorPlots1Combined.png}
+% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/TheoreticalAccuracySkyGsv.R
+% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsTheoSkyAndGsv.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlots1Combined.png 
 \textbf{b)}\includegraphics[scale=0.15]{Images/ErrorPlotsCNTK.png}
+% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptCNTK_13classesSkyfinderOnlyEp249.R
+% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsCNTK13classesSkyfinderOnlyEp249_2.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlotsCNTK.png 
 \caption{\textbf{
 Theoretical best case results if the NN is 100\% accurate for a) Skyfinder and GSV datasets. b) Results of NN picks against the 9636 validation images.}}
 \label{fig:errorplotscntk} \label{fig:errorplots}
@@ -515,7 +527,11 @@ In the evaluation of the Sobel/flood-fill algorithm, results from the Skyfinder 
 \begin{figure}
 \centering
 \textbf{a)}\includegraphics[scale=0.15]{Images/ErrorPlots2FloodfillAll.png}
+% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/FloodfillEvalSkyfinderAndGsv.R
+% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/FloodfillEvalSkyGsv.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlots2FloodfillAll.png 
 \textbf{b)}\includegraphics[scale=0.15]{Images/ErrorPlots2FloodfillValidation.png}
+% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptFloodfillValidationFloodfillValidation.R
+% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2FloodfillValidation_2.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlots2FloodfillValidation.png 
 \caption{\textbf{Results of Sobel/flood-fill combination against a) combined 38,520 image dataset and b) 9636 validation images.}}
 \label{fig:errorfloodall}
 \end{figure}

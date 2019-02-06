@@ -440,7 +440,7 @@ Sobel/flood-fill&0.134&0.211&0.067&0.312 \\
 % cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsGSVandSMean_7_8_300.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlotsCombinedIndivMean_7_8_300.png
 \textbf{c)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivKmean6.png}
 % R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptCombinedIndiv_Kmean6.R
-% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsCombinedIndivKmean6.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlotsCombinedIndivKmean6.png
+% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsGSVandSKmean6.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlotsCombinedIndivKmean6.png
 \textbf{d)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivSobel70.png}
 % R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptCombinedIndiv_Sobel70.R
 % cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsGSVandSSobel70.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlotsCombinedIndivSobel70.png
@@ -535,11 +535,11 @@ In the evaluation of the Sobel/flood-fill algorithm, results from the Skyfinder 
 % R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptCombinedIndivVal_Sobel70.R
 %  cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsGSVandSSobel70val.png  /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlotsGSVandSSobel70val.png 
 \textbf{c)}\includegraphics[scale=0.15]{Images/ErrorPlots2FloodfillValidation.png}
-% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptFloodfillValidationFloodfillValidation.R
-% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2FloodfillValidation_2.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlots2FloodfillValidation.png 
+% FloodfillEvaluation.java
+% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptFloodfillValidationSplitFloodfillValidationSplit.R
+% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2SplitFloodfillValidationSplit.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlots2FloodfillValidation.png 
 \caption{\textbf{
-a) Results of NN picks against the 9636 validation images. b) Benchmark 1: Results of Sobel\_70 against 9636 validation images.
-d) Benchmark 2: Results of Sobel/flood-fill combination against 9636 validation images.}}
+Results against the 9636 validation images using a) our adaptive NN process, b) Benchmark 1: Sobel\_70, and c) Benchmark 2: Sobel/flood-fill combination.}}
 \label{fig:errorfloodall}
 \end{figure}
 

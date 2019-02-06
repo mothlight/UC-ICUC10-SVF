@@ -101,9 +101,19 @@
 \cortext[cor1]{Principal corresponding author}
 
 
+
+
+
 \begin{abstract}
 
-The data presented in this article is related to the research article entitled ``Urban design using generative adversarial networks: optimising citizen health and wellbeing" \citep{wijnands2018urban}. The data consists of Google Street View imagery (4,473,991 images, 8-bit JPEG at 256$\times$256 resolution) from four headings (0, 90, 180, and 270 degrees) at 1,118,534 locations in the greater metropolitan area of Melbourne, Australia. Locations were determined using the nodes of the vector lines in the PSMA Street Network dataset \citep{PSMA2018} and data was post-processed by removing indoor images. The dataset is available on Zenodo at https://doi.org/10.5281/zenodo.1256252; please cite this paper if you use the dataset.
+The data presented in this article is related to the research article entitled ``Sky pixel detection in outdoor imagery using an adaptive algorithm and machine learning." \citep{Nice2019UC}. 
+
+The dataset consists of a trained Inception V3 neural network model as well as the configuration files to retrain the neural network. The dataset also contains two sets of outdoor imagery (from Skyfinder and Google Street View) used to train the neural network and validate the sky pixel detection system in the linked article. The original images are included as well as rescaled imagery used to train the neural network, and sky masks used for validation.
+
+
+
+
+%The data consists of Google Street View imagery (4,473,991 images, 8-bit JPEG at 256$\times$256 resolution) from four headings (0, 90, 180, and 270 degrees) at 1,118,534 locations in the greater metropolitan area of Melbourne, Australia. Locations were determined using the nodes of the vector lines in the PSMA Street Network dataset \citep{PSMA2018} and data was post-processed by removing indoor images. The dataset is available on Zenodo at https://doi.org/10.5281/zenodo.1256252; please cite this paper if you use the dataset.
 
 \end{abstract}
 
@@ -121,8 +131,8 @@ Street view, imagery, neural network, deep learning, urban analytics
 \caption{\bf Specifications Table \label{tab:spectable}}     
 \begin{tabular}{ |l | l| }
  \hline    
-Subject area & Urban analytics, urban design   \\ \hline
-More specific subject area & Machine learning  \\ \hline
+Subject area & Urban climate, urban morphology   \\ \hline
+More specific subject area & Machine learning, computer vision  \\ \hline
 Type of data & Google Street View (GSV) imagery of Melbourne, Australia  \\ \hline
 How data was acquired & Downloaded using the Google Street View API \citep{GoogleMaps2017b}  \\ \hline
 Data format & JPEG 256$\times$256 8-bit  \\ \hline
@@ -196,7 +206,7 @@ Post-processing reduced the number of locations to 1.1 million, by filtering out
 
 %\section*{References}
 \bibliographystyle{elsarticle-harv} 
-\bibliography{library}
+\bibliography{bib}
 
 %% The Appendices part is started with the command \appendix;
 %% appendix sections are then done as normal sections

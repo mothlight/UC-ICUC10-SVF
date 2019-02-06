@@ -103,7 +103,7 @@
 %% use optional labels to link authors explicitly to addresses:
 
 
-\author[melb]{Kerry~A.~Nice\corref{cor1}}
+\author[melb,monash]{Kerry~A.~Nice\corref{cor1}}
 \ead{kerry.nice@unimelb.edu.au}
 \author[melb]{Jasper S. Wijnands}
 \author[asu]{Ariane Middel}
@@ -120,7 +120,7 @@
 \address[cis]{School of Computing and Information Systems, University of Melbourne, Victoria 3010, Australia}
 \address[eng]{Melbourne School of Engineering; and Melbourne School of Population and Global Health, University of Melbourne, Victoria, Australia.}
 \address[sunshine]{Centre for Human Factors and Sociotechnical Systems, University of the Sunshine Coast, Australia.}
-%\address[monash]{School of Earth, Atmosphere and Environment, Monash University, Clayton, VIC 3800, Australia}
+\address[monash]{School of Earth, Atmosphere and Environment, Monash University, Clayton, VIC 3800, Australia}
 %\address[az1]{School of Geographical Sciences and Urban Planning, Arizona State University, Tempe, Arizona, USA}
 %\address[az2]{Urban Climate Research Center, Arizona State University, Tempe, Arizona, USA}
 %\address[crc]{Cooperative Research Centre for Water Sensitive Cities, Melbourne, Australia}
@@ -213,12 +213,12 @@ Sobel/flood-fill  & \cite{Middel2018}'s Sobel operator/flood-fill algorithm used
 Overall, 38,521 images of outdoor scenes were used. 38,115 images from the Skyfinder dataset were split into two datasets, 28,586 for neural network training and 9529 for validation. An additional 406 images were used from GSV for technique evaluations.
 
 \subsubsection{Skyfinder data}\label{sec:finderdata}
-This dataset was built from 90,000 long-term timelapse images from 53 outdoor webcams over a variety of lighting and weather conditions. Images are of a wide range of sizes and aspect ratios, including 640x489, 857x665, 960x600, 1280x720, and 1280x960. For each location, a binary sky mask was created for validation purposes. All of these images are available from the Skyfinder website \citep{Mihail2015}.
+This dataset was built from 90,000 long-term timelapse images from 53 outdoor webcams over a variety of lighting and weather conditions. Images are of a wide range of sizes and aspect ratios, including 640$\times$489, 857$\times$665, 960$\times$600, 1280$\times$720, and 1280$\times$960. For each location, a binary sky mask was created for validation purposes. All of these images are available from the Skyfinder website \citep{Mihail2015}.
 
 In this study, we selected 38,115 images from 40 locations. Night-time and images with heavy fog were removed as these are conditions unlikely to be encountered in imagery used to calculate sky view factor (i.e. Google Street View).
 
 \subsubsection{GSV data}\label{sec:gsvdata}
-Panoramas for 406 locations in a variety of cities (Adelaide, Brisbane, Paris, Sydney, Tokyo, Perth, and Melbourne) were retrieved using the Google Maps API \citep{GoogleMaps2017b}. Images were retrieved as six 640x640 tiles (one each for up, down, left, right, front, and back directions). The six images were stitched together into a 1280x960 cubic image using Java 8 \citep{Oracle2018} and OpenCV\citep {Bradski2000}. Validation images were created by hand marking sky regions in each image using the GNU Image Manipulation Program \citep{GIMP2019}. Figure \ref{fig:origmarked} shows an example of an GSV panorama image and a hand-marked validation image.
+Panoramas for 406 locations in a variety of cities (Adelaide, Brisbane, Paris, Sydney, Tokyo, Perth, and Melbourne) were retrieved using the Google Maps API \citep{GoogleMaps2017b}. Images were retrieved as six 640$\times$640 tiles (one each for up, down, left, right, front, and back directions). The six images were stitched together into a 1280$\times$960 cubic image using Java 8 \citep{Oracle2018} and OpenCV\citep {Bradski2000}. Validation images were created by hand marking sky regions in each image using the GNU Image Manipulation Program \citep{GIMP2019}. Figure \ref{fig:origmarked} shows an example of an GSV panorama image and a hand-marked validation image.
 
 \begin{figure}
 \centering    
@@ -364,7 +364,7 @@ K-mean\_14  & 14 & 0.4& 0.75& 0.3 & 0.95 & 0.65 & 0.2 \\
 
 \subsubsection{\cite{Middel2018} Sobel operator/flood-fill algorithm}\label{sec:floodfill}
 
-\cite{Middel2018} developed a process based on a Sobel filter \citep{Sobel1968} and flood-fill algorithm \citep{Laungrungthip2008,Middel2017}. This method was designed to calculate sky view factor from Google Street View panoramas that had the bottom half cropped off and converted to a fisheye projection. Note, this algorithm also rescales the imagery to 512x512. All 38,521 images in the combined training and validation dataset were processed with this algorithm (sky pixels marked with white, RGB 255,255,255), compared to validation images, and results saved for a comparison with our process flow results. These results were kept separate from the other 13 techniques and were not included in the NN training process (see Section \ref{sec:nntraining}). Also, in this benchmark comparison, we used this system to process a varied outdoor imagery dataset, not the fisheye imagery (cropped below the horizon) this algorithm was originally designed to process. Results are shown in Figure \ref{fig:sobelflood}.
+\cite{Middel2018} developed a process based on a Sobel filter \citep{Sobel1968} and flood-fill algorithm \citep{Laungrungthip2008,Middel2017}. This method was designed to calculate sky view factor from Google Street View panoramas that had the bottom half cropped off and converted to a fisheye projection. Note, this algorithm also rescales the imagery to 512$\times$512. All 38,521 images in the combined training and validation dataset were processed with this algorithm (sky pixels marked with white, RGB 255,255,255), compared to validation images, and results saved for a comparison with our process flow results. These results were kept separate from the other 13 techniques and were not included in the NN training process (see Section \ref{sec:nntraining}). Also, in this benchmark comparison, we used this system to process a varied outdoor imagery dataset, not the fisheye imagery (cropped below the horizon) this algorithm was originally designed to process. Results are shown in Figure \ref{fig:sobelflood}.
 
 
 
@@ -385,7 +385,7 @@ The Microsoft Cognitive Toolkit (CNTK) \citep{Yu2015,Agarwal2016}, with the the 
 
 \subsubsection{Neural network training}\label{sec:nntraining}    
 
-The Skyfinder dataset of 38,115 images was split into two datasets of 75\% training and 25\% validation. All training and validation images (which consisted of images of a wide variety of sizes and aspect ratios) were rescaled to 300x300. The network was calibrated using supervised learning with the generated dataset to identify one of the 13 sky detection techniques variations that performed with the highest accuracy for each image. Note, none of the GSV imagery was used in the NN training process.
+The Skyfinder dataset of 38,115 images was split into two datasets of 75\% training and 25\% validation. All training and validation images (which consisted of images of a wide variety of sizes and aspect ratios) were rescaled to 300$\times$300. The network was calibrated using supervised learning with the generated dataset to identify one of the 13 sky detection techniques variations that performed with the highest accuracy for each image. Note, none of the GSV imagery was used in the NN training process.
 
 
 
@@ -433,7 +433,7 @@ Sobel/flood-fill&0.134&0.211&0.067&0.312 \\
 \begin{figure}
 \centering
 \textbf{a)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivMean_7_6_100.png} 
-% R CMD BATCH scriptCombinedIndiv_Mean_7_6_100.R
+% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptCombinedIndiv_Mean_7_6_100.R
 % cp -u ../2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsGSVandSMean_7_6_100.png Images/ErrorPlotsCombinedIndivMean_7_6_100.png
 \textbf{b)}\includegraphics[scale=0.15]{Images/ErrorPlotsCombinedIndivMean_7_8_300.png}
 % R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptCombinedIndiv_Mean_7_8_300.R
@@ -453,14 +453,15 @@ Figure \ref{fig:errorplots}a presents a theoretical best case. If the NN was 100
 
 \begin{figure}
 \centering
-\textbf{a)}\includegraphics[scale=0.15]{Images/ErrorPlots1Combined.png}
-% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/TheoreticalAccuracySkyGsv.R
-% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsTheoSkyAndGsv.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlots1Combined.png 
-\textbf{b)}\includegraphics[scale=0.15]{Images/ErrorPlotsCNTK.png}
-% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptCNTK_13classesSkyfinderOnlyEp249.R
-% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsCNTK13classesSkyfinderOnlyEp249_2.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlotsCNTK.png 
+\includegraphics[scale=0.15]{Images/ErrorPlots1Combined.png}
+% AnalyzeResults2ReprocessTheory.java
+% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptReprocess2Theory.R
+% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2Reprocess2Theory.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlots1Combined.png 
+
 \caption{\textbf{
-Theoretical best case results if the NN is 100\% accurate for a) Skyfinder and GSV datasets. b) Results of NN picks against the 9636 validation images.}}
+Theoretical best case results if the NN is 100\% accurate for the 9636 validation images. 
+%b) Results of NN picks against the 9636 validation images.
+}}
 \label{fig:errorplotscntk} \label{fig:errorplots}
 \end{figure}
 
@@ -477,7 +478,7 @@ a) Mean\_7\_8\_300, b) Mean\_7\_6\_100, c) K-mean\_6, d) Sobel\_70.}}
 \label{fig:classImages}
 \end{figure}
 
-The neural network was trained for 250 epochs on a Nvidia GeForce GTX 1080 GPU, requiring about 12 hours. The neural network reached peak error rate of 46.2\% in choosing between the 13 classifications. However, as the classification results were more of a continuum, where some techniques did only slightly better than others, a strictly binary choice is not always necessary. Breaking down the accuracy with this in mind, the NN reached 52.6\% accuracy in picking the best method, 18.9\% accurate in picking the second best method, and 10.5\% in picking the third best method (for a total of the three of 82.0\%)
+The neural network was trained for 250 epochs on a Nvidia GeForce GTX 1080 GPU, requiring about 12 hours. The neural network reached peak error rate of 46.3\% in choosing between the 13 classifications. However, as the classification results were more of a continuum, where some techniques did only slightly better than others, a strictly binary choice is not always necessary. Breaking down the accuracy with this in mind, the NN reached 52.6\% accuracy in picking the best method, 18.9\% accurate in picking the second best method, and 10.5\% in picking the third best method (for a total of the three of 82.0\%)
 
 Figure \ref{fig:errorplotscntk}b shows the overall accuracy of the NN chosen pathway process flow against the 9636 validation images, with a RMSE of 0.063 and R$^{2}$ of 0.879. The accuracy of the NN has impacted the overall accuracy of the system (i.e. not reaching the theoretical accuracy of 0.026 or 0.02 RMSE), but the results are still very good. 
 
@@ -524,13 +525,19 @@ In the evaluation of the Sobel/flood-fill algorithm, results from the Skyfinder 
 
 \begin{figure}
 \centering
-\textbf{a)}\includegraphics[scale=0.15]{Images/ErrorPlots2FloodfillAll.png}
+\textbf{a)}\includegraphics[scale=0.15]{Images/ErrorPlotsCNTK.png}
+% AnalyzeCNTKResults.java
+% R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptCNTK_13classesSkyfinderGSVEp249.R
+% cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlotsCNTK13classesSkyfinderGSVEp249_2.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlotsCNTK.png 
+\textbf{b)}\includegraphics[scale=0.15]{Images/ErrorPlots2FloodfillAll.png}
 % R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/FloodfillEvalSkyfinderAndGsv.R
 % cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/FloodfillEvalSkyGsv.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlots2FloodfillAll.png 
-\textbf{b)}\includegraphics[scale=0.15]{Images/ErrorPlots2FloodfillValidation.png}
+\textbf{c)}\includegraphics[scale=0.15]{Images/ErrorPlots2FloodfillValidation.png}
 % R CMD BATCH /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/scriptFloodfillValidationFloodfillValidation.R
 % cp -u /home/kerryn/git/2018-03-MasterITProject/SkyViewDetection/SkyfinderEvaluationOutput/Plots/ErrorPlots2FloodfillValidation_2.png /home/kerryn/git/2019-01-UrbanClimateSVF/Images/ErrorPlots2FloodfillValidation.png 
-\caption{\textbf{Results of Sobel/flood-fill combination against a) combined 38,520 image dataset and b) 9636 validation images.}}
+\caption{\textbf{
+a) Results of NN picks against the 9636 validation images.
+Results of Sobel/flood-fill combination against a) combined 38,520 image dataset and b) 9636 validation images.}}
 \label{fig:errorfloodall}
 \end{figure}
 
@@ -539,14 +546,13 @@ In the evaluation of the Sobel/flood-fill algorithm, results from the Skyfinder 
 
 In comparison to published methods, the adaptive process performs well. Our accuracy of RMSE of 0.063 compares well to the RMSE of 0.205 for the \cite{Middel2018} Sobel/flood-fill algorithm and the best performing \cite{Wang2015a} Sobel variations, Sobel\_70 and Sobel\_80, which achieved an RMSE of 0.134 and 0.07.
 
-
 The results from Section \ref{sec:resultsall} show that no single technique and parameter combination performs sky pixel identification with high accuracy across the dataset used by this project. This dataset contains a wide variety of outdoor scenes with a wide range of lighting and weather conditions (as can be seen in some of the sample images in Figure \ref{fig:classImages}), challenging many of the techniques. 
 
 It was expected that all the algorithms would perform better with GSV imagery, due to their regularity. These images were captured with the same type of equipment, using the same camera angles (horizon at 50\% image height), under clear sky or partly cloudy conditions. The results show that almost all of the variations perform better with the GSV data than the Skyfinder data. Some of the variations even approach the accuracy of our system with the GSV data, for example Sobel\_80. 
 
-However, the Skyfinder dataset challenged all of the variations with the Mean and Sobel based methods achieving no better than 0.1 to 0.2 RMSE. However, for some individual images, even the poorest performing techniques excelled compared to all of the other techniques. This validates the need to have an adaptive process that can respond to the specific challenges each image presents to deliver overall better results than any single algorithm.
+However, the Skyfinder dataset challenged all of the variations with the Mean and Sobel based methods achieving no better than 0.1 to 0.2 RMSE. However, for some individual images, even the poorest performing techniques excelled compared to all of the other techniques. Also, in some cases, some techniques perform poorly for certain images. In Figure \ref{fig:errorallcombined}d, the results for the Sobel\_70 method show wide variations in $R^{2}$ between the Skyfinder and GSV datasets while the RMSE values are roughly similar. In the case of Sobel\_70, sky fractions for images with low sky fractions (a small number of images in the dataset) are systematically overestimated but this has a dramatic impact on the GSV $R^{2}$ values. Both of these cases validates the need to have an adaptive process that can respond to the specific challenges each image presents to deliver overall better results than any single algorithm, also allowing certain techniques to be not chosen in the cases that they will perform poorly.
 
-Having a range of combinations of techniques was important for the overall accuracy. Experimentation was preformed to reduce the number of classifications to to possibly increase the accuracy of the NN (reducing the number of the required classifications choices). However, in removing some of the worst performing methods (many of the K-means variations), the overall accuracy degraded. While some of the variations had very low accuracy overall, in processing some images, they were the best choice and having those available overrode the lower accuracy in the NN picking the exact best choice.
+Further, having a range of combinations of techniques was important for the overall accuracy. Experimentation was preformed to reduce the number of classifications to possibly increase the accuracy of the NN (reducing the number of the required classifications choices). However, in removing some of the worst performing methods (many of the K-means variations), the overall accuracy degraded. While some of the variations had very low accuracy overall, in processing some images, they were the best choice and having those available overrode the lower accuracy in the NN picking the exact best choice.
 
 While the theoretical accuracy from the 13 classes was a RMSE of 0.026, combinations of the best performing three or four classes saw reduced theoretical accuracy reduced to RMSEs of 0.039 (for Mean\_7\_6\_100, K-mean6, and Sobel\_70), 0.045 (for Mean\_3\_6\_100, K-mean6, and Sobel\_70), 0.036 (for Mean\_7\_6\_100, Mean\_7\_6\_100, K-mean6, and Sobel\_70), or 0.095 (for all Mean combinations). 
 

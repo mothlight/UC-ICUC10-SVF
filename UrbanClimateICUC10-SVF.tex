@@ -103,7 +103,7 @@
 %% use optional labels to link authors explicitly to addresses:
 
 
-\author[melb,monash]{Kerry~A.~Nice\corref{cor1}}
+\author[melb,monash,crc]{Kerry~A.~Nice\corref{cor1}}
 \ead{kerry.nice@unimelb.edu.au}
 \author[melb]{Jasper S. Wijnands}
 \author[asu]{Ariane Middel}
@@ -123,7 +123,7 @@
 \address[monash]{School of Earth, Atmosphere and Environment, Monash University, Clayton, VIC 3800, Australia}
 %\address[az1]{School of Geographical Sciences and Urban Planning, Arizona State University, Tempe, Arizona, USA}
 %\address[az2]{Urban Climate Research Center, Arizona State University, Tempe, Arizona, USA}
-%\address[crc]{Cooperative Research Centre for Water Sensitive Cities, Melbourne, Australia}
+\address[crc]{Cooperative Research Centre for Water Sensitive Cities, Melbourne, Australia}
 \address[asu]{School of Arts, Media and Engineering (AME), School of Computing, Informatics, and Decision Systems Engineering (CIDSE), Arizona State University}
 
 
@@ -153,13 +153,8 @@ sky view factor \sep Google Street View \sep machine learning \sep WUDAPT \sep s
 
 \end{frontmatter}
 
-
-
-
-
-
 \section{Introduction}\label{sec:introduction}
-Sky pixel detection in images is an ongoing computer vision challenge with a large range of applications such as for autonomous vehicle or drone navigation, but is also an important tool in urban climate research. The use of fisheye photography to calculate sky view factors (SVF), the fraction of sky visible to a point, at individual locations has long been used in urban climate. Numerous techniques exist to process this sort of imagery \citep{Grimmond2001,Chapman2004,Ali-Toudert2007}.
+Sky pixel detection in images is an ongoing computer vision challenge with a large range of applications such as autonomous vehicle or drone navigation \citep{Shen2013}, real time weather classification \citep{Roser2008}, image editing \citep{Laffont2014,Tao2009}, sky replacement \citep{Tsai2016}, and scene parsing \citep{Tighe2010,Hoiem2005}. It is also an important tool in urban climate research. The use of fisheye photography to calculate sky view factors (SVF), the fraction of sky visible to a point, at individual locations has long been used in urban climate. Numerous techniques exist to process this sort of imagery \citep{Grimmond2001,Chapman2004,Ali-Toudert2007}.
 
 In computer vision research, sky detection techniques have largely followed two main paths, either finding the pixels associated with the sky on a pixel by pixel basis or by finding a sky-ground boundary and labelling the sky as everything above that boundary. The first approach focuses on finding individual pixels associated with the sky. \cite{Luo2002} employed a physics based approach using the changes of sky colours from zenith to horizon. \cite{Gallagher2004} generated sky pixel probability maps based on colour values and a two-dimensional polynomial for each colour channel. \cite{Zafarifar2007} added texture, gradients, and vertical position to colour values to generate their probability map, however, only blue sky is detected accurately with clouds marked with low probabilities. \cite{Schmitt2009} added in an analysis of position and shape and were reportedly able to also accurately perform sky detection under cloudy conditions. 
 
@@ -180,12 +175,12 @@ An effort is ongoing to provide worldwide databases of standardised urban morpho
 
 Recent studies have started to utilise automated methods to build SVF data sets from GSV imagery \citep{Middel2018,Gong2018}. The results are promising but show some accuracy problems. Urban areas with large numbers of street trees in particular are cited by \cite{Gong2018} as a key source of inaccuracies in their system. In addition, these systems are highly dependent on GSV imagery, which as of 2018 has become more restrictive to license and expensive to obtain. This necessitates the need to expand the type of imagery used, imagery that unlike GSV, might vary more in lighting, weather conditions, camera angles, and aspect ratios. 
 
-With these factors in mind, we present a sky pixel detection system that is tested using various types of outdoor imagery collected under a wide range of lighting and weather conditions, camera angles, and aspect ratios. This system, built on artificial intelligence training, is adaptive, and uses a range of algorithms and combinations of parameters to locate the sky pixels to ensure the highest accuracy for each individual class of images. We evaluate a number of existing and new techniques for sky pixel classification and demonstrate that this new adaptive system performs more accurately than any of these individual techniques on their own.
+With these factors in mind, we present a sky pixel detection system that is tested using various types of outdoor imagery collected under a wide range of lighting and weather conditions, camera angles, and aspect ratios. This system, built on artificial intelligence training, is adaptive, and uses a range of algorithms and combinations of parameters to locate the sky pixels to ensure the highest accuracy for each individual class of images. We evaluate a number of existing and new techniques for sky pixel classification and demonstrate that this new adaptive system performs with greater accuracy than any of these individual techniques on their own.
 
 
 
 \section{Methods}\label{sec:Methods}
-Our sky pixel identification system used data from two main sources, the Skyfinder data set \citep{Mihail2016} and GSV \citep{GoogleMaps2017b}. Three computer vision techniques and a number of parameter variations were used to process the data (see Table \ref{tab:techniques}). The overall process flow is shown in Figure \ref{fig:process}. Finally, a fourth previously published technique (i.e. Sobel/flood-fill) was used as a benchmark test for our system.
+Our sky pixel identification system used data from two main sources, the Skyfinder data set \citep{Mihail2016} and GSV \citep{GoogleMaps2017b}. Three computer vision techniques and a number of parameter variations were used to process the data (see Table \ref{tab:techniques}). The overall process flow is shown in Figure \ref{fig:process}. Finally, a previously published fourth technique (i.e. Sobel/flood-fill) was used as a benchmark test for our system.
 
 
 
@@ -226,7 +221,7 @@ This data set was built from 90,000 long-term timelapse images from 53 outdoor w
 In this study, we selected 38,115 images from 40 locations. Night-time and images with heavy fog were removed as these are conditions unlikely to be encountered in imagery used to calculate SVF. The dataset was split into two data sets, 28,586 for neural network training and 9,529 for validation.
 
 \subsubsection{GSV data}\label{sec:gsvdata}
-Panoramas for 406 locations in a variety of cities (Adelaide, Brisbane, Paris, Sydney, Tokyo, Perth, and Melbourne) were retrieved using the Google Maps API. Images were retrieved as six 640$\times$640 tiles (one each for up, down, left, right, front, and back directions). The six images were stitched together into a 1,280$\times$960 cubic image using Java 8 \citep{Oracle2018} and OpenCV \citep {Bradski2000}. Validation images were created by hand marking sky regions in each image using the GNU Image Manipulation Program \citep{GIMP2019}. Figure \ref{fig:origmarked} shows an example of a GSV panorama image and the corresponding hand-marked validation image. These images were only used in the validation data set.
+Panoramas for 406 locations in a variety of cities (Adelaide, Brisbane, Paris, Sydney, Tokyo, Perth, and Melbourne) were retrieved using the Google Maps API. Images were retrieved as six 640$\times$640 tiles (one each for up, down, left, right, front, and back directions). The six images were stitched together into a 1,280$\times$960 cubic image using Java 8 \citep{Oracle2018} and OpenCV \citep {Bradski2000}. Validation images were created by hand marking sky regions in each image using the GNU Image Manipulation Program \citep{GIMP2019}. Figure \ref{fig:origmarked} shows an example of a GSV panorama image and the corresponding hand-marked validation image. This data set was only used as part of the validation data set.
 
 \begin{figure}
 \centering    
@@ -241,7 +236,7 @@ Panoramas for 406 locations in a variety of cities (Adelaide, Brisbane, Paris, S
 \subsubsection{\cite{Wang2015a} Sobel operator/hybrid probability model}\label{sec:prob}
 An implementation of the sky detection algorithm presented in \cite{Wang2015a} was implemented using OpenCV and Java 8. This method proceeds by calculating grey scale gradient images using x- and y-directional Sobel operators to estimate sky colour. An optimised objective function attempts to find the best sky-ground boundary in the gradient image using the covariance matrices of a first calculation of sky and ground regions. Using this best sky boundary, probability models are created from i) the centre and standard deviations of the colours, ii) the gradient values, and iii) the vertical position of each pixel (vertically higher pixels are more likely to be sky). An overall probability model, ranking each pixel's probability (0 to 1) to be sky, is generated from these three probability models. \cite{Wang2015a} reports an error average (in percent of sky) of 0.051 and standard deviation of 0.058 in their evaluation using human-labelled images.  
 
-\cite{Wang2015a} did not recommend a probability threshold, so a number of thresholds were tested (0.5, 0.60, 0.70, 0.80, 0.90, and 0.95) and given the designations of Sobel\_50, Sobel\_60, Sobel\_70, Sobel\_80, Sobel\_90, and Sobel\_95 respectively. The algorithm was applied to each image and pixels that exceeded the chosen threshold were marked as sky pixels (using blue, RGB 0,0,255). Results from our implementation are shown in Figure \ref{fig:sobolresults}. 
+\cite{Wang2015a} did not recommend a probability threshold, so a number of thresholds were tested (0.50, 0.60, 0.70, 0.80, 0.90, and 0.95) and given the designations of Sobel\_50, Sobel\_60, Sobel\_70, Sobel\_80, Sobel\_90, and Sobel\_95 respectively. The algorithm was applied to each image and pixels that exceeded the chosen threshold were marked as sky pixels (using blue, RGB 0,0,255). Results from our implementation are shown in Figure \ref{fig:sobolresults}. 
 
 
 %\begin{table}[!htbp]
@@ -411,7 +406,7 @@ Using the trained model, inferences were performed using the images from the val
 Three sets of results are reported in this section. The first is a comparison of all of the techniques and parameters run individually against the Skyfinder and GSV datasets (a total of 38,521 images). The second presents the results of 9,636  validation images using our process flow with the techniques and parameters chosen by the trained NN. The third presents a comparison to two benchmark models: a) the \cite{Wang2015a} Sobel operator/hybrid probability model and b) the \cite{Middel2018} Sobel operator/flood-fill algorithm.
 
 \subsection{Results from all techniques}\label{sec:resultsall}
-All the technique and parameter variations were used to process the two data sets of the 38,115 Skyfinder, 406 GSV images. A summary of $d$ index of agreement \citep{Willmott1981}, R$^{2}$, and root-mean-square error (RMSE) statistics for evaluations against the two datasets is presented in Table \ref{tab:evalall}. Plots of a number of the better performing techniques are presented in Figure \ref{fig:errorallcombined}. Note, the strong horizontal lines in these figures are due to the nature of the Skyfinder data set that contain large groups of the same scenes (with the same percentage of sky) under different lighting and weather conditions, resulting in a wide range of calculated results.
+All the technique and parameter variations were used to process the two data sets of the 38,115 Skyfinder, 406 GSV images. A summary of $d$ index of agreement \citep{Willmott1981}, R$^{2}$, and root-mean-square error (RMSE) statistics for evaluations against the two datasets is presented in Table \ref{tab:evalall}. Plots of a number of the better performing techniques are presented in Figure \ref{fig:errorallcombined}. Note, the strong horizontal lines in these figures are due to the nature of the Skyfinder data set that contain large groups of the same scenes (with the same percentage of sky) under different lighting and weather conditions, often resulting in a wide range of calculated results.
 
 \begin{table}[!htbp]
 \caption{\bf Evaluation of all techniques and parameters for Skyfinder dataset and GSV dataset showing statistics for R$^{2}$, RMSE, and d index of agreement. \label{tab:evalall}}     

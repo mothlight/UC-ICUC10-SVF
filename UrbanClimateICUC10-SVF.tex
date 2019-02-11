@@ -169,7 +169,7 @@ Other approaches have focused on finding a sky/ground boundary. Straight lines w
 % Shen2018, using off-the-shelf SegNet, 0.828 lateral
 % Middel2019, accuracy 0.950 lateral
 
-Comparing existing approaches is difficult, as most studies do not report accuracy metrics, and when they do, they are reported using different metrics. \cite{Luo2002} reports 90.4\% correct detection of blue sky pixels and 13\% misclassifications. \cite{Chapman2004} reports a RMSE of 0.06 in marking SVF in fisheye images. \cite{Schmitt2009} reports an accuracy of 0.9 (error rate 0.1) for 80\% of their validation images and an accuracy of 0.95 (error rate 0.05) for 75\% of the images. \cite{Liang2017}, using SegNet, reports an accuracy of 0.961 for sky pixels identification. \cite{Shen2018}, using an off-the-shelf version of SegNet, reports an accuracy of 0.828 of lateral views. Finally, \cite{Middel2019} reports an accuracy of 0.950 with lateral views.
+Comparing existing approaches is difficult, as most studies do not report accuracy metrics, and when they do, they are reported using different metrics. \cite{Luo2002} reports 90.4\% correct detection of blue sky pixels and 13\% misclassifications. \cite{Chapman2004} reports a RMSE of 0.06 in marking SVF in fisheye images. \cite{Schmitt2009} reports an accuracy of 0.9 (error rate 0.1) for 80\% of their validation images and an accuracy of 0.95 (error rate 0.05) for 75\% of the images. \cite{Liang2017}, using SegNet, reports an accuracy of 0.961 for sky pixels identification. \cite{Shen2018}, using an off-the-shelf version of SegNet, reports an accuracy of 0.828 with lateral views. Finally, \cite{Middel2019} reports an accuracy of 0.950 with lateral views.
 
 An effort is ongoing to provide worldwide databases of standardised urban morphology information. Now with the widespread availability of urban imagery, an opportunity exists to expand the range of research that can be done without the requirement of manually collecting urban morphology parameters and to accelerate the population of databases such as The World Urban Database and Portal Tool (WUDAPT) \citep{Mills2015}.
 
@@ -430,19 +430,19 @@ Mean\_3\_6\_100	&0.658&0.148&0.854&0.603&0.062&0.866 \\
 Mean\_5\_7\_210	&0.659&0.142&0.861&0.526&0.069&0.839 \\
 Mean\_7\_6\_100	&0.748&0.104&0.917&0.525&0.072&0.828 \\
 Mean\_7\_8\_300 &0.646&0.143&0.858&0.544&0.067&0.846  \\
-K-mean\_6       &0.023&0.325&0.44&0.002&0.16  &0.43 \\
+K-mean\_6       &0.023&0.325&0.440&0.002&0.160&0.430 \\
 K-mean\_12      &0.028&0.343&0.427&0.017&0.264&0.298 \\
-K-mean\_14      &0.029&0.328&0.439&0.023&0.233&0.31 \\
-Sobel\_50       &0.104&0.23 &0.55&0.026&0.302&0.291 \\
-Sobel\_60       &0.288&0.164&0.659&0.005&0.189&0.39 \\
+K-mean\_14      &0.029&0.328&0.439&0.023&0.233&0.310 \\
+Sobel\_50       &0.104&0.230&0.550&0.026&0.302&0.291 \\
+Sobel\_60       &0.288&0.164&0.659&0.005&0.189&0.390 \\
 Sobel\_70       &0.401&0.132&0.683&0.049&0.108&0.517 \\
-Sobel\_80       &0.255&0.177&0.561&0.433&0.07 &0.655 \\
+Sobel\_80       &0.255&0.177&0.561&0.433&0.070&0.655 \\
 Sobel\_90       &0.041&0.317&0.443&0.214&0.142&0.515 \\
 Sobel\_95       &0    &0.421&0.372&0.053&0.224&0.386 \\
 \hline
-Sobel/flood-fill&0.15&0.205&0.663&0.067&0.312&0.304 \\
+Sobel/flood-fill&0.150&0.205&0.663&0.067&0.312&0.304 \\
 \hline
-Adaptive NN process&0.882&0.063&0.967&0.485&0.072&0.84 \\
+Adaptive NN process&0.882&0.063&0.967&0.485&0.072&0.840 \\
 \hline
 \end{tabular}
 \end{table}
@@ -466,6 +466,96 @@ Adaptive NN process&0.882&0.063&0.967&0.485&0.072&0.84 \\
 \caption{\textbf{Observed vs. calculated sky pixels using the a) Mean\_7\_6\_100, b) Mean\_7\_8\_300, c) K-mean\_6, and d) Sobel\_70 techniques on the 38,521 image combined dataset.} }
 \label{fig:errorallcombined}
 \end{figure}
+
+Finally, precision, recall and F1 statistics for each technique against the 9,636 validation images are shown in Table \ref{tab:precision}.
+
+\begin{table}[!htbp]
+\caption{\bf Evaluation of all techniques and parameters for validation dataset, split by Skyfinder and GSV images, showing statistics for precision, recall, and F1 scores. \label{tab:precision}}     
+\begin{tabular}{ l l l l l l l }
+\multicolumn{1}{c}{\textbf{~}}
+& \multicolumn{3}{c}{\textbf{Skyfinder}}
+& \multicolumn{3}{c}{\textbf{GSV}}
+\\ 
+%\textbf{Designation}  
+ \multicolumn{1}{c|}{\textbf{Designation}}
+& \textbf{Precision} 
+& \textbf{Recall} 
+& \multicolumn{1}{c|}{\textbf{F1}}
+%& \textbf{\textbf{d}} 
+& \textbf{Precision} 
+& \textbf{Recall}  
+%& \textbf{\textbf{d}} 
+& \multicolumn{1}{c|}{\textbf{F1}}
+\\ \hline
+Mean\_3\_6\_100	&0.876&0.956&0.906&0.952&0.915&0.927\\
+Mean\_5\_7\_210	&0.879&0.949&0.905&0.946&0.911&0.921\\
+Mean\_7\_6\_100	&0.912&0.930&0.913&0.951&0.876&0.903\\
+Mean\_7\_8\_300 &0.879&0.944&0.902&0.941&0.909&0.918\\
+K-mean\_6       &0.658&0.538&0.566&0.694&0.663&0.639\\
+K-mean\_12      &0.677&0.441&0.497&0.547&0.272&0.328\\
+K-mean\_14      &0.708&0.484&0.536&0.640&0.349&0.406\\
+Sobel\_50       &0.742&0.987&0.821&0.565&0.973&0.697\\
+Sobel\_60       &0.807&0.967&0.857&0.675&0.959&0.777\\
+Sobel\_70       &0.869&0.914&0.871&0.788&0.925&0.839\\
+Sobel\_80       &0.920&0.781&0.822&0.866&0.839&0.845\\
+Sobel\_90       &0.936&0.436&0.570&0.916&0.586&0.706\\
+Sobel\_95       &0.921&0.181&0.282&0.931&0.349&0.495\\
+\hline
+Sobel/flood-fill&0.840&0.900&0.856&0.761&0.948&0.813 \\
+\hline
+Adaptive NN process&0.946&0.965&0.952&0.933&0.918&0.918 \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+%Skyfinder Class 1 Mean_3_6_100 images=9529 precisionAve=0.876 recallAverage=0.956 f1Average=0.906
+%GSV Class 1 Mean_3_6_100 images=407 precisionAve=0.952 recallAverage=0.915 f1Average=0.927
+%
+%Skyfinder Class 2 Mean_5_7_210 images=9529 precisionAve=0.879 recallAverage=0.949 f1Average=0.905
+%GSV Class 2 Mean_5_7_210 images=407 precisionAve=0.946 recallAverage=0.911 f1Average=0.921
+%
+%Skyfinder Class 3 Mean_7_6_100 images=9529 precisionAve=0.912 recallAverage=0.93 f1Average=0.913
+%GSV Class 3 Mean_7_6_100 images=407 precisionAve=0.951 recallAverage=0.876 f1Average=0.903
+%
+%Skyfinder Class 0 Mean_7_8_300 images=9529 precisionAve=0.879 recallAverage=0.944 f1Average=0.902
+%GSV Class 0 Mean_7_8_300 images=407 precisionAve=0.941 recallAverage=0.909 f1Average=0.918
+%
+%Skyfinder Class 5 K-means_6 images=9529 precisionAve=0.658 recallAverage=0.538 f1Average=0.566
+%GSV Class 5 K-means_6 images=407 precisionAve=0.694 recallAverage=0.663 f1Average=0.639
+%
+%Skyfinder Class 4 K-means_12 images=9529 precisionAve=0.677 recallAverage=0.441 f1Average=0.497
+%GSV Class 4 K-means_12 images=407 precisionAve=0.547 recallAverage=0.272 f1Average=0.328
+%
+%Skyfinder Class 6 K-means_14 images=9529 precisionAve=0.708 recallAverage=0.484 f1Average=0.536
+%GSV Class 6 K-means_14 images=407 precisionAve=0.64 recallAverage=0.349 f1Average=0.406
+%
+%Skyfinder Class 7 Sobel_50 images=9529 precisionAve=0.742 recallAverage=0.987 f1Average=0.821
+%GSV Class 7 Sobel_50 images=407 precisionAve=0.565 recallAverage=0.973 f1Average=0.697
+%
+%Skyfinder Class 8 Sobel_60 images=9529 precisionAve=0.807 recallAverage=0.967 f1Average=0.857
+%GSV Class 8 Sobel_60 images=407 precisionAve=0.675 recallAverage=0.959 f1Average=0.777
+%
+%Skyfinder Class 9 Sobel_70 images=9529 precisionAve=0.869 recallAverage=0.914 f1Average=0.871
+%GSV Class 9 Sobel_70 images=407 precisionAve=0.788 recallAverage=0.925 f1Average=0.839
+%
+%Skyfinder Class 10 Sobel_80 images=9529 precisionAve=0.92 recallAverage=0.781 f1Average=0.822
+%GSV Class 10 Sobel_80 images=407 precisionAve=0.866 recallAverage=0.839 f1Average=0.845
+%
+%Skyfinder Class 11 Sobel_90 images=9529 precisionAve=0.936 recallAverage=0.436 f1Average=0.57
+%GSV Class 11 Sobel_90 images=407 precisionAve=0.916 recallAverage=0.586 f1Average=0.706
+%
+%Skyfinder Class 12 Sobel_95 images=9529 precisionAve=0.921 recallAverage=0.181 f1Average=0.282
+%GSV Class 12 Sobel_95 images=407 precisionAve=0.931 recallAverage=0.349 f1Average=0.495
+%
+%Sobel/flood-fill Skyfinder images=9529 precisionAve=0.84 recallAverage=0.9 f1Average=0.856
+%Sobel/flood-fill GSV images=405 precisionAve=0.761 recallAverage=0.948 f1Average=0.813
+%
+%Skyfinder Best images=9529 precisionAve=0.946 recallAverage=0.965 f1Average=0.952
+%GSV Best images=407 precisionAve=0.933 recallAverage=0.918 f1Average=0.918
+
+
 
 \subsection{Results from neural network classified techniques}\label{sec:resultsnn}
 Figure \ref{fig:errorplots}a presents a theoretical best case. If the NN was 100\% accurate in picking the best technique from the thirteen possible combinations based on its training, a RMSE of 0.026 and 0.020 (and d index of agreement of 0.994 and 0.988) is possible against the 38,115 Skyfinder images and 406 GSV images respectively. 
@@ -499,7 +589,7 @@ a) Mean\_7\_8\_300, b) Mean\_7\_6\_100, c) K-mean\_6, d) Sobel\_70.}}
 
 The NN was trained for 250 epochs on a Nvidia GeForce GTX 1080 GPU, requiring about 12 hours. The NN reached a peak accuracy rate of 52.6\% in choosing the optimal algorithm from the 13 options. However, as some techniques did only slightly better than others, the error introduced by picking the second or third best algorithm is generally limited. Breaking down the accuracy with this in mind, the NN picked the best method 52.6\% of the time, the second best 18.9\%, and the third best 10.5\% (for a total of the three of 82.0\%)
 
-Figure \ref{fig:errorplotscntk}b shows the overall accuracy of the NN chosen pathway process flow against the 9,636 validation images, for the Skyfinder and GSV images (respectively) from the validation data set with a RMSE of 0.063 and 0.072, R$^{2}$ of 0.882 and 0.485, and d index of agreement of 0.967 and 0.84. The accuracy of the NN has impacted the overall accuracy of the system (i.e. not reaching the theoretical accuracy of 0.026 or 0.02 RMSE), but the results on out-of-sample images are still very good. 
+Figure \ref{fig:errorplotscntk}b shows the overall accuracy of the NN chosen pathway process flow against the 9,636 validation images, for the Skyfinder and GSV images (respectively) from the validation data set with a RMSE of 0.063 and 0.072, R$^{2}$ of 0.882 and 0.485, and d index of agreement of 0.967 and 0.84. The accuracy of the NN has impacted the overall accuracy of the system (i.e. not reaching the theoretical accuracy of 0.026 or 0.02 RMSE), but the results on out-of-sample images are still very good. In addition, precision, recall, and F1-scores for the Skyfinder and GSV validation data sets show good results. Precision is 0.946 and 0.933, recall is 0.965 and 0.918, while the F1-scores are 0.952 and 0.918 (all respectively).
 
 
 
@@ -536,10 +626,12 @@ Figure \ref{fig:errorplotscntk}b shows the overall accuracy of the NN chosen pat
 
 \subsection{Benchmark results}
 \subsubsection{Results from the \cite{Wang2015a} Sobel operator/hybrid probability model}
-These results have previously been presented in Table \ref{tab:evalall} and Figure \ref{fig:errorallcombined}. The best performing variation (Sobel\_70) for the Skyfinder data resulted in a RMSE of 0.132, R$^{2}$ of 0.401, and d of 0.683 while the best performing variation (Sobel\_80) for the GSV data resulted in a RMSE of 0.07, R$^{2}$ of 0.433 and d of 0.655.
+These results have previously been presented in Table \ref{tab:evalall} and Figure \ref{fig:errorallcombined}. The best performing variation (Sobel\_70) for the Skyfinder data resulted in a RMSE of 0.132, R$^{2}$ of 0.401, and d of 0.683 while the best performing variation (Sobel\_80) for the GSV data resulted in a RMSE of 0.07, R$^{2}$ of 0.433 and d of 0.655. Precision, recall, and F1-scores shows that Sobel\_70 has a lower precision than Sobel\_80 with the Skyfinder validation images (at 0.869 vs. 0.920) while Sobel\_70 has better recall scores than Sobel\_80 (0.914 vs. 0.781). Similar patterns are seen with the GSV imagery. And overall, the F1-scores are in the range of 0.82 to 0.87 for both techniques and data sets.
 
 \subsubsection{Results from the \cite{Middel2018} Sobel operator/flood-fill algorithm evaluation}\label{sec:resultsflood}
-In the evaluation of the Sobel/flood-fill algorithm, results from the Skyfinder and GSV datasets and 9,636 validation images are shown in Figure \ref{fig:errorfloodall} and Table \ref{tab:evalall}. This algorithm yields a RMSE of 0.205, R$^{2}$ of 0.15 and d of 0.663 against the Skyfinder images from the validation data set and a RMSE of 0.312, R$^{2}$ of 0.067, and d of 0.304 against with the GSV images from the validation data set. The results from the evaluation of GSV imagery showed a number of images miss-marked as 100\% sky, inflating the error rate for this data set. A similar problem was seen with the Skyfinder images, several of them were miss-marked as 0\% sky.
+In the evaluation of the Sobel/flood-fill algorithm, results from the Skyfinder and GSV datasets and 9,636 validation images are shown in Figure \ref{fig:errorfloodall} and Table \ref{tab:evalall}. This algorithm yields a RMSE of 0.205, R$^{2}$ of 0.15 and d of 0.663 against the Skyfinder images from the validation data set and a RMSE of 0.312, R$^{2}$ of 0.067, and d of 0.304 against with the GSV images from the validation data set. The results from the evaluation of GSV imagery showed a number of images miss-marked as 100\% sky, inflating the error rate for this data set. A similar problem was seen with the Skyfinder images, several of them were miss-marked as 0\% sky. This is also reflected in the precision, recall, and F1-scores. Precision for the Skyfinder and GSV data sets are low (0.840 and 0.761) while the recall is much higher (at 0.900 and 0.948), resulting in somewhat low F1-scores (at 0.856 and 0.813). 
+
+
 
 
 \begin{figure}
@@ -563,6 +655,9 @@ Results against the 9,636 validation images using a) our adaptive NN process, b)
 \end{figure}
 
 
+
+
+
 \section{Discussion and conclusion}\label{sec:conclusion}
 
 In comparison to published methods, the adaptive process performs well. Our accuracy against the Skyfinder images of RMSE of 0.063 compares well to the RMSE of 0.205 for the \cite{Middel2018} Sobel/flood-fill algorithm and the best performing \cite{Wang2015a} Sobel variations, Sobel\_70 and Sobel\_80, which achieved an RMSE of 0.132 and 0.177. Similarly, our adaptive process also performs well with the GSV images from the validation dataset with results of RMSE of 0.072 compared to 0.07 and 0.312 for Sobel\_80 and Sobel/flood-fill respectively.
@@ -579,7 +674,9 @@ While the theoretical accuracy from the 13 approaches was a RMSE of 0.026 and 0.
 
 This attempt to increase the accuracy of the NN predictions highlights a limitation of this study. 53\% accuracy in picking between 13 approaches shows that there is room for improvement. NNs perform best when they are trained with a large amounts of data. It this study, there were only 28,000 images in the training data set. With a larger training data set, resulting in a lower NN error rate, it would be possible to come closer to the theoretical RMSE of 0.026 for the sky pixel identification.
 
-In our linked Data in Brief article \citep{Nice2019Data}, we provide our trained NN model, which can be used to infer the best algorithm for any type of outdoor imagery, as well as all the training and validation imagery used in this study. This system can then be used out of the box. With our flexible framework, new algorithms and variations of existing algorithms can be added to the system to handle new imagery with greater accuracy. 
+One difficulty in this study was comparing different sky pixel detection schemes in an objective manner. As noted in the introduction, most studies either do not provide metrics, or provide different types of metrics from other studies. Also, as seen in the different results in our study evaluating the Skyfinder and GSV data sets, the lack of standardised benchmarks makes these comparisons less meaningful. We attempted to overcome some of these difficulties by implementing some of the other methods and including them in our evaluation process. In addition, the needs of the application should be kept in mind. As precision and recall scores varied widely for each algorithm, the impact of either higher false positives or false negatives should also guide algorithm choice. For example, an algorithm with higher false positives would overestimate sky pixels, leading to higher a SVF and possibly higher maximum temperatures in urban climate modelling. 
+
+In our linked Data in Brief article \citep{Nice2019Data}, we provide our trained NN model, which can be used to infer the best algorithm for any type of outdoor imagery, as well as all the training and validation imagery used in this study. This system can then be used out of the box. With our flexible framework, new algorithms and variations of existing algorithms can be added to the system to handle new imagery with greater accuracy. Using our system, it will be possible to incorporate a wider sets of imagery, and with greater accuracy, to populate databases (such as WUDAPT) of urban morphology information. This also provides a standardised data set to reproduce our results and allow benchmark comparisons with other sky pixel detection systems.
 
 In conclusion, we present a system of sky pixel identification that shows high accuracy rates with varied and challenging outdoor imagery. This system sits, on one side, between algorithms that can be quickly set up and run, such as \cite{Middel2018}, but that are not as accurate with challenging data sets. On the other side of complexity are systems, such as \cite{Gong2018}, requiring a more complex trained deep learning algorithm. Our adaptive system uses the best elements of each in pursuit of the most accurate results possible.
 

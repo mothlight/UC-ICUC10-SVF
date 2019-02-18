@@ -108,7 +108,7 @@
 
 The data presented in this article is related to the research article entitled ``Sky pixel detection in outdoor imagery using an adaptive algorithm and machine learning." \citep{Nice2019UC}. 
 
-The data set consists of a trained Inception V3 neural network model as well as the configuration files to train the neural network and run the inferences. The data set also contains two sets of outdoor imagery (from Skyfinder and Google Street View) used to train the neural network and validate the sky pixel detection system in the linked article. The original images are included as well as rescaled imagery used to train the neural network, and sky masks used for validation. The data set is available on Zenodo at https://doi.org/10.5281/zenodo.2562396;  please cite this paper if you use the data set.
+The data set consists of a trained Inception V3 neural network model as well as the configuration files to train the neural network and run the inferences. The data set also contains two sets of outdoor imagery (from Skyfinder and Google Street View) used to train the neural network and validate the sky pixel detection system in the linked article. The original images are included as well as rescaled imagery used to train the neural network, and sky masks used for validation. The data set is available on Zenodo at https://doi.org/10.5281/zenodo.2562396; please cite this paper if you use the data set. Code is also available at https://bitbucket.org/politemadness/skypixeldetection.
 
 
 \end{abstract}
@@ -146,14 +146,14 @@ Data accessiblity & Publicly available from Zenodo at https://doi.org/10.5281/ze
 \label{sec:introduction}
 Sky pixel identification is a challenging problem in computer vision but with multiple applications in a variety of research fields. Our study \citep{Nice2019UC} developed an adaptive algorithm for sky pixel identification that shows greater accuracy over other published techniques. The purpose of this data set is to provide the data needed for other researchers to utilise this algorithm. This data also provides a means for other researchers to replicate our results.
 
-In our study, we encountered difficulty in providing objective comparisons between existing algorithms for sky pixel identification due to few studies providing metrics of accuracy, and if they did, in providing comparable metrics. These difficulties are compounded by trying to compare metrics from evaluations on different validation data sets. Thus, an additional purpose for this data set is to provide a standardised benchmark that different algorithms can be measured against to allow intercomparisons between these algorithms.
+In our study, we encountered difficulty in providing objective comparisons between existing algorithms for sky pixel identification due to few studies providing metrics of accuracy, and if they did, in providing comparable metrics. These difficulties are compounded by trying to compare metrics from evaluations on different validation data sets. Thus, an additional purpose for this data set is to provide a standardised benchmark that different algorithms can be measured against to allow intercomparisons between these types of algorithms.
 
 
 
 
 \section{Data}
 
-The data is in four archives: 
+The data is distributed in four archives: 
 
 1) CNTK-InceptionV3.zip
 
@@ -162,6 +162,11 @@ The data is in four archives:
 3) OriginalImages.zip
 
 4) ValidationImages.zip
+
+The data sources in the overall data set have varied sources and different pre-processing performed on them. Each will be detailed in the following sections.
+
+\section{Experimental design, materials, and methods}
+\label{sec:create}
 
 \subsection{Inception V3 configurations}\label{sec:configuations}
 The CNTK-InceptionV3.zip archive contains the CNTK Inception V3 files. These are sorted into three subdirectories. The directory structure is as follows:
@@ -175,9 +180,11 @@ The CNTK-InceptionV3.zip archive contains the CNTK Inception V3 files. These are
 
 The CNTKConfiguration directory contains the script run\_SVF\_SkyfinderOnly.sh to run CNTK and perform the training using the two neural network architecture files InceptionBlocks.bs and InceptionV3.bs. The overall configuration file InceptionV3\_SkyfinderOnly.cntk then uses the training map train\_map\_SkyfinderOnly.txt and validation map val\_map\_SkyfinderOnly.txt which link the training and validation imagery to their classifications.
 
-To perform inferences, the script run\_SVF\_SkyfinderOnly\_validation.sh uses the CNTK configuration InceptionV3\_evaluation\_SkyfinderOnly.cntk and validation map val\_map\_SkyfinderOnly\_evaluation.txt using the pre-trained model (InceptionV3\_SkyfinderOnly.249) provided in the CNTKModels directory.
+To perform inferences, the script run\_SVF\_SkyfinderOnly\_validation.sh uses the CNTK configuration InceptionV3\_evaluation\_SkyfinderOnly.cntk and validation map val\_map\_SkyfinderOnly\_evaluation.txt using the pre-trained model (InceptionV3\_SkyfinderOnly.249) provided in the CNTKModels directory. Using these training and validation map files, the Inception V3 model was trained over 250 epochs and generating the InceptionV3\_SkyfinderOnly.249 trained model. 
 
-Finally, we provide the probability file (predictions\_SkyfinderOnly\_evaluation.epoch249.p) resulting from this inference process in the CNTKOutput directory.
+The CNTK Inception V3 configuration files were generated by editing the default network architecture configuration files. The training and validation maps (val\_map.txt and train\_map.txt) were created from analysing the results from the linked study. In this, 13 different combinations of sky detection algorithms and parameters were used to process all the images in the data set. For each image, the algorithm that performed with the greatest accuracy was chosen as the associated classification for that image. 
+
+Finally, we provide the probability output file (predictions\_SkyfinderOnly\_evaluation.epoch249.p) resulting from this inference process in the CNTKOutput directory.
 
 \subsection{Inception V3 training data}\label{sec:trainingData}
 The InceptionTrainingData.zip archive provides the training and validation data set used in training and validation maps  train\_map\_SkyfinderOnly.txt and val\_map\_SkyfinderOnly.txt. The directory structure is as follows:
@@ -191,15 +198,20 @@ The InceptionTrainingData.zip archive provides the training and validation data 
 	.2 GSV.
 }
 
-All directories contain 38,522 300$\times$300 pixels PNG images. All images have been rescaled from their original size and aspect ratios. The numbered directories (65, 75, 162, etc.) contains imagery from the Skyfinder data set. Images in the GSV directory have been compiled from Google Street View. The original sources for these images will be detailed in Section \ref{sec:origImages}.
+All directories contain 38,522 300$\times$300 pixels PNG images. All images have been rescaled from their original size and aspect ratios. The numbered directories (65, 75, 162, etc.) contains imagery from the Skyfinder data set and were sourced from the Skyfinder website. The images were downloaded and organised into individual directories. Each image was rescaled and resized from its original size and aspect ratio to 300$\times$300 using ImageJ \citep{Rueden2017} with bilinear interpolation.
 
+Images in the GSV directory have been compiled from Google Street View. The original sources for these images will be detailed in Section \ref{sec:origImages}.
 
 \subsection{Sky pixel detection system test imagery}\label{sec:origImages}
 The imagery used to test the \cite{Nice2019UC} sky pixel detection system is contained in the archive OriginalImages.zip. This imagery was compiled from two sources, Skyfinder \citep{Mihail2016} and Google Street View (GSV) \citep{GoogleMaps2017b}. As in Section \ref{sec:trainingData}, the directory structure follows the same pattern. 
 
-Images in the numbered directories (65, 75, 162, etc.) contains imagery downloaded from the Skyfinder web site \citep{Mihail2015}. The naming convention of the Skyfinder images (i.e. 20130101\_143305.jpg, the date and time the image was taken) has not been changed. The approximately 90,000 images in this data set have been reduced to 38,115 images by removing night-time images and images largely obscured by clouds and fog. The images are all in JPG format and are of a wide range of sizes and aspect ratios, including 640$\times$489, 857$\times$665, 960$\times$600, 1,280$\times$720, and 1,280$\times$960.
+Images in the numbered directories (65, 75, 162, etc.) contains imagery downloaded from the Skyfinder web site \citep{Mihail2015}. The naming convention of the Skyfinder images (i.e. 20130101\_143305.jpg, the date and time the image was taken) has not been changed. The approximately 90,000 images in this data set have been reduced to 38,115 images by removing night-time images and images largely obscured by clouds and fog. The images are all in JPG format and are of a wide range of sizes and aspect ratios, including 640$\times$489, 857$\times$665, 960$\times$600, 1,280$\times$720, and 1,280$\times$960. These are the 38,115 original images downloaded in Section \ref{sec:trainingData} before being rescaled.
 
 Images in the GSV subdirectory were retrieved using the Google Maps API. Images were retrieved as six 640$\times$640 tiles (one each for up, down, left, right, front, and back directions). The six images were stitched together into a 1,280$\times$960 cubic PNG image using Java 8 \citep{Oracle2018} and OpenCV \citep {Bradski2000}. The 135 images with the naming convention 0000\_panorama.png are a 4890m transit of Melbourne, Australia from -37.809133, 144.972963 to -37.8080677765338, 145.00161622930622. The 272 images with the naming convention  panorama--aUuP54DEL1iSvsEpfW1wg-1\_cropped.png were sampled from a variety of locations (Adelaide, Brisbane, Paris, Sydney, Tokyo, Perth, and Melbourne). These were processed in the same manner as above but were rescaled into 832$\times$416 cubic PNG images.
+
+
+%The test imagery for Section \ref{sec:origImages} was sourced from two different sources. 38.115 images used from the Skyfinder data set are the original images downloaded in Section \ref{sec:trainingDatamethods} before being rescaled. The additional 406 images from GSV were obtained and processed as detailed in Section \ref{sec:origImages}. 
+
 
 \subsection{Sky pixel detection system validation imagery}\label{sec:valImages}
 
@@ -211,9 +223,6 @@ The archive ValidationImages.zip contains the validation images used to test the
 	.2 Skyfinder.
 }
 
-
- 
-
 The GSV subdirectory contains hand marking sky regions in each image using the GNU Image Manipulation Program \citep{GIMP2019}. The 135 images with the naming convention 0000\_panorama.png use the same name, size, and format as the original image. The sky was marked with red pixels (RGB 255,0,0). 
 
 The 272 images with the naming convention panorama--aUuP54DEL1iSvsEpfW1wg-1 - Copy.png are also the same size and format as the original but will correspond to image  panorama--aUuP54DEL1iSvsEpfW1wg-1\_cropped.png. The sky was marked with blue pixels (RGB 0,0,255).
@@ -221,37 +230,35 @@ The 272 images with the naming convention panorama--aUuP54DEL1iSvsEpfW1wg-1 - Co
 The Skyfinder subdirectory contains sky binary masks downloaded from the Skyfinder web site. As each directory contains the same scene, a single mask is used for each. For example, the mask 65.png is used as the validation image for all the images in the 65 subdirectory. In addition, each mask has been rescaled to 512$\times$512 (i.e. 65\_512x512.png) for convenience in comparing output from the \cite{Middel2018} algorithm which generates 512$\times$512 output .
 
 
+%Finally, the validation images from Section \ref{sec:valImages} were also sourced from two different sources. The binary masks for each scene were downloaded from the Skyfinder website. For each of the GSV test images, a hand marked validation image was created and this process is detailed in Section \ref{sec:valImages}.
+
+%
+%
+%\section{Experimental design, materials, and methods}
+%\label{sec:create}
+%
 
 
-\section{Experimental design, materials, and methods}
-\label{sec:create}
 
-%The \citet{Aurin2018} provided the geographical information of the Greater Melbourne area (gccsa\_2016/GMEL). In order to efficiently sample data from this area, as well as avoid imagery that is not available or that was of indoor locations, imagery locations were determined using the road network of Melbourne. The PSMA Street Network \citep{PSMA2018} provided the required street network information at multiple levels, ranging from major highways to walking paths. Using QGIS \citep{QGIS2009}, nodes of the vector lines were extracted from the corresponding shapefile. For illustration purposes, an excerpt of this node point layer is provided below:
+%\subsection{Inception V3 configurations}\label{sec:configuationsmethods}
+%The CNTK Inception V3 configuration files in Section \ref{sec:configuations} were generated by editing the default network architecture configuration files. The training and validation maps (val\_map.txt and train\_map.txt) were created from analysing the results from the linked study. In this, 13 different combinations of sky detection algorithms and parameters were used to process all the images in the data set. For each image, the algorithm that performed with the greatest accuracy was chosen as the associated classification for that image. 
 %
-%\begin{verbatim}
-%X, Y, Street_direction_code, Jurisdiction_ID, Street_line_ID, Authority_code, Full_name
-%144.627419835000012,-37.745644954,2,5639424,VIC5639424,0,GREIGS ROAD
-%144.616902098999986,-37.746048628,2,5639424,VIC5639424,0,GREIGS ROAD
-%145.222131428000012,-38.055551055,2,15787712,VIC15787712,0,FOX DRIVE
-%\end{verbatim}
+%Using these training and validation map files, the Inception V3 model was trained over 250 epochs and generating the InceptionV3\_SkyfinderOnly.249 trained model. In addition, inferences were run on this trained model for the validation map and generating the predictions\_SkyfinderOnly\_evaluation.epoch249.p probability output file.
+
+%\subsection{Inception V3 training data}\label{sec:trainingDatamethods}
 %
-%Python and the Google Street View API \citep{GoogleMaps2017b} were used to download imagery for all 1.7 million locations at headings of 0, 90, 180 and 270 degrees, based on the latitude and longitude locations in this file. The parameters used to download the images are illustrated by the following code excerpt, in which `KEY' is the Google Street View API key and `number' is the Street\_line\_ID (e.g., VIC5639424) from the PSMA data file:
+%The training data for Section \ref{sec:trainingData} was sourced from the Skyfinder website. The images (those in numbered directories) were downloaded and organised into individual directories. Each image was rescaled and resized from its original size and aspect ratio to 300$\times$300 using ImageJ \citep{Rueden2017} with bilinear interpolation.
+
+%\subsection{Sky pixel detection system test imagery}\label{sec:origImagesmethods}
+%The test imagery for Section \ref{sec:origImages} was sourced from two different sources. 38.115 images used from the Skyfinder data set are the original images downloaded in Section \ref{sec:trainingDatamethods} before being rescaled. The additional 406 images from GSV were obtained and processed as detailed in Section \ref{sec:origImages}. 
+
+
+
+%\subsection{Sky pixel detection system validation imagery}\label{sec:valImagesmethods}
 %
-%\begin{verbatim}
-%BUFFER_AREA = 22
-%IMG_SIZE = 256
-%url='https://maps.googleapis.com/maps/api/streetview?&size=' + str(IMG_SIZE) +
-%    'x' + str(IMG_SIZE + 2 * BUFFER_AREA) + '&location=' + str(Lat) +
-%    ',' + str(Lon) + '&fov=90&heading=' + str(heading) +'&pitch=0&key=' + KEY         
-%filename = os.path.join(output_dir, '{}_{}_{}_{}.jpg'.format(number, lat, lon, heading))
-%#image is cropped to remove Google logo for research purposes
-%w, h = im.size
-%im.crop((0, BUFFER_AREA, w, h-BUFFER_AREA)).save(filename)
-%\end{verbatim}
-%
-%The image dataset described here has been prepared for easy application of frequently used neural network architectures (e.g., GoogLeNet, Inception v2, VGG16, ResNet50). After downloading images at a 256$\times$300 resolution, images were cropped to 256$\times$256 to remove any superfluous visual information (namely, the Google logo) that would impact neural network training. Hence, when using images from this dataset in academic publications, care should be taken to provide proper attribution to Google. The final resolution of each image is 256$\times$256 pixels, allowing for dynamic cropping to the native 224$\times$224 input resolution of the mentioned network architectures.
-%
-%Post-processing reduced the number of locations to 1.1 million, by filtering out images for locations where imagery was not available and manually removing (most) indoor images. The use of the road network map and the subsequent elimination of remaining indoor images means the published dataset is a good starting point for research focussing on urban form of an greater metropolitan area as a whole.
+%Finally, the validation images from Section \ref{sec:valImages} were also sourced from two different sources. The binary masks for each scene were downloaded from the Skyfinder website. For each of the GSV test images, a hand marked validation image was created and this process is detailed in Section \ref{sec:valImages}.
+
+
 
 %\section*{References}
 \bibliographystyle{elsarticle-harv} 

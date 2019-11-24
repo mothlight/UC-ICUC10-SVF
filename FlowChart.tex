@@ -1,0 +1,51 @@
+\documentclass{article}
+
+\usepackage[latin1]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\begin{document}
+\pagestyle{empty}
+
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=8em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=4cm,
+    minimum height=4em]
+    
+\begin{tikzpicture}[node distance = 2cm, auto]
+    % Place nodes
+    \node [block] (init) {Process each image with all techniques};
+    \node[above of=init] (Training) {\textbf{Training}};
+    \node [cloud, left of=init] (Training data) {Training data};
+    \node [block, below of=init] (identify) {Classify image with
+best performing technique for image};
+    \node [block, below of=identify] (evaluate) {Train NN with image classifications};
+    
+    \node[] at (4,2)(processing) {\textbf{Validation}};    
+    \node [block, below of=processing] (infer) {Infer technique for each image with NN};
+    \node [cloud, right of=infer] (Validation data) {Imagery to process};    
+    
+    \path [line] (init) -- (identify);
+    \path [line] (identify) -- (evaluate);
+    \path [line,dashed] (Training data) |- (evaluate);
+    \path [line,dashed] (Validation data) -- (infer);
+    \path [line,dashed] (Training data) -- (init);
+ \node [block, below of=infer, node distance=2.5cm] (pr) {Segment image}; 
+ 
+\path [line] (3,-0.70) -- node[below] {K-means}(3,-1.8);
+\path [line] (4,-0.70) -- node[above right] {Mean}(4,-1.8);
+\path [line] (5,-0.70) -- node[below right] {Sobel}(5,-1.8);
+\path [line,dashed] (Validation data) |- (pr);
+
+\node [block, below of=pr, node distance=2cm] (Stop2) {Count sky pixels};
+\path [line] (pr) -- (Stop2);
+  \path [line,dashed] (1.5,-4.0) -- (2,-4.0) -| (2,0) -- (2.5,0) ;
+
+\end{tikzpicture}
+
+
+\end{document}

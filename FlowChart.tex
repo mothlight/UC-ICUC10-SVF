@@ -34,11 +34,13 @@ best performing technique for image};
     \path [line,dashed] (Training data) |- (evaluate);
     \path [line,dashed] (Validation data) -- (infer);
     \path [line,dashed] (Training data) -- (init);
- \node [block, below of=infer, node distance=2.5cm] (pr) {Segment image}; 
+ \node [block, below of=infer, node distance=2.5cm] (pr) {Segment image using chosen technique}; 
  
-\path [line] (3,-0.70) -- node[below] {K-means}(3,-1.8);
-\path [line] (4,-0.70) -- node[above right] {Mean}(4,-1.8);
-\path [line] (5,-0.70) -- node[below right] {Sobel}(5,-1.8);
+ \path [line] (4,-0.70) -- node[above right] {}(4,-1.8);
+ 
+%\path [line] (3,-0.70) -- node[below] {K-means}(3,-1.8);
+%\path [line] (4,-0.70) -- node[above right] {Mean}(4,-1.8);
+%\path [line] (5,-0.70) -- node[below right] {Sobel}(5,-1.8);
 \path [line,dashed] (Validation data) |- (pr);
 
 \node [block, below of=pr, node distance=2cm] (Stop2) {Count sky pixels};
